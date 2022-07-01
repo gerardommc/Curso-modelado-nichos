@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.6.17)  29 JUN 2022 18:22
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.6.17)  1 JUL 2022 18:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1531,28 +1531,111 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 File: Figuras/Patrón-puntos.png Graphic file (type bmp)
 <Figuras/Patrón-puntos.png>
 LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
-(Font)              scaled to size 8.42499pt on input line 137.
+(Font)              scaled to size 8.42499pt on input line 139.
 LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
-(Font)              scaled to size 10.10999pt on input line 137.
+(Font)              scaled to size 10.10999pt on input line 139.
 [3
 
 ]
-File: Figuras/Conteos-estimacion.png Graphic file (type bmp)
-<Figuras/Conteos-estimacion.png>
+File: Figuras/Tipos-puntos.png Graphic file (type bmp)
+<Figuras/Tipos-puntos.png>
 
-Overfull \vbox (21.99942pt too high) detected at line 153
+Overfull \vbox (25.58199pt too high) detected at line 151
  []
 
 [4
 
 ]
-File: Figuras/Repositorios.png Graphic file (type bmp)
-<Figuras/Repositorios.png>
+File: Figuras/Tipos-puntos-med.png Graphic file (type bmp)
+<Figuras/Tipos-puntos-med.png>
 
-Overfull \vbox (52.7008pt too high) detected at line 169
+Overfull \vbox (9.25781pt too high) detected at line 162
  []
 
 [5
+
+]
+File: Figuras/1-3D.png Graphic file (type bmp)
+<Figuras/1-3D.png>
+[6
+
+]
+File: Figuras/Covariables.png Graphic file (type bmp)
+<Figuras/Covariables.png>
+[7
+
+]
+File: Figuras/Conteos-estimacion.png Graphic file (type bmp)
+<Figuras/Conteos-estimacion.png>
+
+Overfull \vbox (21.99942pt too high) detected at line 201
+ []
+
+[8
+
+]
+File: Figuras/Repositorios.png Graphic file (type bmp)
+<Figuras/Repositorios.png>
+
+Overfull \vbox (52.7008pt too high) detected at line 217
+ []
+
+[9
+
+] [10
+
+] [11
+
+]
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 10.30167pt on input line 266.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 7.21117pt on input line 266.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 5.15083pt on input line 266.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 10.30258pt on input line 266.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 7.2118pt on input line 266.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 5.15129pt on input line 266.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 10.3006pt on input line 266.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 7.21042pt on input line 266.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 5.1503pt on input line 266.
+[12
+
+] (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-LatinModernRoman.cfg
+File: mt-LatinModernRoman.cfg 2021/02/21 v1.1 microtype config. file: Latin Mod
+ern Roman (RS)
+) [13
+
+]
+LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/m/it' will be
+(Font)              scaled to size 8.48953pt on input line 308.
+File: Figuras/Renner.png Graphic file (type bmp)
+<Figuras/Renner.png>
+[14
+
+]
+LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/m/it' will be
+(Font)              scaled to size 9.29602pt on input line 324.
+File: Figuras/Discrep.png Graphic file (type bmp)
+<Figuras/Discrep.png>
+[15
+
+] [16
+
+] [17
+
+] [18
+
+]
+File: Figuras/Spat-book.png Graphic file (type bmp)
+<Figuras/Spat-book.png>
+[19
 
 ]
 \tf@nav=\write5
@@ -1566,12 +1649,12 @@ Overfull \vbox (52.7008pt too high) detected at line 169
 
 (./Generalidades.aux) ) 
 Here is how much of TeX's memory you used:
- 33140 strings out of 476191
- 697729 string characters out of 5812072
- 1109767 words of memory out of 5000000
- 53224 multiletter control sequences out of 15000+600000
- 472970 words of font info for 82 fonts, out of 8000000 for 9000
+ 33411 strings out of 476191
+ 705730 string characters out of 5812072
+ 1111383 words of memory out of 5000000
+ 53455 multiletter control sequences out of 15000+600000
+ 475920 words of font info for 106 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  128i,13n,171p,1814b,752s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Generalidades.pdf (5 pages).
+Output written on Generalidades.pdf (19 pages).

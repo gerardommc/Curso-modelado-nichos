@@ -3,7 +3,7 @@
     "path": "~/Documentos/Cosas ENES/Materias/Posgrado/PCMyL/Analisis-presencias-PPM-MVE/Generalidades.Rmd",
     "project_path": "Generalidades.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "968852018",
     "contents": "",
     "dirty": false,
     "created": 1656529532620.0,
@@ -13,8 +13,8 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "51,0",
-        "scrollLine": "40",
+        "cursorPosition": "165,48",
+        "scrollLine": "154",
         "rmdVisualMode": "false",
         "rmdVisualWrapConfigured": "true",
         "docOutlineVisible": "1",
@@ -22,11 +22,11 @@
         "rmdVisualModeLocation": "377:302.3999938964844"
     },
     "folds": "",
-    "lastKnownWriteTime": 1656544895,
+    "lastKnownWriteTime": 1656718331,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1656544895528,
+    "last_content_update": 1656718331758,
     "read_only": false,
     "read_only_alternatives": []
 }

@@ -126,7 +126,9 @@
 \begin{figure}
 \centering
 \includegraphics{Figuras/Patrón-puntos.png}
-\caption{Patrón de puntos con densidad variable (Baddeley et al.~2016).}
+\caption{Patrones de puntos de densidad variable. A la izquierda células
+de mucosa gástrica en corte histológico. A la derecha, cúmulos de
+galaxias (Baddeley et al.~2016).}
 \end{figure}
 
 \begin{itemize}
@@ -134,6 +136,52 @@
 \item
   Densidad \(\rightarrow\) conteos/unidad espacial
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Tipos de puntos}
+\protect\hypertarget{tipos-de-puntos}{}
+Puntos pueden representar tipos de objetos
+
+\begin{figure}
+\centering
+\includegraphics{Figuras/Tipos-puntos.png}
+\caption{Ubicaciones de dos especie de árbol, abeto y roble, en la misma
+parcela.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Tipos de puntos}
+\protect\hypertarget{tipos-de-puntos-1}{}
+Puntos pueden representar mediciones
+
+\begin{figure}
+\centering
+\includegraphics{Figuras/Tipos-puntos-med.png}
+\caption{Ubicaciones de árboles con mediciones de diámetro.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Tipos de puntos}
+\protect\hypertarget{tipos-de-puntos-2}{}
+Puntos pueden estar definidos en 1-4 dimensiones
+
+\begin{figure}
+\centering
+\includegraphics{Figuras/1-3D.png}
+\caption{Ejemplos de procesos de puntos en 1 y 3 dimensiones}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Covariables}
+\protect\hypertarget{covariables}{}
+Los procesos de puntos pueden estar definidos en relación a covariables.
+
+\begin{figure}
+\centering
+\includegraphics{Figuras/Covariables.png}
+\caption{Datos de Beilschmiedia pendula sobre un modelo digital de
+elevación.}
+\end{figure}
 \end{frame}
 
 \begin{frame}{El modelado de procesos de puntos}
@@ -152,8 +200,8 @@
 \end{figure}
 \end{frame}
 
-\begin{frame}{Procesos de puntos en ecología de nichos}
-\protect\hypertarget{procesos-de-puntos-en-ecologuxeda-de-nichos}{}
+\begin{frame}{Procesos de puntos en ecología}
+\protect\hypertarget{procesos-de-puntos-en-ecologuxeda}{}
 \begin{itemize}
 \item
   Datos más comunes \(\rightarrow\) sólo presencia
@@ -166,6 +214,162 @@
 \includegraphics{Figuras/Repositorios.png}
 \caption{Repositorios comunes de información de biodiversidad.}
 \end{figure}
+\end{frame}
+
+\hypertarget{anuxe1lisis-de-procesos-de-puntos}{%
+\section{Análisis de procesos de
+puntos}\label{anuxe1lisis-de-procesos-de-puntos}}
+
+\begin{frame}{¿Cómo se analiza un proces de puntos?}
+\protect\hypertarget{cuxf3mo-se-analiza-un-proces-de-puntos}{}
+\begin{itemize}
+\tightlist
+\item
+  Regresión:
+\end{itemize}
+
+\[ y(x) = \alpha + \beta_1 x_1 + \dots + \beta_n x_n + \varepsilon\] -
+\(x\) son las variables ambientales
+
+\begin{itemize}
+\item
+  \(y\) es la intensidad por unidad de área
+\item
+  \(\alpha, \beta_i\) son los efectos de \(x\) sobre \(y\)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Diferencias con regresión simple}
+\protect\hypertarget{diferencias-con-regresiuxf3n-simple}{}
+\begin{itemize}
+\item
+  Regresión lineal simple
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(-\infty > y < \infty\), \(y \in \mathbb{R}\)
+  \item
+    \(y \approx \mathcal{N}\)
+  \end{itemize}
+\item
+  Procesos de puntos
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(y > 0\), \(y \in \mathbb{Z}\)
+  \item
+    \(y \approx \mathcal{P}\)
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Diferencias con regresión simple}
+\protect\hypertarget{diferencias-con-regresiuxf3n-simple-1}{}
+Para que \(y >0\)
+
+\begin{itemize}
+\item
+  Regresión lineal
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(y(x) = \alpha + \beta_1 x_1 + \dots\)
+  \end{itemize}
+\item
+  Regresión log-lineal
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\log y(x) = \alpha + \beta_1 x_1 + \dots\)
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Relación con otros métodos}
+\protect\hypertarget{relaciuxf3n-con-otros-muxe9todos}{}
+\begin{itemize}
+\item
+  Equivalentes a MaxEnt
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Regularización mínima
+  \item
+    \emph{Features} lineal y cuadrática
+  \end{itemize}
+\end{itemize}
+
+\includegraphics{Figuras/Renner.png}
+\end{frame}
+
+\begin{frame}{Relación con otros métodos}
+\protect\hypertarget{relaciuxf3n-con-otros-muxe9todos-1}{}
+\begin{itemize}
+\item
+  \emph{Equivalentes} envolturas
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Bajo ciertas condiciones biológicas y ecológicas
+  \end{itemize}
+\end{itemize}
+
+\includegraphics{Figuras/Discrep.png}
+\end{frame}
+
+\hypertarget{ventajas-y-desventajas}{%
+\section{Ventajas y Desventajas}\label{ventajas-y-desventajas}}
+
+\begin{frame}{Ventajas sobre otros métodos de análisis}
+\protect\hypertarget{ventajas-sobre-otros-muxe9todos-de-anuxe1lisis}{}
+\begin{itemize}
+\tightlist
+\item
+  Herramienta \emph{ad-hoc} para puntos
+\item
+  Transparencia
+\item
+  Herramientas exploratorias \(\rightarrow\) identificar variables
+\item
+  Estimación de efectos estadísticos
+\item
+  Tipos de puntos \(\rightarrow\) interacciones biológicas
+\item
+  Extensiones para modelar estructura espacial (maximizar utilidad de
+  datos)
+\item
+  Herramientas diagnósticas
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Desventajas}
+\protect\hypertarget{desventajas}{}
+\begin{itemize}
+\tightlist
+\item
+  Formateo
+\item
+  Difícil automatizar
+\item
+  Más programación
+\item
+  Selección de modelo laboriosa
+\item
+  Optimización no converge
+\item
+  Poco práctico para muchas especies
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Bibliografía básica}
+\protect\hypertarget{bibliografuxeda-buxe1sica}{}
+\includegraphics{Figuras/Spat-book.png}
 \end{frame}
 
 \end{document}

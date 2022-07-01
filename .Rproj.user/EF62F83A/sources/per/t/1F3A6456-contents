@@ -1,0 +1,17 @@
+---
+title: "Curso de modelado de nichos ecológicos"
+description: "Licenciatura en Manejo Sustentable de la Zona Costera"
+author: "Gerardo Martín"
+output:
+   prettydoc::html_pretty:
+      theme: hpstr
+      highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Procesos de puntos
+
+1. [Generalidades](Generalidades.pdf)
