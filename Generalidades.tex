@@ -1,0 +1,171 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  11pt,
+  ignorenonframetext,
+]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{part title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usetheme[]{metropolis}
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Análisis de presencias con procesos de puntos},
+  pdfauthor={Gerardo Martín},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\newif\ifbibliography
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Análisis de presencias con procesos de puntos}
+\subtitle{Generalidades}
+\author{Gerardo Martín}
+\date{2022-06-29}
+
+\begin{document}
+\frame{\titlepage}
+
+\hypertarget{introducciuxf3n}{%
+\section{Introducción}\label{introducciuxf3n}}
+
+\begin{frame}{¿Qué es un patrón de puntos?}
+\protect\hypertarget{quuxe9-es-un-patruxf3n-de-puntos}{}
+\begin{itemize}
+\tightlist
+\item
+  Base de datos de cosas o eventos en espacio
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{Figuras/Patrón-puntos.png}
+\caption{Patrón de puntos con densidad variable (Baddeley et al.~2016).}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Densidad \(\rightarrow\) conteos/unidad espacial
+\end{itemize}
+\end{frame}
+
+\begin{frame}{El modelado de procesos de puntos}
+\protect\hypertarget{el-modelado-de-procesos-de-puntos}{}
+\begin{itemize}
+\item
+  Estimar variación de densidad
+\item
+  Densidad = No.~puntos / unidad de área
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{Figuras/Conteos-estimacion.png}
+\caption{Se analiza un patrón para predecir variación contínua.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Procesos de puntos en ecología de nichos}
+\protect\hypertarget{procesos-de-puntos-en-ecologuxeda-de-nichos}{}
+\begin{itemize}
+\item
+  Datos más comunes \(\rightarrow\) sólo presencia
+\item
+  Colecciones de patrones de puntos
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{Figuras/Repositorios.png}
+\caption{Repositorios comunes de información de biodiversidad.}
+\end{figure}
+\end{frame}
+
+\end{document}
