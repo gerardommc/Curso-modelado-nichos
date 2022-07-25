@@ -83,7 +83,38 @@ knitr::include_graphics("Figuras/Repositorios.png")
 
 # Análisis de procesos de puntos
 
-### ¿Cómo se analiza un proces de puntos?
+### Es un análisis regresión
+
+- Medir relación entre $x$ y $y$ que son contínuas
+
+    - ¿Cómo afecta $x$ al promedio de $y$?
+
+- $x$ produce a $y$
+
+    - $x$ variable independiente
+    - $y$ variable dependiente
+    
+### Ejemplo - Datos contínuos
+
+```{r echo = F}
+set.seed(123)
+
+x <- rnorm(100)
+beta <- rnorm(100, 0, 1)
+y <- x + beta
+
+df <- data.frame(x = x, y = y)
+
+knitr::kable(head(df))
+```
+
+### Ejemplo - Gráfica de dispersión
+
+```{r echo=F, fig.height=4, fig.width=4}
+with(df, plot(x, y, col = "red"))
+```
+
+### Ejemplo - Regresión lineal
 
 - Regresión:
 
@@ -94,17 +125,34 @@ $$ y(x) = \alpha + \beta_1 x_1 + \dots + \beta_n x_n + \varepsilon$$
 
 - $\alpha, \beta_i$ son los efectos de $x$ sobre $y$
 
+### Ejemplo - La línea de regresión
+
+```{r echo = F, fig.height=4, fig.width=4}
+plot(x, y, col = "red")
+abline(0, 1, col = "red")
+```
+
+### Ejemplo - La ecuación
+
+- $y = \alpha + \beta \times x$
+
+- $\alpha = 0$
+
+- $\beta = 1$
+
+**Regresión consiste en estimar todos los coeficientes para las variables** $x$.
+
 ### Diferencias con regresión simple
 
 - Regresión lineal simple
     
     - $-\infty > y < \infty$, $y \in \mathbb{R}$
-    -  $y \approx \mathcal{N}$
+    -  $y \approx \mathcal{N}$ (distribución Normal)
     
 - Procesos de puntos 
 
     - $y > 0$, $y \in \mathbb{Z}$
-    - $y \approx \mathcal{P}$
+    - $y \approx \mathcal{P}$ (distribución Poisson)
     
 ### Diferencias con regresión simple
 
@@ -118,7 +166,7 @@ Para que $y >0$
 
     - $\log y(x) = \alpha + \beta_1 x_1 + \dots$
 
-### Relación con otros métodos
+### Relación con métodos populares
 
 - Equivalentes a MaxEnt
 

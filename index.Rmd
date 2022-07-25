@@ -14,4 +14,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Procesos de puntos
 
-1. [Generalidades](Generalidades.pdf)
+1.  [Generalidades](Generalidades.pdf)
+
+2.  [Particularidades](Particularidades.pdf)

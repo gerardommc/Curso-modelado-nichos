@@ -1,0 +1,24 @@
+---
+title: "Análisis de presencias con procesos de puntos" 
+subtitle: "Particularidades"
+author: "Gerardo Martín"
+fontsize: 11pt
+output: 
+  beamer_presentation:
+    theme: metropolis
+    highlight: pygments
+    slide_level: 3
+    fig_height: 6
+    fig_caption: true
+    latex_engine: xelatex
+    keep_tex: true
+date: '2022-06-29'
+bibliography: Referencias.bib
+csl: chicago-author-date.csl
+---
+
+# Independencia entre puntos
+
+### Independencia
+
+Esta se refiere a ...

@@ -74,15 +74,14 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  pdftitle={Análisis de presencias con procesos de puntos},
-  pdfauthor={Gerardo Martín},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
 \newif\ifbibliography
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
 \usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -103,6 +102,14 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Análisis de presencias con procesos de puntos},
+  pdfauthor={Gerardo Martín},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
 
 \title{Análisis de presencias con procesos de puntos}
 \subtitle{Generalidades}
@@ -220,8 +227,54 @@ elevación.}
 \section{Análisis de procesos de
 puntos}\label{anuxe1lisis-de-procesos-de-puntos}}
 
-\begin{frame}{¿Cómo se analiza un proces de puntos?}
-\protect\hypertarget{cuxf3mo-se-analiza-un-proces-de-puntos}{}
+\begin{frame}{Es un análisis regresión}
+\protect\hypertarget{es-un-anuxe1lisis-regresiuxf3n}{}
+\begin{itemize}
+\item
+  Medir relación entre \(x\) y \(y\) que son contínuas
+
+  \begin{itemize}
+  \tightlist
+  \item
+    ¿Cómo afecta \(x\) al promedio de \(y\)?
+  \end{itemize}
+\item
+  \(x\) produce a \(y\)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(x\) variable independiente
+  \item
+    \(y\) variable dependiente
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo - Datos contínuos}
+\protect\hypertarget{ejemplo---datos-contuxednuos}{}
+\begin{longtable}[]{@{}rr@{}}
+\toprule()
+x & y \\
+\midrule()
+\endhead
+-0.5604756 & -1.2708822 \\
+-0.2301775 & 0.0267062 \\
+1.5587083 & 1.3120164 \\
+0.0705084 & -0.2770342 \\
+0.1292877 & -0.8223308 \\
+1.7150650 & 1.6700373 \\
+\bottomrule()
+\end{longtable}
+\end{frame}
+
+\begin{frame}{Ejemplo - Gráfica de dispersión}
+\protect\hypertarget{ejemplo---gruxe1fica-de-dispersiuxf3n}{}
+\includegraphics{Generalidades_files/figure-beamer/unnamed-chunk-2-1.pdf}
+\end{frame}
+
+\begin{frame}{Ejemplo - Regresión lineal}
+\protect\hypertarget{ejemplo---regresiuxf3n-lineal}{}
 \begin{itemize}
 \tightlist
 \item
@@ -239,6 +292,26 @@ puntos}\label{anuxe1lisis-de-procesos-de-puntos}}
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Ejemplo - La línea de regresión}
+\protect\hypertarget{ejemplo---la-luxednea-de-regresiuxf3n}{}
+\includegraphics{Generalidades_files/figure-beamer/unnamed-chunk-3-1.pdf}
+\end{frame}
+
+\begin{frame}{Ejemplo - La ecuación}
+\protect\hypertarget{ejemplo---la-ecuaciuxf3n}{}
+\begin{itemize}
+\item
+  \(y = \alpha + \beta \times x\)
+\item
+  \(\alpha = 0\)
+\item
+  \(\beta = 1\)
+\end{itemize}
+
+\textbf{Regresión consiste en estimar todos los coeficientes para las
+variables} \(x\).
+\end{frame}
+
 \begin{frame}{Diferencias con regresión simple}
 \protect\hypertarget{diferencias-con-regresiuxf3n-simple}{}
 \begin{itemize}
@@ -250,7 +323,7 @@ puntos}\label{anuxe1lisis-de-procesos-de-puntos}}
   \item
     \(-\infty > y < \infty\), \(y \in \mathbb{R}\)
   \item
-    \(y \approx \mathcal{N}\)
+    \(y \approx \mathcal{N}\) (distribución Normal)
   \end{itemize}
 \item
   Procesos de puntos
@@ -260,7 +333,7 @@ puntos}\label{anuxe1lisis-de-procesos-de-puntos}}
   \item
     \(y > 0\), \(y \in \mathbb{Z}\)
   \item
-    \(y \approx \mathcal{P}\)
+    \(y \approx \mathcal{P}\) (distribución Poisson)
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -289,8 +362,8 @@ Para que \(y >0\)
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Relación con otros métodos}
-\protect\hypertarget{relaciuxf3n-con-otros-muxe9todos}{}
+\begin{frame}{Relación con métodos populares}
+\protect\hypertarget{relaciuxf3n-con-muxe9todos-populares}{}
 \begin{itemize}
 \item
   Equivalentes a MaxEnt
@@ -308,7 +381,7 @@ Para que \(y >0\)
 \end{frame}
 
 \begin{frame}{Relación con otros métodos}
-\protect\hypertarget{relaciuxf3n-con-otros-muxe9todos-1}{}
+\protect\hypertarget{relaciuxf3n-con-otros-muxe9todos}{}
 \begin{itemize}
 \item
   \emph{Equivalentes} envolturas
