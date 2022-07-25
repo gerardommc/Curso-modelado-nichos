@@ -17,8 +17,34 @@ bibliography: Referencias.bib
 csl: chicago-author-date.csl
 ---
 
-# Independencia entre puntos
+### Supuestos
 
-### Independencia
+*Todos hacemos suposiciones y casi todas estan mal* 
+Einstein
 
-Esta se refiere a ...
+**Estadisticos**
+- Supuestos $\rightarrow$ Errores potenciales $\rightarrow$ Soluciones potenciales
+
+**Biologicos**
+- Supuestos estadisticos $\rightarrow$ Problema de estudio $\rightarrow$ Interpretaciones
+    
+### Supuestos estadisticos
+
+- Caracteristicas de la variable analizada
+- Significado de los resultados
+
+- MPPs $\rightarrow$ fexibilidad de supuestos estadisticos
+
+    - Independencia
+    - Sesgo observacional
+    
+### Supuestos estadisticos - Independencia
+
+- Aqui
+
+### Supuestos biologicos
+
+- Dependen de estadisticos
+
+    - Si
+    - No

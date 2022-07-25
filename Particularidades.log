@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.6.17)  25 JUL 2022 16:07
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.5.2)  25 JUL 2022 18:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1490,46 +1490,54 @@ LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/m/n' will be
 [1
 
 ]
+LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/m/it' will be
+(Font)              scaled to size 9.29602pt on input line 111.
+LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
+(Font)              scaled to size 9.22536pt on input line 111.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.89621pt on input line 103.
+(Font)              scaled to size 7.89621pt on input line 111.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.64017pt on input line 103.
+(Font)              scaled to size 5.64017pt on input line 111.
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-03.
+11.
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 11.28131pt on input line 103.
+(Font)              scaled to size 11.28131pt on input line 111.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.89691pt on input line 103.
+(Font)              scaled to size 7.89691pt on input line 111.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.64066pt on input line 103.
+(Font)              scaled to size 5.64066pt on input line 111.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.27914pt on input line 103.
+(Font)              scaled to size 11.27914pt on input line 111.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.8954pt on input line 103.
+(Font)              scaled to size 7.8954pt on input line 111.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.63957pt on input line 103.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 103
+(Font)              scaled to size 5.63957pt on input line 111.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 111
 .
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 103
+LaTeX Font Info:    Trying to load font information for U+msb on input line 111
 .
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-) [2
-
-]
+)
 LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
-(Font)              scaled to size 10.10999pt on input line 108.
-[3
+(Font)              scaled to size 10.10999pt on input line 111.
+[2
+
+] [3
+
+] [4
+
+] [5
 
 ]
 \tf@nav=\write5
@@ -1543,12 +1551,12 @@ LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
 
 (./Particularidades.aux) ) 
 Here is how much of TeX's memory you used:
- 33040 strings out of 476191
- 695261 string characters out of 5812072
- 1109710 words of memory out of 5000000
- 53131 multiletter control sequences out of 15000+600000
- 472962 words of font info for 81 fonts, out of 8000000 for 9000
+ 33074 strings out of 476191
+ 696004 string characters out of 5812073
+ 1109839 words of memory out of 5000000
+ 53163 multiletter control sequences out of 15000+600000
+ 472978 words of font info for 83 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 128i,13n,171p,1817b,752s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 128i,13n,171p,1817b,580s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Particularidades.pdf (3 pages).
+Output written on Particularidades.pdf (5 pages).
