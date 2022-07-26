@@ -75,6 +75,19 @@
 \makeatother
 \usepackage{xcolor}
 \newif\ifbibliography
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -101,27 +114,38 @@
 
 \begin{frame}{Supuestos}
 \protect\hypertarget{supuestos}{}
-\emph{Todos hacemos suposiciones y casi todas estan mal} Einstein
+\emph{Todos hacemos suposiciones y casi todas estan mal} (Einstein)
 
-\textbf{Estadisticos} - Supuestos \(\rightarrow\) Errores potenciales
+\begin{itemize}
+\tightlist
+\item
+  Identificar bajo qué condiciones podemos estar equivocadxs
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Supuestos}
+\protect\hypertarget{supuestos-1}{}
+\textbf{Estadísticos} - Supuestos \(\rightarrow\) Errores potenciales
 \(\rightarrow\) Soluciones potenciales
 
-\textbf{Biologicos} - Supuestos estadisticos \(\rightarrow\) Problema de
+\textbf{Biológicos} - Supuestos estadísticos \(\rightarrow\) Problema de
 estudio \(\rightarrow\) Interpretaciones
 \end{frame}
 
-\begin{frame}{Supuestos estadisticos}
-\protect\hypertarget{supuestos-estadisticos}{}
+\begin{frame}{Supuestos estadísticos}
+\protect\hypertarget{supuestos-estaduxedsticos}{}
 \begin{itemize}
 \item
-  Caracteristicas de la variable analizada
+  Variable analizada / Modelo estadístico
 \item
   Significado de los resultados
 \item
-  MPPs \(\rightarrow\) fexibilidad de supuestos estadisticos
+  MPPs \(\rightarrow\) diferentes supuestos estadísticos
 
   \begin{itemize}
   \tightlist
+  \item
+    Distribución estadística de presencias
   \item
     Independencia
   \item
@@ -130,13 +154,61 @@ estudio \(\rightarrow\) Interpretaciones
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Supuestos estadisticos - Independencia}
-\protect\hypertarget{supuestos-estadisticos---independencia}{}
+\begin{frame}{Supuestos estadísticos - Ejemplos}
+\protect\hypertarget{supuestos-estaduxedsticos---ejemplos}{}
+Media aritmética
+
 \begin{itemize}
 \tightlist
 \item
-  Aqui
+  Valor más probable en distribución normal
 \end{itemize}
+
+\includegraphics{Particularidades_files/figure-beamer/unnamed-chunk-1-1.pdf}
+\end{frame}
+
+\begin{frame}{Supuestos estadísticos - Ejemplos}
+\protect\hypertarget{supuestos-estaduxedsticos---ejemplos-1}{}
+\includegraphics{Particularidades_files/figure-beamer/unnamed-chunk-2-1.pdf}
+\end{frame}
+
+\begin{frame}{Supuestos de MPPs}
+\protect\hypertarget{supuestos-de-mpps}{}
+\begin{itemize}
+\tightlist
+\item
+  Intensidad de puntos promedio (\(\lambda(u)\)) tiene distribución
+  Poisson
+\item
+  Los puntos son \textbf{independientes}
+\item
+  \(\lambda(u)\) es log-lineal
+\end{itemize}
+\end{frame}
+
+\hypertarget{dependencia-espacial}{%
+\section{Dependencia espacial}\label{dependencia-espacial}}
+
+\begin{frame}{Autocorrelación}
+\protect\hypertarget{autocorrelaciuxf3n}{}
+Puntos se repelen \(\rightarrow\) Puntos son independientes
+\(\rightarrow\) Puntos se atraen
+
+\begin{center}\includegraphics{Figuras/Ejemplo-procesos} \end{center}
+\end{frame}
+
+\begin{frame}{Autocorrelación}
+\protect\hypertarget{autocorrelaciuxf3n-1}{}
+Moran-\emph{I} \textgreater{} 1, valores similares son cercanos:
+
+\begin{center}\includegraphics{Figuras/Moran-1-1} \end{center}
+\end{frame}
+
+\begin{frame}{Autocorrelación}
+\protect\hypertarget{autocorrelaciuxf3n-2}{}
+Moran-\emph{I} \(\approx\) 0, no hay ningún patrón
+
+\begin{center}\includegraphics{Figuras/Moran-2-1} \end{center}
 \end{frame}
 
 \begin{frame}{Supuestos biologicos}
