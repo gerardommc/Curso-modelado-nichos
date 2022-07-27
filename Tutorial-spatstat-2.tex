@@ -155,7 +155,7 @@
 
 \begin{frame}{Especificación de un centroide}
 \protect\hypertarget{especificaciuxf3n-de-un-centroide}{}
-\begin{center}\includegraphics{Figuras/Centroide} \end{center}
+\begin{center}\includegraphics[width=13.28in]{Figuras/Centroide} \end{center}
 
 \begin{itemize}
 \tightlist
@@ -530,52 +530,24 @@ En \textbf{R}:
 \protect\hypertarget{diagnuxf3stico---residuales}{}
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{diagnose.ppm}\NormalTok{(m1, }\AttributeTok{main =} \StringTok{""}\NormalTok{, }\AttributeTok{cex.axis =} \FloatTok{0.5}\NormalTok{)}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{diagnose.ppm}\NormalTok{(m1, }\AttributeTok{main =} \StringTok{""}\NormalTok{, }\AttributeTok{cex.axis =} \FloatTok{0.25}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-17-1.pdf}
-
-\begin{verbatim}
-## Model diagnostics (raw residuals)
-## Diagnostics available:
-##  four-panel plot
-##  mark plot 
-##  smoothed residual field
-##  x cumulative residuals
-##  y cumulative residuals
-##  sum of all residuals
-## sum of raw residuals in entire window = -1.795e-10
-## area of entire window = 23.33
-## quadrature area = 23.33
-## range of smoothed field =  [-3.374, 2.228]
-\end{verbatim}
+\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-17-1} \end{center}
 \end{frame}
 
 \begin{frame}[fragile]{Diangnóstico - Residuales}
 \protect\hypertarget{diangnuxf3stico---residuales}{}
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{diagnose.ppm}\NormalTok{(m2, }\AttributeTok{main =} \StringTok{""}\NormalTok{, }\AttributeTok{cex.axis =} \FloatTok{0.5}\NormalTok{)}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{diagnose.ppm}\NormalTok{(m2, }\AttributeTok{main =} \StringTok{""}\NormalTok{, }\AttributeTok{cex.axis =} \FloatTok{0.25}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-18-1.pdf}
-
-\begin{verbatim}
-## Model diagnostics (raw residuals)
-## Diagnostics available:
-##  four-panel plot
-##  mark plot 
-##  smoothed residual field
-##  x cumulative residuals
-##  y cumulative residuals
-##  sum of all residuals
-## sum of raw residuals in entire window = -8.688e-11
-## area of entire window = 23.33
-## quadrature area = 23.33
-## range of smoothed field =  [-4.133, 2.697]
-\end{verbatim}
+\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-18-1} \end{center}
 \end{frame}
 
 \begin{frame}[fragile]{Diagnóstico - Ripley}
@@ -611,7 +583,7 @@ En \textbf{R}:
 \protect\hypertarget{diagnuxf3stico---ripley-1}{}
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(K1)}
+\FunctionTok{plot}\NormalTok{(K1, }\AttributeTok{cex =} \FloatTok{0.5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -622,7 +594,7 @@ En \textbf{R}:
 \protect\hypertarget{dianguxf3stico---ripley}{}
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(K2)}
+\FunctionTok{plot}\NormalTok{(K2, }\AttributeTok{cex =} \FloatTok{0.5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -657,7 +629,7 @@ En \textbf{R}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-22-1.pdf}
+\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-22-1} \end{center}
 \end{frame}
 
 \begin{frame}[fragile]{Guardando los resultados}
@@ -687,7 +659,7 @@ En \textbf{R}:
 \item
   Interacciones entre variables
 \item
-  LASSO con paquete \texttt{ppmlasso}
+  LASSO con paquete \texttt{ppmlasso} (Warton y Renner 2013)
 \end{itemize}
 \end{frame}
 

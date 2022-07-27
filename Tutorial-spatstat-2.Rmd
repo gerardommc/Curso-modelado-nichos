@@ -203,14 +203,16 @@ summary(m1)
 
 ### Diagnóstico - Residuales
 
-```{r fig.height=4, fig.width=4}
-diagnose.ppm(m1, main = "", cex.axis = 0.5)
+```{r message = F, warning = F, fig.height=4, fig.width=4, fig.align='center', results = "hide"}
+par(mar = c(2,2,2,2))
+diagnose.ppm(m1, main = "", cex.axis = 0.25)
 ```
 
 ### Diangnóstico - Residuales
 
-```{r fig.height=4, fig.width=4}
-diagnose.ppm(m2, main = "", cex.axis = 0.5)
+```{r message = F, warning = F, fig.height=4, fig.width=4, fig.align='center', results = "hide"}
+par(mar = c(2,2,2,2))
+diagnose.ppm(m2, main = "", cex.axis = 0.25)
 ```
 
 ### Diagnóstico - Ripley
@@ -221,13 +223,13 @@ K2 <- envelope(m2, fun = Kest, nsim = 39)
 ```
 ### Diagnóstico - Ripley
 
-```{r fig.height=3, fig.width=3, fig.align='center'}
-plot(K1)
+```{r fig.height=4, fig.width=4, fig.align='center'}
+plot(K1, cex = 0.5)
 ```
 ### Diangóstico - Ripley
 
-```{r fig.height=3, fig.width=3, fig.align='center'}
-plot(K2)
+```{r fig.height=4, fig.width=4, fig.align='center'}
+plot(K2, cex = 0.5)
 ```
 ### Resumen del análisis
 
@@ -240,13 +242,13 @@ plot(K2)
 
 ### Revisando la predicción
 
-```{r fig.height=3.5, fig.width=3.5}
+```{r fig.height=4, fig.width=4, fig.align='center'}
 plot(m1, se = F, main = "")
 ```
 
 ### Guardando los resultados
 
-```{r}
+```{r warninr = F, message=F, results = "hide"}
 pred <- predict(m1)
 pred.r <- raster(pred)
 writeRaster(pred.r, "Predicción-m1", "GTiff",
@@ -258,4 +260,4 @@ writeRaster(pred.r, "Predicción-m1", "GTiff",
 - Respuestas "hinge": Regresión por partes
 - Respuestas no lineales: Suavizadores GAM
 - Interacciones entre variables
-- LASSO con paquete `ppmlasso`
+- LASSO con paquete `ppmlasso` (Warton y Renner 2013)

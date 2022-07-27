@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.6.17)  27 JUL 2022 10:38
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.6.17)  27 JUL 2022 10:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1541,7 +1541,7 @@ File: Figuras/Centroide.png Graphic file (type bmp)
 LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
 (Font)              scaled to size 10.10999pt on input line 167.
 
-Overfull \vbox (53.54123pt too high) detected at line 167
+Overfull \vbox (53.55505pt too high) detected at line 167
  []
 
 [3
@@ -1783,7 +1783,7 @@ File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-17-1.pdf Graphic fi
 le (type pdf)
 <use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-17-1.pdf>
 )
-Overfull \vbox (173.33904pt too high) detected at line 553
+Overfull \vbox (49.73988pt too high) detected at line 539
  []
 
 [24
@@ -1796,7 +1796,7 @@ File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-18-1.pdf Graphic fi
 le (type pdf)
 <use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-18-1.pdf>
 )
-Overfull \vbox (173.33904pt too high) detected at line 579
+Overfull \vbox (49.73988pt too high) detected at line 551
  []
 
 [25
@@ -1839,7 +1839,11 @@ Overfull \hbox (449.19022pt too wide) in paragraph at lines 27--27
 File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-20-1.pdf Graphic fi
 le (type pdf)
 <use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-20-1.pdf>
-) [27
+)
+Overfull \vbox (57.09384pt too high) detected at line 591
+ []
+
+[27
 
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
@@ -1848,7 +1852,11 @@ le (type pdf)
 File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-21-1.pdf Graphic fi
 le (type pdf)
 <use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-21-1.pdf>
-) [28
+)
+Overfull \vbox (57.09384pt too high) detected at line 602
+ []
+
+[28
 
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
@@ -1895,10 +1903,10 @@ TED FOR PROJ >= 6[]
 
 (./Tutorial-spatstat-2.aux) ) 
 Here is how much of TeX's memory you used:
- 33899 strings out of 476191
- 716640 string characters out of 5812072
+ 33905 strings out of 476191
+ 717024 string characters out of 5812072
  1159843 words of memory out of 5000000
- 53896 multiletter control sequences out of 15000+600000
+ 53902 multiletter control sequences out of 15000+600000
  473010 words of font info for 87 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  128i,13n,171p,1820b,752s stack positions out of 5000i,500n,10000p,200000b,80000s
