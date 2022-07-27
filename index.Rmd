@@ -1,5 +1,5 @@
 ---
-title: "Curso de modelado de nichos ecológicos"
+title: "Modelado de nichos ecológicos con procesos de puntos"
 description: "Licenciatura en Manejo Sustentable de la Zona Costera"
 author: "Gerardo Martín"
 output:
@@ -17,3 +17,11 @@ knitr::opts_chunk$set(echo = TRUE)
 1.  [Generalidades](Generalidades.pdf)
 
 2.  [Particularidades](Particularidades.pdf)
+
+3. Tutorial de spatstat
+    - [Básico](Tutorial-spatstat.pdf)
+    - [Intermedio](Tutorial-spatstat-2.pdf)
+
+4. Aplicaciones
+    - [Ecología de nichos](Aquí-presentacion.pdf)
+    - [Modelos matemáticos en salud pública](Modelos-ofidismo.pdf)

@@ -112,8 +112,37 @@
 \begin{document}
 \frame{\titlepage}
 
-\begin{frame}{Supuestos}
-\protect\hypertarget{supuestos}{}
+\hypertarget{intensidad}{%
+\section{Intensidad}\label{intensidad}}
+
+\begin{frame}{Intensidad de puntos}
+\protect\hypertarget{intensidad-de-puntos}{}
+\begin{itemize}
+\tightlist
+\item
+  Variable de respuesta en procesos de puntos
+\end{itemize}
+
+\[\lambda(x) = y\] - \(\lambda=\) Número promedio de puntos/unidad
+espacial (píxel)
+\end{frame}
+
+\begin{frame}{Intensidad de puntos}
+\protect\hypertarget{intensidad-de-puntos-1}{}
+\begin{center}\includegraphics{Figuras/Intensidad} \end{center}
+\end{frame}
+
+\hypertarget{supuestos}{%
+\section{Supuestos}\label{supuestos}}
+
+\begin{frame}{¿Qué son los supuestos?}
+\protect\hypertarget{quuxe9-son-los-supuestos}{}
+\begin{itemize}
+\tightlist
+\item
+  Postulados, premisas, cosas/hechos que se dan por sentados
+\end{itemize}
+
 \emph{Todos hacemos suposiciones y casi todas estan mal} (Einstein)
 
 \begin{itemize}
@@ -123,8 +152,8 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Supuestos}
-\protect\hypertarget{supuestos-1}{}
+\begin{frame}{Tipos de supuestos}
+\protect\hypertarget{tipos-de-supuestos}{}
 \textbf{Estadísticos} - Supuestos \(\rightarrow\) Errores potenciales
 \(\rightarrow\) Soluciones potenciales
 
@@ -164,12 +193,12 @@ Media aritmética
   Valor más probable en distribución normal
 \end{itemize}
 
-\includegraphics{Particularidades_files/figure-beamer/unnamed-chunk-1-1.pdf}
+\begin{center}\includegraphics{Particularidades_files/figure-beamer/unnamed-chunk-2-1} \end{center}
 \end{frame}
 
 \begin{frame}{Supuestos estadísticos - Ejemplos}
 \protect\hypertarget{supuestos-estaduxedsticos---ejemplos-1}{}
-\includegraphics{Particularidades_files/figure-beamer/unnamed-chunk-2-1.pdf}
+\includegraphics{Particularidades_files/figure-beamer/unnamed-chunk-3-1}
 \end{frame}
 
 \begin{frame}{Supuestos de MPPs}
@@ -194,37 +223,108 @@ Media aritmética
 Puntos se repelen \(\rightarrow\) Puntos son independientes
 \(\rightarrow\) Puntos se atraen
 
-\begin{center}\includegraphics{Figuras/Ejemplo-procesos} \end{center}
+\includegraphics{Figuras/Ejemplo-procesos.png}
 \end{frame}
 
 \begin{frame}{Autocorrelación}
 \protect\hypertarget{autocorrelaciuxf3n-1}{}
-Moran-\emph{I} \textgreater{} 1, valores similares son cercanos:
+Moran-\emph{I} \textgreater{} 1
 
 \begin{center}\includegraphics{Figuras/Moran-1-1} \end{center}
 \end{frame}
 
 \begin{frame}{Autocorrelación}
 \protect\hypertarget{autocorrelaciuxf3n-2}{}
-Moran-\emph{I} \(\approx\) 0, no hay ningún patrón
+Moran-\emph{I} \(\approx\) 0
 
 \begin{center}\includegraphics{Figuras/Moran-2-1} \end{center}
 \end{frame}
 
-\begin{frame}{Supuestos biologicos}
-\protect\hypertarget{supuestos-biologicos}{}
+\begin{frame}{Autocorrelación de PPs}
+\protect\hypertarget{autocorrelaciuxf3n-de-pps}{}
+Número de vecinos
+
+\begin{center}\includegraphics{Figuras/Cuenta-vecinos} \end{center}
+\end{frame}
+
+\begin{frame}{Autocorrelación de PPs}
+\protect\hypertarget{autocorrelaciuxf3n-de-pps-1}{}
+\begin{center}\includegraphics{Figuras/Ejemplo-procesos} \end{center}
+\end{frame}
+
+\begin{frame}{Autocorrelación de PPs}
+\protect\hypertarget{autocorrelaciuxf3n-de-pps-2}{}
+\begin{center}\includegraphics{Figuras/K-Ripley} \end{center}
+\end{frame}
+
+\begin{frame}{Autocorrelación de PPs}
+\protect\hypertarget{autocorrelaciuxf3n-de-pps-3}{}
 \begin{itemize}
 \item
-  Dependen de estadisticos
+  Verificar, medir supuesto \(\rightarrow\) Proponer soluciones
+\item
+  Pruebas estadísticas
 
   \begin{itemize}
   \tightlist
   \item
-    Si
+    \emph{K} Ripley
   \item
-    No
+    \emph{L} Besag
   \end{itemize}
 \end{itemize}
+\end{frame}
+
+\hypertarget{causas-de-la-autocorrelaciuxf3n}{%
+\section{Causas de la
+autocorrelación}\label{causas-de-la-autocorrelaciuxf3n}}
+
+\begin{frame}{Autocorrelación - causas}
+\protect\hypertarget{autocorrelaciuxf3n---causas}{}
+Tú
+
+\begin{center}\includegraphics{Figuras/Observ} \end{center}
+\end{frame}
+
+\begin{frame}{Autocorrelación - causas}
+\protect\hypertarget{autocorrelaciuxf3n---causas-1}{}
+Los bichos
+
+\begin{center}\includegraphics{Figuras/Bicho} \end{center}
+\end{frame}
+
+\begin{frame}{Autocorrelación - corrección}
+\protect\hypertarget{autocorrelaciuxf3n---correcciuxf3n}{}
+\begin{itemize}
+\tightlist
+\item
+  Combinar geoestadística con regresión:
+\end{itemize}
+
+\[ \log \lambda(u) = \alpha + \beta_1 x_1 + \dots + \gamma(s) + \varepsilon \]
+- \(x_i\) son las covariables ambientales (afectan media de \(\lambda\))
+
+\begin{itemize}
+\tightlist
+\item
+  \(\gamma\) es el efecto del espacio (Lo que \(x\) no explica)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Modelos para diferentes procesos de puntos}
+\protect\hypertarget{modelos-para-diferentes-procesos-de-puntos}{}
+\begin{itemize}
+\item
+  Puntos se repelen - Modelos de interacción
+\item
+  Puntos aleatorios - Modelos Poisson
+\item
+  Puntos moderadamente agregados - Modelos de interacción
+\item
+  Puntos altamente agregados - Modelos log-Cox Gaussianos, Clúster
+\end{itemize}
+
+\textbf{Todos implementados en \texttt{spatstat}}
 \end{frame}
 
 \end{document}

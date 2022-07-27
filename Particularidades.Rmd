@@ -17,13 +17,36 @@ bibliography: Referencias.bib
 csl: chicago-author-date.csl
 ---
 
-### Supuestos
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(dev = 'pdf')
+```
+
+# Intensidad
+
+### Intensidad de puntos
+
+- Variable de respuesta en procesos de puntos
+
+$$\lambda(x) = y$$
+- $\lambda=$ Número promedio de puntos/unidad espacial (píxel)
+
+### Intensidad de puntos
+
+```{r echo = F, fig.align='center'}
+knitr::include_graphics("Figuras/Intensidad.png")
+```
+
+# Supuestos
+
+### ¿Qué son los supuestos?
+
+- Postulados, premisas, cosas/hechos que se dan por sentados 
 
 *Todos hacemos suposiciones y casi todas estan mal*  (Einstein)
 
 - Identificar bajo qué condiciones podemos estar equivocadxs
 
-### Supuestos
+### Tipos de supuestos
 
 **Estadísticos**
 - Supuestos $\rightarrow$ Errores potenciales $\rightarrow$ Soluciones potenciales
@@ -48,21 +71,21 @@ Media aritmética
 
   - Valor más probable en distribución normal
   
-```{r echo=F, fig.height=4, fig.width=4}
+```{r echo=F, fig.height=4, fig.width=4, fig.align='center'}
 set.seed(5145)
 
 x1 <- rnorm(100)
 
-plot(density(x1), col = "red", xlab = "x", ylab = "Densidad")
+plot(density(x1), col = "red", xlab = "x", ylab = "Densidad", main = "")
 abline(v = mean(x1), col = "red", lty = 3)
 ```
   
 ### Supuestos estadísticos - Ejemplos
 
-```{r echo=F, fig.height=4, fig.width=4}
+```{r echo=F, fig.height=4, fig.width=4, fig.align=4}
 x1.1 <- exp(x1)
 
-plot(density(x1.1), col = "red", xlab = "x", ylab = "Densidad")
+plot(density(x1.1), col = "red", xlab = "x", ylab = "Densidad", main = "")
 abline(v = mean(x1.1), col = "red", lty = 3)
 ```
 
@@ -78,7 +101,7 @@ abline(v = mean(x1.1), col = "red", lty = 3)
 
 Puntos se repelen $\rightarrow$ Puntos son independientes $\rightarrow$ Puntos se atraen
 
-```{r echo = F, fig.align='center'}
+```{r echo = F}
 knitr::include_graphics("Figuras/Ejemplo-procesos.png")
 ```
 
@@ -98,7 +121,27 @@ Moran-*I* $\approx$ 0
 knitr::include_graphics("Figuras/Moran-2-1.png")
 ```
 
-### Autocorrelación
+### Autocorrelación de PPs
+
+Número de vecinos
+
+```{r echo = F, fig.align='center'}
+knitr::include_graphics("Figuras/Cuenta-vecinos.png")
+```
+
+### Autocorrelación de PPs
+
+```{r echo=F, fig.align='center'}
+knitr::include_graphics("Figuras/Ejemplo-procesos.png")
+```
+
+### Autocorrelación de PPs
+
+```{r echo = F, fig.align='center'}
+knitr::include_graphics("Figuras/K-Ripley.png")
+```
+
+### Autocorrelación de PPs
 
 - Verificar, medir supuesto $\rightarrow$ Proponer soluciones
 
@@ -107,8 +150,41 @@ knitr::include_graphics("Figuras/Moran-2-1.png")
     - *K* Ripley
     - *L* Besag
 
-# ¿Qué se hace si no se cumplen supuestos?
+# Causas de la autocorrelación
 
-### Modificar MPPs
+### Autocorrelación - causas
 
+Tú
 
+```{r echo=F, fig.align='center'}
+knitr::include_graphics("Figuras/Observ.png")
+```
+
+### Autocorrelación - causas
+
+Los bichos
+
+```{r echo=F, fig.align='center'}
+knitr::include_graphics("Figuras/Bicho.png")
+```
+
+### Autocorrelación - corrección
+
+- Combinar geoestadística con regresión:
+
+$$ \log \lambda(u) = \alpha + \beta_1 x_1 + \dots + \gamma(s) + \varepsilon $$
+- $x_i$ son las covariables ambientales (afectan media de $\lambda$)
+
+- $\gamma$ es el efecto del espacio (Lo que $x$ no explica)
+
+### Modelos para diferentes procesos de puntos
+
+- Puntos se repelen - Modelos de interacción
+
+- Puntos aleatorios - Modelos Poisson
+
+- Puntos moderadamente agregados - Modelos de interacción
+
+- Puntos altamente agregados - Modelos log-Cox Gaussianos, Clúster
+
+**Todos implementados en `spatstat`**

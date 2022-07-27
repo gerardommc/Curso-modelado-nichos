@@ -1,0 +1,166 @@
+---
+title: "Análisis de presencias con procesos de puntos" 
+subtitle: "Tutorial intermedio de spatstat"
+author: "Gerardo Martín"
+fontsize: 11pt
+output: 
+  beamer_presentation:
+    theme: metropolis
+    highlight: pygments
+    slide_level: 3
+    fig_height: 6
+    fig_caption: true
+    latex_engine: xelatex
+    keep_tex: true
+date: '2022-06-29'
+bibliography: Referencias.bib
+csl: chicago-author-date.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(dev = 'pdf')
+```
+
+# Simulación de presencias
+
+### Especificación de un centroide
+
+```{r echo = F, fig.align='center'}
+knitr::include_graphics("Figuras/Centroide.png")
+```
+
+- Abundancia alcanza un máximo y disminuye
+- Modelos más complicados con varias variables
+
+### Código - generando favorabilidad "verdadera"
+
+```{r echo = F, message=F, warning=F}
+library(raster); library(rgdal); library(foreach); library(spatstat)
+
+archivos <- list.files("Datos-ejemplos/", "tif", 
+                       full.names = T, 
+                       recursive = F)
+r <- stack(archivos)
+```
+
+```{r}
+centroide <- cellStats(r, mean)
+r.df <- data.frame(rasterToPoints(r))
+covar <- cov(r.df[, 3:5])
+md <- mahalanobis(r.df[, 3:5], center = centroide, cov = covar)
+head(md)
+```
+
+### Código - viendo la favorabilidad
+
+```{r fig.height=4, fig.width=4, fig.align='center'}
+md.r <- rasterFromXYZ(data.frame(r.df[, 1:2], md))
+md.exp <- exp(-0.5*md.r)
+plot(md.exp)
+```
+
+### Código - simulando los puntos
+
+```{r}
+set.seed(182)
+puntos.2 <- dismo::randomPoints(mask = md.exp,
+                                n = 200,
+                                prob = T)
+puntos.2 <- data.frame(puntos.2)
+puntos.2$x <- puntos.2$x + rnorm(200, 0, 0.05)
+puntos.2$y <- puntos.2$y + rnorm(200, 0, 0.05)
+```
+
+### Código - favorabilidad y puntos
+
+```{r echo=T, fig.height=4, fig.width=4, fig.align='center'}
+plot(md.exp); points(puntos.2)
+```
+
+# Formateo para spatstat
+
+### Cargando las funciones
+
+```{r}
+source("Funciones-spatstat/imFromStack.R")
+source("Funciones-spatstat/winFromRaster.R")
+source("Funciones-spatstat/plotQuantIntens.R")
+```
+
+### Formateo rápido
+
+```{r}
+r.im <- imFromStack(r)
+w <- winFromRaster(r)
+puntos.2.ppp <- ppp(x = puntos.2$x,
+                  y = puntos.2$y,
+                  window = w,
+                  check = F)
+Q <- pixelquad(X = puntos.2.ppp, W = as.owin(w))
+```
+
+# Análisis exploratorio
+
+### Autocorrelación
+
+```{r}
+K <- envelope(puntos.2.ppp, fun = Kest, nsim = 39)
+```
+
+### Autocorrelación
+
+```{r echo = F, fig.height=4, fig.width=4, fig.align='center'}
+plot(K)
+```
+
+### Autocorrelación - notas
+
+1. Pareciera que el proceso está levemente autocorrelacionado
+2. No sabemos de momento si afectará al modelo
+3. Debemos poner atención al modelo ajustado
+
+### Respuestas a variables
+
+```{r}
+plotQuantIntens(imList = r.im,
+                noCuts = 5,
+                Quad = Q,
+                p.pp = puntos.2.ppp,
+                dir = "",
+                name = "Respuestas-centroide")
+```
+[Ver archivo de gráficas](Respuestas-centroide.pdf)
+
+### Consideraciones para proponer modelos
+
+Curvas con forma de campana $\rightarrow$ fórmula cuadrática
+
+```{r fig.height=3.5, fig.width=3.5}
+curve(exp(1 + x - x^2), from = -3, 3)
+```
+
+### Consideraciones para proponer modelos
+
+Ecuación lineal:
+
+$$ y = \alpha + \beta_1 x_1 + \dots + \beta_n x_n$$
+Ecuación polinomial de 2$^o$ grado
+
+$$ y = \alpha + \beta_1 x_1 + \beta_1' x_1^2 + \dots + \beta_n x_n + \beta_n' x_n^2$$
+Recordemos que $y = \log \lambda$
+
+
+### ¿Qué variables podemos incluir en el mismo modelo?
+
+**Regla de oro**: Aquellas que no estén correlacionadas
+
+- Que $x_1$ no sea predictor de $x_2$
+- No se puede atribuir efecto de $x_1$ ó $x_2$ sobre $\lambda$
+- Necesitamos medir correlación entre pares de variables (`pairs`)
+
+### Medición de correlación entre covariables
+
+```{r fig.height=3.5, fig.width=3.5, fig.align='center'}
+pairs(r)
+```
+
