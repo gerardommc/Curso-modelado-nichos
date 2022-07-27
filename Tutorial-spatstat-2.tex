@@ -371,4 +371,324 @@ modelo?}
 \begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-13-1} \end{center}
 \end{frame}
 
+\begin{frame}[fragile]{Variables \emph{compatibles}}
+\protect\hypertarget{variables-compatibles}{}
+Podemos incluir en el mismo modelo:
+
+\begin{enumerate}
+\tightlist
+\item
+  Var.1 y Var.3
+\item
+  Var.2 y Var.3
+\end{enumerate}
+
+Por lo tanto las fórmula polinomial
+
+\[\log \lambda = \alpha  + \beta_1 x_1 + \beta_1' + x_1^2 + \beta_2 x_2 + \beta_2' + x_2^2 +\]
+
+En \textbf{R}:
+
+\begin{enumerate}
+\tightlist
+\item
+  \texttt{\textasciitilde{}\ Var.1\ +\ Var.3\ +\ I(Var.1\^{}2)\ +\ I(Var.3\^{}2)}
+\item
+  \texttt{\textasciitilde{}\ Var.2\ +\ Var.3\ +\ I(Var.2\^{}2)\ +\ I(Var.3\^{}2)}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Ajustando los modelos}
+\protect\hypertarget{ajustando-los-modelos}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m1 }\OtherTok{\textless{}{-}} \FunctionTok{ppm}\NormalTok{(}\AttributeTok{Q =}\NormalTok{ puntos.}\FloatTok{2.}\NormalTok{ppp,}
+          \AttributeTok{trend =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Var}\FloatTok{.1} \SpecialCharTok{+}\NormalTok{ Var}\FloatTok{.3} \SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.1}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.3}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{),}
+          \AttributeTok{covariates =}\NormalTok{ r.im)}
+\NormalTok{m2 }\OtherTok{\textless{}{-}} \FunctionTok{ppm}\NormalTok{(}\AttributeTok{Q =}\NormalTok{ puntos.}\FloatTok{2.}\NormalTok{ppp,}
+          \AttributeTok{trend =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Var}\FloatTok{.2} \SpecialCharTok{+}\NormalTok{ Var}\FloatTok{.3} \SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.2}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.3}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{),}
+          \AttributeTok{covariates =}\NormalTok{ r.im)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Comparando los modelos}
+\protect\hypertarget{comparando-los-modelos}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{AIC}\NormalTok{(m1); }\FunctionTok{AIC}\NormalTok{(m2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -473.2666
+\end{verbatim}
+
+\begin{verbatim}
+## [1] -468.7745
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Analizar los efectos estimados}
+\protect\hypertarget{analizar-los-efectos-estimados}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(m1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Point process model
+## Fitting method: maximum likelihood (Berman-Turner approximation)
+## Model was fitted using glm()
+## Algorithm converged
+## Call:
+## ppm.ppp(Q = puntos.2.ppp, trend = ~Var.1 + Var.3 + I(Var.1^2) + 
+##     I(Var.3^2), covariates = r.im)
+## Edge correction: "border"
+##  [border correction distance r = 0 ]
+## --------------------------------------------------------------------------------
+## Quadrature scheme (Berman-Turner) = data + dummy + weights
+## 
+## Data pattern:
+## Planar point pattern:  200 points
+## Average intensity 8.57 points per square unit
+## binary image mask
+## 28 x 30 pixel array (ny, nx)
+## pixel size: 0.167 by 0.167 units
+## enclosing rectangle: [-104.92138, -99.92138] x [25.355693, 30.02236] units
+##                      (5 x 4.667 units)
+## Window area = 23.3333 square units
+## Fraction of frame area: 1
+## 
+## Dummy quadrature points:
+##      32 x 32 grid of dummy points, plus 4 corner points
+##      dummy spacing: 0.1562500 x 0.1458333 units
+## 
+## Original dummy parameters: =
+## Planar point pattern:  1028 points
+## Average intensity 44.1 points per square unit
+## binary image mask
+## 28 x 30 pixel array (ny, nx)
+## pixel size: 0.167 by 0.167 units
+## enclosing rectangle: [-104.92138, -99.92138] x [25.355693, 30.02236] units
+##                      (5 x 4.667 units)
+## Window area = 23.3333 square units
+## Fraction of frame area: 1
+## Quadrature weights:
+##      (counting weights based on 32 x 32 array of rectangular tiles)
+## All weights:
+##  range: [0.0076, 0.0228] total: 23.3
+## Weights on data points:
+##  range: [0.0076, 0.0114] total: 2.21
+## Weights on dummy points:
+##  range: [0.0076, 0.0228] total: 21.1
+## --------------------------------------------------------------------------------
+## FITTED MODEL:
+## 
+## Nonstationary Poisson process
+## 
+## ---- Intensity: ----
+## 
+## Log intensity: ~Var.1 + Var.3 + I(Var.1^2) + I(Var.3^2)
+## Model depends on external covariates 'Var.1' and 'Var.3'
+## Covariates provided:
+##  Var.1: im
+##  Var.2: im
+##  Var.3: im
+## 
+## Fitted trend coefficients:
+##   (Intercept)         Var.1         Var.3    I(Var.1^2)    I(Var.3^2) 
+## -5.708681e+01  4.649718e-01  1.973027e-01 -1.195420e-03 -6.753759e-04 
+## 
+##                  Estimate         S.E.       CI95.lo       CI95.hi Ztest
+## (Intercept) -5.708681e+01 1.618153e+01 -88.802039552 -2.537159e+01   ***
+## Var.1        4.649718e-01 1.498312e-01   0.171308062  7.586355e-01    **
+## Var.3        1.973027e-01 9.701636e-02   0.007154105  3.874513e-01     *
+## I(Var.1^2)  -1.195420e-03 3.794566e-04  -0.001939142 -4.516991e-04    **
+## I(Var.3^2)  -6.753759e-04 3.126318e-04  -0.001288123 -6.262874e-05     *
+##                  Zval
+## (Intercept) -3.527899
+## Var.1        3.103304
+## Var.3        2.033705
+## I(Var.1^2)  -3.150348
+## I(Var.3^2)  -2.160291
+## 
+## ----------- gory details -----
+## 
+## Fitted regular parameters (theta):
+##   (Intercept)         Var.1         Var.3    I(Var.1^2)    I(Var.3^2) 
+## -5.708681e+01  4.649718e-01  1.973027e-01 -1.195420e-03 -6.753759e-04 
+## 
+## Fitted exp(theta):
+##  (Intercept)        Var.1        Var.3   I(Var.1^2)   I(Var.3^2) 
+## 1.612543e-25 1.591969e+00 1.218113e+00 9.988053e-01 9.993249e-01
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Diagnóstico - Residuales}
+\protect\hypertarget{diagnuxf3stico---residuales}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{diagnose.ppm}\NormalTok{(m1, }\AttributeTok{main =} \StringTok{""}\NormalTok{, }\AttributeTok{cex.axis =} \FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-17-1.pdf}
+
+\begin{verbatim}
+## Model diagnostics (raw residuals)
+## Diagnostics available:
+##  four-panel plot
+##  mark plot 
+##  smoothed residual field
+##  x cumulative residuals
+##  y cumulative residuals
+##  sum of all residuals
+## sum of raw residuals in entire window = -1.795e-10
+## area of entire window = 23.33
+## quadrature area = 23.33
+## range of smoothed field =  [-3.374, 2.228]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Diangnóstico - Residuales}
+\protect\hypertarget{diangnuxf3stico---residuales}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{diagnose.ppm}\NormalTok{(m2, }\AttributeTok{main =} \StringTok{""}\NormalTok{, }\AttributeTok{cex.axis =} \FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-18-1.pdf}
+
+\begin{verbatim}
+## Model diagnostics (raw residuals)
+## Diagnostics available:
+##  four-panel plot
+##  mark plot 
+##  smoothed residual field
+##  x cumulative residuals
+##  y cumulative residuals
+##  sum of all residuals
+## sum of raw residuals in entire window = -8.688e-11
+## area of entire window = 23.33
+## quadrature area = 23.33
+## range of smoothed field =  [-4.133, 2.697]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Diagnóstico - Ripley}
+\protect\hypertarget{diagnuxf3stico---ripley}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{K1 }\OtherTok{\textless{}{-}} \FunctionTok{envelope}\NormalTok{(m1, }\AttributeTok{fun =}\NormalTok{ Kest, }\AttributeTok{nsim =} \DecValTok{39}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Generating 39 simulated realisations of fitted Poisson model  ...
+## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,  39.
+## 
+## Done.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{K2 }\OtherTok{\textless{}{-}} \FunctionTok{envelope}\NormalTok{(m2, }\AttributeTok{fun =}\NormalTok{ Kest, }\AttributeTok{nsim =} \DecValTok{39}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Generating 39 simulated realisations of fitted Poisson model  ...
+## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,  39.
+## 
+## Done.
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Diagnóstico - Ripley}
+\protect\hypertarget{diagnuxf3stico---ripley-1}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(K1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-20-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Diangóstico - Ripley}
+\protect\hypertarget{dianguxf3stico---ripley}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(K2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-21-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Resumen del análisis}
+\protect\hypertarget{resumen-del-anuxe1lisis}{}
+\begin{itemize}
+\item
+  AIC menor para \texttt{m1}
+\item
+  Residuales dentro de tolerancia para \texttt{m1}
+\item
+  Prueba de ripley correcta para ambos modelos
+
+  \begin{itemize}
+  \tightlist
+  \item
+    No parece necesario modelar autocorrelación
+  \end{itemize}
+\item
+  Evidencia \emph{favorece} a \texttt{m1}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Revisando la predicción}
+\protect\hypertarget{revisando-la-predicciuxf3n}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(m1, }\AttributeTok{se =}\NormalTok{ F, }\AttributeTok{main =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-22-1.pdf}
+\end{frame}
+
+\begin{frame}[fragile]{Guardando los resultados}
+\protect\hypertarget{guardando-los-resultados}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(m1)}
+\NormalTok{pred.r }\OtherTok{\textless{}{-}} \FunctionTok{raster}\NormalTok{(pred)}
+\FunctionTok{writeRaster}\NormalTok{(pred.r, }\StringTok{"Predicción{-}m1"}\NormalTok{, }\StringTok{"GTiff"}\NormalTok{,}
+            \AttributeTok{overwrite =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in .gd_SetProject(object, ...): NOT UPDATED FOR PROJ >= 6
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Alternativas de modelación}
+\protect\hypertarget{alternativas-de-modelaciuxf3n}{}
+\begin{itemize}
+\tightlist
+\item
+  Respuestas ``hinge'': Regresión por partes
+\item
+  Respuestas no lineales: Suavizadores GAM
+\item
+  Interacciones entre variables
+\item
+  LASSO con paquete \texttt{ppmlasso}
+\end{itemize}
+\end{frame}
+
 \end{document}

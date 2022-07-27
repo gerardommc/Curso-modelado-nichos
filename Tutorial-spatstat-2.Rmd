@@ -29,8 +29,8 @@ knitr::opts_chunk$set(dev = 'pdf')
 knitr::include_graphics("Figuras/Centroide.png")
 ```
 
-- Abundancia alcanza un máximo y disminuye
-- Modelos más complicados con varias variables
+-   Abundancia alcanza un máximo y disminuye
+-   Modelos más complicados con varias variables
 
 ### Código - generando favorabilidad "verdadera"
 
@@ -115,9 +115,9 @@ plot(K)
 
 ### Autocorrelación - notas
 
-1. Pareciera que el proceso está levemente autocorrelacionado
-2. No sabemos de momento si afectará al modelo
-3. Debemos poner atención al modelo ajustado
+1.  Pareciera que el proceso está levemente autocorrelacionado
+2.  No sabemos de momento si afectará al modelo
+3.  Debemos poner atención al modelo ajustado
 
 ### Respuestas a variables
 
@@ -129,6 +129,7 @@ plotQuantIntens(imList = r.im,
                 dir = "",
                 name = "Respuestas-centroide")
 ```
+
 [Ver archivo de gráficas](Respuestas-centroide.pdf)
 
 ### Consideraciones para proponer modelos
@@ -143,20 +144,17 @@ curve(exp(1 + x - x^2), from = -3, 3)
 
 Ecuación lineal:
 
-$$ y = \alpha + \beta_1 x_1 + \dots + \beta_n x_n$$
-Ecuación polinomial de 2$^o$ grado
+$$ y = \alpha + \beta_1 x_1 + \dots + \beta_n x_n$$ Ecuación polinomial de 2$^o$ grado
 
-$$ y = \alpha + \beta_1 x_1 + \beta_1' x_1^2 + \dots + \beta_n x_n + \beta_n' x_n^2$$
-Recordemos que $y = \log \lambda$
-
+$$ y = \alpha + \beta_1 x_1 + \beta_1' x_1^2 + \dots + \beta_n x_n + \beta_n' x_n^2$$ Recordemos que $y = \log \lambda$
 
 ### ¿Qué variables podemos incluir en el mismo modelo?
 
 **Regla de oro**: Aquellas que no estén correlacionadas
 
-- Que $x_1$ no sea predictor de $x_2$
-- No se puede atribuir efecto de $x_1$ ó $x_2$ sobre $\lambda$
-- Necesitamos medir correlación entre pares de variables (`pairs`)
+-   Que $x_1$ no sea predictor de $x_2$
+-   No se puede atribuir efecto de $x_1$ ó $x_2$ sobre $\lambda$
+-   Necesitamos medir correlación entre pares de variables (`pairs`)
 
 ### Medición de correlación entre covariables
 
@@ -164,3 +162,100 @@ Recordemos que $y = \log \lambda$
 pairs(r)
 ```
 
+### Variables *compatibles*
+
+Podemos incluir en el mismo modelo:
+
+1.  Var.1 y Var.3
+2.  Var.2 y Var.3
+
+Por lo tanto las fórmula polinomial
+
+$$\log \lambda = \alpha  + \beta_1 x_1 + \beta_1' + x_1^2 + \beta_2 x_2 + \beta_2' + x_2^2 +$$
+
+En **R**:
+
+1.  `~ Var.1 + Var.3 + I(Var.1^2) + I(Var.3^2)`
+2.  `~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2)`
+
+### Ajustando los modelos
+
+```{r}
+m1 <- ppm(Q = puntos.2.ppp,
+          trend = ~ Var.1 + Var.3 + I(Var.1^2) + I(Var.3^2),
+          covariates = r.im)
+m2 <- ppm(Q = puntos.2.ppp,
+          trend = ~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2),
+          covariates = r.im)
+```
+
+### Comparando los modelos
+
+```{r}
+AIC(m1); AIC(m2)
+```
+
+### Analizar los efectos estimados
+
+```{r}
+summary(m1)
+```
+
+### Diagnóstico - Residuales
+
+```{r fig.height=4, fig.width=4}
+diagnose.ppm(m1, main = "", cex.axis = 0.5)
+```
+
+### Diangnóstico - Residuales
+
+```{r fig.height=4, fig.width=4}
+diagnose.ppm(m2, main = "", cex.axis = 0.5)
+```
+
+### Diagnóstico - Ripley
+
+```{r}
+K1 <- envelope(m1, fun = Kest, nsim = 39)
+K2 <- envelope(m2, fun = Kest, nsim = 39)
+```
+### Diagnóstico - Ripley
+
+```{r fig.height=3, fig.width=3, fig.align='center'}
+plot(K1)
+```
+### Diangóstico - Ripley
+
+```{r fig.height=3, fig.width=3, fig.align='center'}
+plot(K2)
+```
+### Resumen del análisis
+
+- AIC menor para `m1`
+- Residuales dentro de tolerancia para `m1`
+- Prueba de ripley correcta para ambos modelos
+
+    - No parece necesario modelar autocorrelación
+- Evidencia *favorece* a `m1`
+
+### Revisando la predicción
+
+```{r fig.height=3.5, fig.width=3.5}
+plot(m1, se = F, main = "")
+```
+
+### Guardando los resultados
+
+```{r}
+pred <- predict(m1)
+pred.r <- raster(pred)
+writeRaster(pred.r, "Predicción-m1", "GTiff",
+            overwrite = T)
+```
+
+### Alternativas de modelación
+
+- Respuestas "hinge": Regresión por partes
+- Respuestas no lineales: Suavizadores GAM
+- Interacciones entre variables
+- LASSO con paquete `ppmlasso`
