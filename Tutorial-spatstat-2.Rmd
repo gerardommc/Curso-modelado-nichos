@@ -61,7 +61,7 @@ plot(md.exp)
 
 ### Código - simulando los puntos
 
-```{r}
+```{r warning = F, message=FALSE, results= "hide"}
 set.seed(182)
 puntos.2 <- dismo::randomPoints(mask = md.exp,
                                 n = 200,
@@ -198,7 +198,8 @@ AIC(m1); AIC(m2)
 ### Analizar los efectos estimados
 
 ```{r}
-summary(m1)
+sum.m1 <- summary(m1)
+knitr::kable(sum.m1$coefs.SE.CI[, 1:4])
 ```
 
 ### Diagnóstico - Residuales
@@ -237,7 +238,7 @@ plot(K2, cex = 0.5)
 - Residuales dentro de tolerancia para `m1`
 - Prueba de ripley correcta para ambos modelos
 
-    - No parece necesario modelar autocorrelación
+    - No parece necesario modelar autocorrelación (lo haremos a continuación)
 - Evidencia *favorece* a `m1`
 
 ### Revisando la predicción
@@ -255,9 +256,182 @@ writeRaster(pred.r, "Predicción-m1", "GTiff",
             overwrite = T)
 ```
 
+# Modelando los efectos espaciales
+
+### Modelos de interacción
+
+- Estiman efecto aleatorio para puntos cercanos
+- Sirven para procesos de exclusión o agregación moderada
+- Hay varios tipos de interacciones entre puntos
+
+### ¿Qué es interacción?
+
+```{r echo = F, fig.align="center"}
+knitr::include_graphics("Figuras/Interaccion-puntos.png")
+```
+
+### Tipos de interacciones
+
+```{r echo = F, fig.align="center", fig.cap="Crédito a Baddeley et al (2016)"}
+knitr::include_graphics("Figuras/Tipos-interacciones.png")
+```
+
+### Modelos de interacción en `spatstat`
+
+```{r echo=F, fig.align="center"}
+knitr::include_graphics("Figuras/Tabla-tipos-interacciones.png")
+```
+
+### Para generar un modelo de interacción
+
+1. Establecer tamaño del búfer
+
+```{r}
+rr <- data.frame(r=seq(1,5,by=1))
+p <- profilepl(rr, Strauss, 
+               puntos.2.ppp ~ Var.1 + Var.3 + I(Var.1^2) + I(Var.3^2),
+          covariates = r.im, aic=T, rbord = 0.5)
+```
+### Para generar un modelo de interacción
+
+```{r echo=TRUE, fig.align="center", fig.height=4, fig.width=4}
+plot(p, main = "")
+```
+
+### Para generar un modelo de interacción
+
+Un radio de tamaño 2 minimiza la pseudo-verosimilitud, de modo que el modelo de interacción con la fórmula de m1 es:
+
+```{r}
+m1.int <- ppm(Q = puntos.2.ppp,
+          trend = ~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2),
+          covariates = r.im,
+          Strauss(p$iopt), rbord = 1) #Interacción
+```
+
+### Efectos estimados
+
+```{r message=F, warning=FALSE}
+sum.int <- summary(m1.int)
+knitr::kable(sum.int$coefs.SE.CI[, 1:4])
+```
+
+### Efectos estimados - comparación
+
+```{r}
+coef(m1)
+coef(m1.int)
+```
+
+### Diangóstico
+
+```{r}
+K.int <- envelope(m1.int, Kest, nsim = 39)
+```
+
+### Diangóstico
+
+```{r fig.height=4, fig.width=4, fig.align='center'}
+plot(K.int)
+```
+
+### Favorabilidad
+
+```{r echo=F, fig.align="center", fig.height=4, fig.width=4}
+plot(m1.int, se = F, trend = T, cif = F)
+```
+
+# Proceso log-Gaussiano Cox
+
+### ¿Qué es?
+
+- En MPPs
+
+    - Intensidad es explicada por covariables si
+    - Covariables rara vez explican puntos agregados
+    
+- Gaussiano = Distribución normal
+
+    - Efecto aleatorio con distribución normal multivariada
+    
+### ¿Qué es?
+
+$$\log \lambda_i = \alpha + \beta_1 x_{1,i} + \dots + G(u_i, v_i)$$
+- $\alpha$ es el intercepto global
+- $G(u_i)$ es el intercepto aleatorio para cada píxel
+- Cuando todas las $x = 0$, la intensidad en el píxel $i$ es $\exp(\alpha + G(u_i))$
+
+### ¿Con qué se ajusta un LGCP en **R**?
+
+- Frecuentista - `spatstat` (rápido poco preciso)
+
+- Bayesiano
+
+    - `RINLA` (moderadamente rápido, moderadamente preciso)
+    - `lgcp` (muuuuy lento, bastante preciso)
+
+- Frecuentista son aproximaciones, y Bayesiano son estimaciones *verdaderas*
+
+### Ajustando un LGCP con `spatstat`
+
+```{r}
+m1.lgcp <- kppm(puntos.2.ppp,
+                trend = ~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2),
+                covariates = r.im,
+                clusters = "Thomas",
+                statistic = "K", # K de Ripley
+                method = "clik2", # Contraste con K
+                model = "exp") # Modelo de varianza
+```
+
+### Ajustando un LGCP con `spatstat`
+
+```{r}
+sum.lgcp <- summary(m1.lgcp)
+knitr::kable(sum.lgcp$coefs.SE.CI[, 1:4])
+```
+
+### Comparando con MPP
+
+```{r}
+knitr::kable(sum.m1$coefs.SE.CI[, c(1, 2, 3, 4)])
+```
+
+### Predicciones 
+
+```{r fig.height=4, fig.width=4, message=FALSE, warning=FALSE, fig.align="center"}
+plot(m1.lgcp, what = "intensity")
+```
+
+### Diagnóstico
+
+```{r}
+K.lgcp <- envelope(m1.lgcp, Kest, nsim = 39)
+```
+
+### Diangóstico
+
+```{r fig.height=4, fig.width=4, message=FALSE, warning=FALSE, fig.align="center"}
+plot(K.lgcp)
+```
+
+### Conclusiones
+
+- Modelo Poisson 
+
+    - Más simple, y no parece tener problemas
+    - IC de estimaciones más amplios que LGCP
+
+- Interacción
+
+    - IC más amplios que MPP
+
+- LGCP
+
+    - Función K más cercana a expectativa teórica
 ### Alternativas de modelación
 
-- Respuestas "hinge": Regresión por partes
+- Respuestas bisagra: Regresión por partes
 - Respuestas no lineales: Suavizadores GAM
 - Interacciones entre variables
 - LASSO con paquete `ppmlasso` (Warton y Renner 2013)
