@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.6.17)  29 JUL 2022 10:15
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.6.17)  2 AUG 2022 13:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1613,7 +1613,7 @@ File: Figuras/Centroide.png Graphic file (type bmp)
 LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
 (Font)              scaled to size 10.10999pt on input line 174.
 
-Overfull \vbox (53.54123pt too high) detected at line 174
+Overfull \vbox (53.55505pt too high) detected at line 174
  []
 
 [3
@@ -1902,13 +1902,7 @@ le (type pdf)
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
 
-(./Tutorial-spatstat-2.vrb
-Overfull \hbox (50.65413pt too wide) in paragraph at lines 14--14
-[]\TU/FiraMono(0)/m/n/10.95 ## Warning in .gd_SetProject(object, ...): NOT UPDA
-TED FOR PROJ >= 6[] 
- []
-
-) [31
+(./Tutorial-spatstat-2.vrb) [31
 
 ] [32
 
@@ -1918,7 +1912,7 @@ TED FOR PROJ >= 6[]
 File: Figuras/Interaccion-puntos.png Graphic file (type bmp)
 <Figuras/Interaccion-puntos.png>
 
-Overfull \vbox (31.67781pt too high) detected at line 609
+Overfull \vbox (31.67781pt too high) detected at line 605
  []
 
 [34
@@ -1926,10 +1920,15 @@ Overfull \vbox (31.67781pt too high) detected at line 609
 ]
 File: Figuras/Tipos-interacciones.png Graphic file (type bmp)
 <Figuras/Tipos-interacciones.png>
-LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
-(Font)              scaled to size 8.42499pt on input line 621.
 
-Overfull \vbox (35.52354pt too high) detected at line 621
+Overfull \hbox (33.15492pt too wide) in paragraph at lines 617--617
+ [] 
+ []
+
+LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
+(Font)              scaled to size 8.42499pt on input line 617.
+
+Overfull \vbox (75.11406pt too high) detected at line 617
  []
 
 [35
@@ -1937,8 +1936,17 @@ Overfull \vbox (35.52354pt too high) detected at line 621
 ]
 File: Figuras/Tabla-tipos-interacciones.png Graphic file (type bmp)
 <Figuras/Tabla-tipos-interacciones.png>
+
+Overfull \hbox (89.35693pt too wide) in paragraph at lines 622--622
+ [] 
+ []
+
 LaTeX Font Info:    Font shape `TU/FiraMono(0)/b/n' will be
-(Font)              scaled to size 10.09094pt on input line 626.
+(Font)              scaled to size 10.09094pt on input line 622.
+
+Overfull \vbox (47.32062pt too high) detected at line 622
+ []
+
 [36
 
 ]
@@ -1954,7 +1962,7 @@ File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-28-1.pdf Graphic fi
 le (type pdf)
 <use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-28-1.pdf>
 )
-Overfull \vbox (24.05908pt too high) detected at line 671
+Overfull \vbox (24.05908pt too high) detected at line 667
  []
 
 [38
@@ -2017,7 +2025,7 @@ File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-33-1.pdf Graphic fi
 le (type pdf)
 <use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-33-1.pdf>
 )
-Overfull \vbox (57.09384pt too high) detected at line 764
+Overfull \vbox (57.09384pt too high) detected at line 760
  []
 
 [43
@@ -2068,7 +2076,7 @@ File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-38-1.pdf Graphic fi
 le (type pdf)
 <use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-38-1.pdf>
 )
-Overfull \vbox (4.99083pt too high) detected at line 896
+Overfull \vbox (4.99083pt too high) detected at line 892
  []
 
 [52
@@ -2099,7 +2107,7 @@ File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-40-1.pdf Graphic fi
 le (type pdf)
 <use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-40-1.pdf>
 )
-Overfull \vbox (57.09384pt too high) detected at line 923
+Overfull \vbox (57.09384pt too high) detected at line 919
  []
 
 [54
@@ -2108,7 +2116,7 @@ Overfull \vbox (57.09384pt too high) detected at line 923
 \openout4 = `Tutorial-spatstat-2.vrb'.
 
 (./Tutorial-spatstat-2.vrb)
-Overfull \vbox (35.66348pt too high) detected at line 964
+Overfull \vbox (35.66348pt too high) detected at line 960
  []
 
 [55

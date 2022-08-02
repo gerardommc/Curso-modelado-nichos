@@ -249,7 +249,7 @@ plot(m1, se = F, main = "")
 
 ### Guardando los resultados
 
-```{r warninr = F, message=F, results = "hide"}
+```{r warning = F, message=F, results = "hide"}
 pred <- predict(m1)
 pred.r <- raster(pred)
 writeRaster(pred.r, "Predicción-m1", "GTiff",
@@ -341,7 +341,7 @@ plot(K.int)
 plot(m1.int, se = F, trend = T, cif = F)
 ```
 
-# Proceso log-Gaussiano Cox
+# Proceso Cox log-Gaussiano
 
 ### ¿Qué es?
 

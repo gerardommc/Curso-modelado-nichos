@@ -20,7 +20,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 3. Tutorial de spatstat
     - [Básico](Tutorial-spatstat.pdf)
+        - [Código del tutorial](Tutorial-1.R)
+        - [Código de las diapos](Tutorial-spatstat.Rmd)
     - [Intermedio](Tutorial-spatstat-2.pdf)
+        - [Código del tutorial](Tutorial-2.R)
+        - [Código de las diapos](Tutorial-spatstat-2.Rmd)
 
 4. Aplicaciones
     - [Ecología de nichos](Aquí-presentacion.pdf)
