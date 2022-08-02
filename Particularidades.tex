@@ -112,11 +112,70 @@
 \begin{document}
 \frame{\titlepage}
 
+\hypertarget{la-variable-de-respuesta}{%
+\section{La variable de respuesta}\label{la-variable-de-respuesta}}
+
+\begin{frame}{Regresión lineal}
+\protect\hypertarget{regresiuxf3n-lineal}{}
+\begin{itemize}
+\item
+  \(W\) son mediciones de peso en Kg
+\item
+  Modelo lineal:
+\end{itemize}
+
+\[W = \alpha + \beta Edad + \beta_{Sexo}\]
+
+\begin{itemize}
+\tightlist
+\item
+  Modelo predice peso en Kg
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Modelos de nicho y distribución}
+\protect\hypertarget{modelos-de-nicho-y-distribuciuxf3n}{}
+\begin{itemize}
+\item
+  Mediciones: coordenadas de presencia
+\item
+  ¿Qué unidades produce el modelo estadístico?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Modelos de nichos y distribución}
+\protect\hypertarget{modelos-de-nichos-y-distribuciuxf3n}{}
+\begin{itemize}
+\item
+  Modelación correlativa
+
+  \begin{itemize}
+  \item
+    Desconexión relativa entre análisis y predicción
+  \item
+    Confuso poner en perspectiva las unidades de predicción
+  \end{itemize}
+\item
+  Procesos de puntos resuelven la desconexión
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Datos: Puntos en Área de estudio dividida en unidades
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
 \hypertarget{intensidad}{%
 \section{Intensidad}\label{intensidad}}
 
 \begin{frame}{Intensidad de puntos}
 \protect\hypertarget{intensidad-de-puntos}{}
+\begin{center}\includegraphics{Figuras/Intensidad-1} \end{center}
+\end{frame}
+
+\begin{frame}{Intensidad de puntos}
+\protect\hypertarget{intensidad-de-puntos-1}{}
 \begin{itemize}
 \tightlist
 \item
@@ -128,8 +187,28 @@ espacial (píxel)
 \end{frame}
 
 \begin{frame}{Intensidad de puntos}
-\protect\hypertarget{intensidad-de-puntos-1}{}
-\begin{center}\includegraphics{Figuras/Intensidad} \end{center}
+\protect\hypertarget{intensidad-de-puntos-2}{}
+Intensidad promedio:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\bar{\lambda} = \frac{2+2+1+1+1+4+6}{36} = \frac{17}{36}=0.47\)
+\end{itemize}
+
+Denominador es el número de unidades espaciales
+\end{frame}
+
+\begin{frame}{Intensidad de puntos}
+\protect\hypertarget{intensidad-de-puntos-3}{}
+\begin{figure}
+
+{\centering \includegraphics{Figuras/Intensidad} 
+
+}
+
+\caption{Ejemplo de modelo Poisson de un patrón de puntos (Baddeley et al. 2016).}\label{fig:unnamed-chunk-1}
+\end{figure}
 \end{frame}
 
 \hypertarget{supuestos}{%

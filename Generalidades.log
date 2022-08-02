@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.6.17)  25 JUL 2022 15:51
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.5.2)  2 AUG 2022 10:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1695,7 +1695,7 @@ e pdf)
 
 ]
 LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
-(Font)              scaled to size 9.22536pt on input line 313.
+(Font)              scaled to size 9.22536pt on input line 315.
 [16
 
 ] [17
@@ -1707,28 +1707,31 @@ ern Roman (RS)
 
 ]
 LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/m/it' will be
-(Font)              scaled to size 8.48953pt on input line 381.
+(Font)              scaled to size 8.48953pt on input line 383.
 File: Figuras/Renner.png Graphic file (type bmp)
 <Figuras/Renner.png>
 [19
 
+] [20
+
 ]
-LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/m/it' will be
-(Font)              scaled to size 9.29602pt on input line 397.
 File: Figuras/Discrep.png Graphic file (type bmp)
 <Figuras/Discrep.png>
-[20
-
-] [21
+[21
 
 ] [22
 
-] [23
+]
+LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/m/it' will be
+(Font)              scaled to size 9.29602pt on input line 441.
+[23
+
+] [24
 
 ]
 File: Figuras/Spat-book.png Graphic file (type bmp)
 <Figuras/Spat-book.png>
-[24
+[25
 
 ]
 \tf@nav=\write5
@@ -1742,12 +1745,12 @@ File: Figuras/Spat-book.png Graphic file (type bmp)
 
 (./Generalidades.aux) ) 
 Here is how much of TeX's memory you used:
- 35003 strings out of 476191
- 737161 string characters out of 5812072
- 1138133 words of memory out of 5000000
- 55021 multiletter control sequences out of 15000+600000
+ 35005 strings out of 476191
+ 737177 string characters out of 5812073
+ 1138186 words of memory out of 5000000
+ 55023 multiletter control sequences out of 15000+600000
  475928 words of font info for 107 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  128i,13n,171p,1814b,752s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Generalidades.pdf (24 pages).
+Output written on Generalidades.pdf (25 pages).

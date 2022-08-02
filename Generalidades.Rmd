@@ -125,6 +125,8 @@ $$ y(x) = \alpha + \beta_1 x_1 + \dots + \beta_n x_n + \varepsilon$$
 
 - $\alpha, \beta_i$ son los efectos de $x$ sobre $y$
 
+- $\varepsilon$  es el error, varianza de $y$ que $x$ no explica
+
 ### Ejemplo - La línea de regresión
 
 ```{r echo = F, fig.height=4, fig.width=4}
@@ -142,7 +144,7 @@ abline(0, 1, col = "red")
 
 **Regresión consiste en estimar todos los coeficientes para las variables** $x$.
 
-### Diferencias con regresión simple
+### Diferencias entre regresión y PPs
 
 - Regresión lineal simple
     
@@ -154,7 +156,7 @@ abline(0, 1, col = "red")
     - $y > 0$, $y \in \mathbb{Z}$
     - $y \approx \mathcal{P}$ (distribución Poisson)
     
-### Diferencias con regresión simple
+### Diferencias entre regresión y PPs
 
 Para que $y >0$
 
@@ -170,7 +172,7 @@ Para que $y >0$
 
 - Equivalentes a MaxEnt
 
-    - Regularización mínima
+    - Sin Regularización
     - *Features* lineal y cuadrática
     
 ```{r maxent, echo = F}
@@ -179,9 +181,19 @@ knitr::include_graphics("Figuras/Renner.png")
 
 ### Relación con otros métodos
 
-- *Equivalentes* envolturas
+- Regresión log-lineal
 
-    - Bajo ciertas condiciones biológicas y ecológicas
+    - Logística
+    - Maxent
+
+- Elipsoides (Martín et al. 2022)
+
+    - Centroide existe en espacio
+    - Sin colinealidad
+
+### Relación con otros métodos
+
+Condiciones para equivalencia entre MPPs y envolturas
 
 ```{r evm, echo = F}
 knitr::include_graphics("Figuras/Discrep.png")
@@ -189,7 +201,7 @@ knitr::include_graphics("Figuras/Discrep.png")
 
 # Ventajas y Desventajas
 
-### Ventajas sobre otros métodos de análisis
+### Ventajas
 
 - Herramienta *ad-hoc* para puntos
 - Transparencia
@@ -205,7 +217,7 @@ knitr::include_graphics("Figuras/Discrep.png")
 - Difícil automatizar
 - Más programación
 - Selección de modelo laboriosa
-- Optimización no converge
+- Optimización puede ser difícil
 - Poco práctico para muchas especies
 
 ### Bibliografía básica

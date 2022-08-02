@@ -21,7 +21,43 @@ csl: chicago-author-date.csl
 knitr::opts_chunk$set(dev = 'pdf')
 ```
 
+# La variable de respuesta
+
+### Regresión lineal
+
+- $W$ son mediciones de peso en Kg
+
+- Modelo lineal:
+
+$$W = \alpha + \beta Edad + \beta_{Sexo}$$
+
+- Modelo predice peso en Kg
+
+### Modelos de nicho y distribución
+
+- Mediciones: coordenadas de presencia
+
+- ¿Qué unidades produce el modelo estadístico?
+
+### Modelos de nichos y distribución
+
+- Modelación correlativa
+
+    - Desconexión relativa entre análisis y predicción
+    
+    - Confuso poner en perspectiva las unidades de predicción
+    
+- Procesos de puntos resuelven la desconexión
+
+    - Datos: Puntos en Área de estudio dividida en unidades
+
 # Intensidad
+
+### Intensidad de puntos
+
+```{r intens, echo = F, fig.align='center'}
+knitr::include_graphics("Figuras/Intensidad-1.png")
+```
 
 ### Intensidad de puntos
 
@@ -32,7 +68,15 @@ $$\lambda(x) = y$$
 
 ### Intensidad de puntos
 
-```{r echo = F, fig.align='center'}
+Intensidad promedio:
+
+- $\bar{\lambda} = \frac{2+2+1+1+1+4+6}{36} = \frac{17}{36}=0.47$
+
+Denominador es el número de unidades espaciales
+
+### Intensidad de puntos
+
+```{r echo = F, fig.align='center', fig.cap = "Ejemplo de modelo Poisson de un patrón de puntos (Baddeley et al. 2016)."}
 knitr::include_graphics("Figuras/Intensidad.png")
 ```
 

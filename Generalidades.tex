@@ -289,6 +289,8 @@ x & y \\
   \(y\) es la intensidad por unidad de área
 \item
   \(\alpha, \beta_i\) son los efectos de \(x\) sobre \(y\)
+\item
+  \(\varepsilon\) es el error, varianza de \(y\) que \(x\) no explica
 \end{itemize}
 \end{frame}
 
@@ -312,8 +314,8 @@ x & y \\
 variables} \(x\).
 \end{frame}
 
-\begin{frame}{Diferencias con regresión simple}
-\protect\hypertarget{diferencias-con-regresiuxf3n-simple}{}
+\begin{frame}{Diferencias entre regresión y PPs}
+\protect\hypertarget{diferencias-entre-regresiuxf3n-y-pps}{}
 \begin{itemize}
 \item
   Regresión lineal simple
@@ -338,8 +340,8 @@ variables} \(x\).
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Diferencias con regresión simple}
-\protect\hypertarget{diferencias-con-regresiuxf3n-simple-1}{}
+\begin{frame}{Diferencias entre regresión y PPs}
+\protect\hypertarget{diferencias-entre-regresiuxf3n-y-pps-1}{}
 Para que \(y >0\)
 
 \begin{itemize}
@@ -371,7 +373,7 @@ Para que \(y >0\)
   \begin{itemize}
   \tightlist
   \item
-    Regularización mínima
+    Sin Regularización
   \item
     \emph{Features} lineal y cuadrática
   \end{itemize}
@@ -384,14 +386,31 @@ Para que \(y >0\)
 \protect\hypertarget{relaciuxf3n-con-otros-muxe9todos}{}
 \begin{itemize}
 \item
-  \emph{Equivalentes} envolturas
+  Regresión log-lineal
 
   \begin{itemize}
   \tightlist
   \item
-    Bajo ciertas condiciones biológicas y ecológicas
+    Logística
+  \item
+    Maxent
+  \end{itemize}
+\item
+  Elipsoides (Martín et al.~2022)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Centroide existe en espacio
+  \item
+    Sin colinealidad
   \end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Relación con otros métodos}
+\protect\hypertarget{relaciuxf3n-con-otros-muxe9todos-1}{}
+Condiciones para equivalencia entre MPPs y envolturas
 
 \includegraphics{Figuras/Discrep.png}
 \end{frame}
@@ -399,8 +418,8 @@ Para que \(y >0\)
 \hypertarget{ventajas-y-desventajas}{%
 \section{Ventajas y Desventajas}\label{ventajas-y-desventajas}}
 
-\begin{frame}{Ventajas sobre otros métodos de análisis}
-\protect\hypertarget{ventajas-sobre-otros-muxe9todos-de-anuxe1lisis}{}
+\begin{frame}{Ventajas}
+\protect\hypertarget{ventajas}{}
 \begin{itemize}
 \tightlist
 \item
@@ -434,7 +453,7 @@ Para que \(y >0\)
 \item
   Selección de modelo laboriosa
 \item
-  Optimización no converge
+  Optimización puede ser difícil
 \item
   Poco práctico para muchas especies
 \end{itemize}

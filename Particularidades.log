@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.6.17)  26 JUL 2022 15:57
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.5.2)  2 AUG 2022 11:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1529,115 +1529,136 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 
 ]
 LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
-(Font)              scaled to size 10.10999pt on input line 128.
+(Font)              scaled to size 10.10999pt on input line 134.
 [3
+
+] [4
+
+] [5
+
+] [6
+
+]
+File: Figuras/Intensidad-1.png Graphic file (type bmp)
+<Figuras/Intensidad-1.png>
+
+Overfull \vbox (31.69139pt too high) detected at line 175
+ []
+
+[7
+
+] [8
+
+] [9
 
 ]
 File: Figuras/Intensidad.png Graphic file (type bmp)
 <Figuras/Intensidad.png>
-[4
+LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
+(Font)              scaled to size 8.42499pt on input line 212.
+[10
 
-] [5
+] [11
 
 ]
 LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/m/it' will be
-(Font)              scaled to size 9.29602pt on input line 153.
-[6
+(Font)              scaled to size 9.29602pt on input line 232.
+[12
 
 ]
 LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
-(Font)              scaled to size 9.22536pt on input line 162.
-[7
+(Font)              scaled to size 9.22536pt on input line 241.
+[13
 
-] [8
+] [14
 
 ]
 File: Particularidades_files/figure-beamer/unnamed-chunk-2-1.pdf Graphic file (
 type pdf)
 <use Particularidades_files/figure-beamer/unnamed-chunk-2-1.pdf>
 
-Overfull \vbox (47.46887pt too high) detected at line 197
- []
-
-[9
-
-]
-File: Particularidades_files/figure-beamer/unnamed-chunk-3-1.pdf Graphic file (
-type pdf)
-<use Particularidades_files/figure-beamer/unnamed-chunk-3-1.pdf>
-[10
-
-] [11
-
-] [12
-
-]
-File: Figuras/Ejemplo-procesos.png Graphic file (type bmp)
-<Figuras/Ejemplo-procesos.png>
-[13
-
-]
-File: Figuras/Moran-1-1.png Graphic file (type bmp)
-<Figuras/Moran-1-1.png>
-
-Overfull \vbox (55.24892pt too high) detected at line 234
- []
-
-[14
-
-]
-File: Figuras/Moran-2-1.png Graphic file (type bmp)
-<Figuras/Moran-2-1.png>
-
-Overfull \vbox (55.24892pt too high) detected at line 241
+Overfull \vbox (47.46887pt too high) detected at line 276
  []
 
 [15
 
 ]
-File: Figuras/Cuenta-vecinos.png Graphic file (type bmp)
-<Figuras/Cuenta-vecinos.png>
-
-Overfull \vbox (55.2512pt too high) detected at line 248
- []
-
+File: Particularidades_files/figure-beamer/unnamed-chunk-3-1.pdf Graphic file (
+type pdf)
+<use Particularidades_files/figure-beamer/unnamed-chunk-3-1.pdf>
 [16
+
+] [17
+
+] [18
 
 ]
 File: Figuras/Ejemplo-procesos.png Graphic file (type bmp)
 <Figuras/Ejemplo-procesos.png>
-[17
+[19
+
+]
+File: Figuras/Moran-1-1.png Graphic file (type bmp)
+<Figuras/Moran-1-1.png>
+
+Overfull \vbox (55.24892pt too high) detected at line 313
+ []
+
+[20
+
+]
+File: Figuras/Moran-2-1.png Graphic file (type bmp)
+<Figuras/Moran-2-1.png>
+
+Overfull \vbox (55.24892pt too high) detected at line 320
+ []
+
+[21
+
+]
+File: Figuras/Cuenta-vecinos.png Graphic file (type bmp)
+<Figuras/Cuenta-vecinos.png>
+
+Overfull \vbox (55.2512pt too high) detected at line 327
+ []
+
+[22
+
+]
+File: Figuras/Ejemplo-procesos.png Graphic file (type bmp)
+<Figuras/Ejemplo-procesos.png>
+[23
 
 ]
 File: Figuras/K-Ripley.png Graphic file (type bmp)
 <Figuras/K-Ripley.png>
-[18
+[24
 
 ]
 LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/m/it' will be
-(Font)              scaled to size 8.48953pt on input line 276.
-[19
+(Font)              scaled to size 8.48953pt on input line 355.
+[25
 
-] [20
+] [26
 
 ]
 File: Figuras/Observ.png Graphic file (type bmp)
 <Figuras/Observ.png>
-[21
+[27
 
 ]
 File: Figuras/Bicho.png Graphic file (type bmp)
 <Figuras/Bicho.png>
 
-Overfull \vbox (55.24638pt too high) detected at line 294
+Overfull \vbox (55.24638pt too high) detected at line 373
  []
 
-[22
+[28
 
 ] (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-LatinModernRoman.cfg
 File: mt-LatinModernRoman.cfg 2021/02/21 v1.1 microtype config. file: Latin Mod
 ern Roman (RS)
-) [23
+) [29
 
 ]
 \openout4 = `Particularidades.vrb'.
@@ -1645,7 +1666,7 @@ ern Roman (RS)
 (./Particularidades.vrb
 LaTeX Font Info:    Font shape `TU/FiraMono(0)/b/n' will be
 (Font)              scaled to size 9.20798pt on input line 14.
-) [24
+) [30
 
 ]
 \tf@nav=\write5
@@ -1659,12 +1680,12 @@ LaTeX Font Info:    Font shape `TU/FiraMono(0)/b/n' will be
 
 (./Particularidades.aux) ) 
 Here is how much of TeX's memory you used:
- 33450 strings out of 476191
- 706872 string characters out of 5812072
- 1110655 words of memory out of 5000000
- 53498 multiletter control sequences out of 15000+600000
- 473010 words of font info for 87 fonts, out of 8000000 for 9000
+ 33509 strings out of 476191
+ 708111 string characters out of 5812073
+ 1110966 words of memory out of 5000000
+ 53555 multiletter control sequences out of 15000+600000
+ 473018 words of font info for 88 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  128i,13n,171p,1817b,752s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Particularidades.pdf (24 pages).
+Output written on Particularidades.pdf (30 pages).
