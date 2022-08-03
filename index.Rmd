@@ -32,3 +32,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Aplicaciones
 
 4. [Ecología de nichos en salud pública](Aplicaciones.pdf)
+
+
+
+[Repositorio completo aquí](https://github.com/gerardommc/Curso-modelado-nichos)
