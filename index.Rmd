@@ -12,11 +12,14 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Procesos de puntos
+
+# Introducción
 
 1.  [Generalidades](Generalidades.pdf)
 
 2.  [Particularidades](Particularidades.pdf)
+
+# Métodos
 
 3. Tutorial de spatstat
     - [Básico](Tutorial-spatstat.pdf)
@@ -26,6 +29,6 @@ knitr::opts_chunk$set(echo = TRUE)
         - [Código del tutorial](Tutorial-2.R)
         - [Código de las diapos](Tutorial-spatstat-2.Rmd)
 
-4. Aplicaciones
-    - [Ecología de nichos](Aquí-presentacion.pdf)
-    - [Modelos matemáticos en salud pública](Modelos-ofidismo.pdf)
+# Aplicaciones
+
+4. [Ecología de nichos en salud pública](Aplicaciones.pdf)
