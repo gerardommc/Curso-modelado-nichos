@@ -162,7 +162,7 @@
 
 \begin{frame}{Especificación de un centroide}
 \protect\hypertarget{especificaciuxf3n-de-un-centroide}{}
-\begin{center}\includegraphics[width=13.28in]{Figuras/Centroide} \end{center}
+\begin{center}\includegraphics{Figuras/Centroide} \end{center}
 
 \begin{itemize}
 \tightlist
@@ -445,20 +445,21 @@ En \textbf{R}:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{sum.m1 }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(m1)}
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(sum.m1}\SpecialCharTok{$}\NormalTok{coefs.SE.CI[, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{])}
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(sum.m1}\SpecialCharTok{$}\NormalTok{coefs.SE.CI[, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{longtable}[]{@{}lrrrr@{}}
+\begin{longtable}[]{@{}lrrrrl@{}}
 \toprule()
-& Estimate & S.E. & CI95.lo & CI95.hi \\
+& Estimate & S.E. & CI95.lo & CI95.hi & Ztest \\
 \midrule()
 \endhead
-(Intercept) & -57.0868149 & 16.1815344 & -88.8020396 & -25.3715903 \\
-Var.1 & 0.4649718 & 0.1498312 & 0.1713081 & 0.7586355 \\
-Var.3 & 0.1973027 & 0.0970164 & 0.0071541 & 0.3874513 \\
-I(Var.1\^{}2) & -0.0011954 & 0.0003795 & -0.0019391 & -0.0004517 \\
-I(Var.3\^{}2) & -0.0006754 & 0.0003126 & -0.0012881 & -0.0000626 \\
+(Intercept) & -57.0868149 & 16.1815344 & -88.8020396 & -25.3715903 &
+*** \\
+Var.1 & 0.4649718 & 0.1498312 & 0.1713081 & 0.7586355 & ** \\
+Var.3 & 0.1973027 & 0.0970164 & 0.0071541 & 0.3874513 & * \\
+I(Var.1\^{}2) & -0.0011954 & 0.0003795 & -0.0019391 & -0.0004517 & ** \\
+I(Var.3\^{}2) & -0.0006754 & 0.0003126 & -0.0012881 & -0.0000626 & * \\
 \bottomrule()
 \end{longtable}
 \end{frame}
@@ -601,14 +602,14 @@ espaciales}\label{modelando-los-efectos-espaciales}}
 
 \begin{frame}{¿Qué es interacción?}
 \protect\hypertarget{quuxe9-es-interacciuxf3n}{}
-\begin{center}\includegraphics[width=10.31in]{Figuras/Interaccion-puntos} \end{center}
+\begin{center}\includegraphics{Figuras/Interaccion-puntos} \end{center}
 \end{frame}
 
 \begin{frame}{Tipos de interacciones}
 \protect\hypertarget{tipos-de-interacciones}{}
 \begin{figure}
 
-{\centering \includegraphics[width=15.29in]{Figuras/Tipos-interacciones} 
+{\centering \includegraphics{Figuras/Tipos-interacciones} 
 
 }
 
@@ -618,7 +619,7 @@ espaciales}\label{modelando-los-efectos-espaciales}}
 
 \begin{frame}{Modelos de interacción en \texttt{spatstat}}
 \protect\hypertarget{modelos-de-interacciuxf3n-en-spatstat}{}
-\begin{center}\includegraphics[width=17.28in]{Figuras/Tabla-tipos-interacciones} \end{center}
+\begin{center}\includegraphics{Figuras/Tabla-tipos-interacciones} \end{center}
 \end{frame}
 
 \begin{frame}[fragile]{Para generar un modelo de interacción}

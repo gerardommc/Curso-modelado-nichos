@@ -265,7 +265,7 @@ AIC(m1); AIC(m2); AIC(m3)
 ### El modelo "mejor"
 
 ```{r fig.height=3, fig.width=3, fig.align='center'}
-plot(m3, trend = T, se = F)
+plot(m2, trend = T, se = F)
 ```
 
 # Para concluir

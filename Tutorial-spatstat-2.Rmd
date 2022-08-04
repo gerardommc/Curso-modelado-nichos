@@ -199,7 +199,7 @@ AIC(m1); AIC(m2)
 
 ```{r}
 sum.m1 <- summary(m1)
-knitr::kable(sum.m1$coefs.SE.CI[, 1:4])
+knitr::kable(sum.m1$coefs.SE.CI[, 1:5])
 ```
 
 ### Diagnóstico - Residuales
