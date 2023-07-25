@@ -28,6 +28,8 @@ knitr::opts_chunk$set(echo = TRUE)
     - [Intermedio](Tutorial-spatstat-2.pdf)
         - [Código del tutorial](Tutorial-2.R)
         - [Código de las diapos](Tutorial-spatstat-2.Rmd)
+        
+[Funciones auxiliares de `spatstat`](Funciones-spatstat/)
 
 # Aplicaciones
 
