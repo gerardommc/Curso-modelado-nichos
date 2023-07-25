@@ -28,8 +28,11 @@ knitr::opts_chunk$set(echo = TRUE)
     - [Intermedio](Tutorial-spatstat-2.pdf)
         - [Código del tutorial](Tutorial-2.R)
         - [Código de las diapos](Tutorial-spatstat-2.Rmd)
+    - [Estimación de centroides](Tutorial-centroides.R)
         
-[Funciones auxiliares de `spatstat`](Funciones-spatstat/)
+[Funciones auxiliares de `spatstat`](https://github.com/gerardommc/Curso-modelado-nichos/tree/main/Funciones-spatstat)
+
+[Datos de presencia y ambientales](https://github.com/gerardommc/Curso-modelado-nichos/tree/main/Datos-centroide)
 
 # Aplicaciones
 

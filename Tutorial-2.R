@@ -116,6 +116,12 @@ pred.r <- raster(pred)
 writeRaster(pred.r, "Predicción-m1", "GTiff",
             overwrite = T)
 
+# Calculando centroide
+c1 <- coef(m1)
+
+-c1[2]/(2*c1[4])
+-c1[3]/(2*c1[5])
+centroide
 # Modelando los efectos espaciales
 
 ###Establecer tamaño del búfer
