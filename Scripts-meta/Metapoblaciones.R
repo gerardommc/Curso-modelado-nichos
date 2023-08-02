@@ -1,4 +1,5 @@
-r <- 0.5; mig = 0.15
+r <- rnorm(9, mean = 0.5, 0.5)
+mig = 0.15
 
 set.seed(123)
 

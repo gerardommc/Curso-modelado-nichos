@@ -38,9 +38,11 @@ knitr::opts_chunk$set(echo = TRUE)
         - [Código de las diapos](Tutorial-spatstat-2.Rmd)
     - [Estimación de centroides](Tutorial-centroides.R)
         
-[Funciones auxiliares de `spatstat`](https://github.com/gerardommc/Curso-modelado-nichos/tree/main/Funciones-spatstat)
+[Funciones auxiliares de `spatstat`](Funciones-spatstat.zip)
 
-[Datos de presencia y ambientales](https://github.com/gerardommc/Curso-modelado-nichos/tree/main/Datos-centroide)
+[Covariables del tutorial básico](Covariables.zip)
+
+[Datos de presencia y ambientales](Datos-centroide.zip)
 
 # Aplicaciones
 
