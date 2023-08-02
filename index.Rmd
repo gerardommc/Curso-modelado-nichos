@@ -15,13 +15,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introducción
 
-1.  [Generalidades](Generalidades.pdf)
+1. [Ecología de poblaciones y nichos](13-Poblaciones-nichos-ecologicos)
 
-2.  [Particularidades](Particularidades.pdf)
+    -[Metapoblaciones sólo con K](Scripts-meta/Metapoblaciones.R)
+    
+    -[Metapoblaciones con efecto Allee](Scripts-meta/Metapoblaciones-Allee.R)
+    
+## Sobre procesos de puntos
+
+2.  [Generalidades](Generalidades.pdf)
+
+3.  [Particularidades](Particularidades.pdf)
 
 # Métodos
 
-3. Tutorial de spatstat
+4. Tutorial de spatstat
     - [Básico](Tutorial-spatstat.pdf)
         - [Código del tutorial](Tutorial-1.R)
         - [Código de las diapos](Tutorial-spatstat.Rmd)
@@ -36,7 +44,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Aplicaciones
 
-4. [Ecología de nichos en salud pública](Aplicaciones.pdf)
+5. [Ecología de nichos en salud pública](Aplicaciones.pdf)
 
 
 
