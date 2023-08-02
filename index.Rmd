@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introducción
 
-1. [Ecología de poblaciones y nichos](13-Poblaciones-nichos-ecologicos)
+1. [Ecología de poblaciones y nichos](13-Poblaciones-nichos-ecologicos.pdf)
 
     -[Metapoblaciones sólo con K](Scripts-meta/Metapoblaciones.R)
     
