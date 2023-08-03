@@ -42,11 +42,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [Covariables del tutorial básico](Covariables.zip)
 
-[Datos de presencia y ambientales](Datos-centroide.zip)
-
 # Aplicaciones
 
-5. [Ecología de nichos en salud pública](Aplicaciones.pdf)
+5. [Estimación de centroides con PPMs y MVE](14-Centroides-PPMs.pdf)
+
+    - [Tutorial](Tutorial-centroides.R)
+    
+    - [Datos de presencia y ambientales](Datos-centroide.zip)
+
+6. [Ecología de nichos en salud pública](Aplicaciones.pdf)
 
 
 
