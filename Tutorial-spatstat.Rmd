@@ -74,8 +74,7 @@ library(spatstat)
 Necesitamos también (para leer raster de covariables):
 
 ```{r echo=TRUE, message=FALSE, warning=F}
-library(rgdal)
-library(raster)
+library(terra)
 library(foreach)
 ```
 
@@ -91,7 +90,7 @@ library(foreach)
 archivos <- list.files("Datos-ejemplos/", "tif", 
                        full.names = T, 
                        recursive = F)
-r <- stack(archivos)
+r <- rast(archivos)
 ```
 
 ```{r echo=T, fig.height=3, fig.width=3, fig.align='center'}
@@ -105,7 +104,7 @@ Si hacemos:
 class(r)
 ```
 
-vemos que el tipo de objeto es `raster`, pero `spastat` utiliza `im`
+vemos que el tipo de objeto es `SpatRaster`, pero `spastat` utiliza `im`
 
 Transformación en lote con [`imFromStack`](Funciones-spatstat/imFromStack.R)
 
@@ -129,8 +128,7 @@ class(r.im)
 Cálculo de intensidad se hace con la "ventana". Utilizaremos la función [`winFromRaster`](Funciones-spatstat/winFromRaster.R):
 
 ```{r}
-source("Funciones-spatstat/winFromRaster.R")
-w <- winFromRaster(r)
+w <- as.owin(r.im[[1]])
 ```
 
 Para verificar la clase del objeto:
@@ -145,7 +143,7 @@ Vamos a simular las coordenadas $x$ y $y$ de un proceso de puntos:
 
 ```{r}
 set.seed(984573)
-puntos <- data.frame(coordinates(r)[sample(1:840, 200),])
+puntos <- as.data.frame(r, xy = T)[sample(1:840, 200),]
 puntos$x <- puntos$x + rnorm(200, 0, 0.05)
 puntos$y <- puntos$y + rnorm(200, 0, 0.05)
 ```
@@ -234,6 +232,7 @@ plotQuantIntens(imList = r.im,
 Se usa función `ppm`
 
 ```{r}
+names(r.im) <- paste("Var", 1:3, sep = ".")
 m1 <- ppm(Q = puntos.ppp,
           trend = ~ Var.1,
           covariates = r.im)

@@ -1,7 +1,7 @@
 imFromStack <- function(r){
     require(spatstat); require(foreach)
     
-    r.df <- data.frame(rasterToPoints(r))
+    r.df <- as.data.frame(r, xy = T)
     
     ux = sort(unique(r.df$x)) #Extracting unique coordinates
     uy = sort(unique(r.df$y))

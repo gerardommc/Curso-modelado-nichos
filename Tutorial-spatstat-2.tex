@@ -45,18 +45,21 @@
   \frame{\subsectionpage}
 }
 \usepackage{amsmath,amssymb}
-\usepackage{lmodern}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
+\usepackage{lmodern}
 \usetheme[]{metropolis}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
@@ -86,7 +89,7 @@
 \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
 \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
 \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
-\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
 \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
 \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
 \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
@@ -99,7 +102,7 @@
 \newcommand{\ExtensionTok}[1]{#1}
 \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
 \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
-\newcommand{\ImportTok}[1]{#1}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{\textbf{#1}}}
 \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
 \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
 \newcommand{\NormalTok}[1]{#1}
@@ -142,7 +145,7 @@
 \fi
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={Análisis de presencias con procesos de puntos},
   pdfauthor={Gerardo Martín},
@@ -162,7 +165,7 @@
 
 \begin{frame}{Especificación de un centroide}
 \protect\hypertarget{especificaciuxf3n-de-un-centroide}{}
-\begin{center}\includegraphics{Figuras/Centroide} \end{center}
+\begin{center}\includegraphics[width=13.28in]{Figuras/Centroide} \end{center}
 
 \begin{itemize}
 \tightlist
@@ -177,16 +180,17 @@
 \protect\hypertarget{cuxf3digo---generando-favorabilidad-verdadera}{}
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{centroide }\OtherTok{\textless{}{-}} \FunctionTok{cellStats}\NormalTok{(r, mean)}
-\NormalTok{r.df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{rasterToPoints}\NormalTok{(r))}
+\NormalTok{centroide }\OtherTok{\textless{}{-}} \FunctionTok{global}\NormalTok{(r, mean)}
+\NormalTok{r.df }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(r, }\AttributeTok{xy =}\NormalTok{ T)}
 \NormalTok{covar }\OtherTok{\textless{}{-}} \FunctionTok{cov}\NormalTok{(r.df[, }\DecValTok{3}\SpecialCharTok{:}\DecValTok{5}\NormalTok{])}
-\NormalTok{md }\OtherTok{\textless{}{-}} \FunctionTok{mahalanobis}\NormalTok{(r.df[, }\DecValTok{3}\SpecialCharTok{:}\DecValTok{5}\NormalTok{], }\AttributeTok{center =}\NormalTok{ centroide, }\AttributeTok{cov =}\NormalTok{ covar)}
+\NormalTok{md }\OtherTok{\textless{}{-}} \FunctionTok{mahalanobis}\NormalTok{(r.df[, }\DecValTok{3}\SpecialCharTok{:}\DecValTok{5}\NormalTok{], }\AttributeTok{center =}\NormalTok{ centroide}\SpecialCharTok{$}\NormalTok{mean, }\AttributeTok{cov =}\NormalTok{ covar)}
 \FunctionTok{head}\NormalTok{(md)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 5.846738 6.383437 6.443874 7.296541 6.475630 6.066614
+##        1        2        3        4        5        6 
+## 5.846738 6.383437 6.443874 7.296541 6.475630 6.066614
 \end{verbatim}
 \end{frame}
 
@@ -194,7 +198,7 @@
 \protect\hypertarget{cuxf3digo---viendo-la-favorabilidad}{}
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{md.r }\OtherTok{\textless{}{-}} \FunctionTok{rasterFromXYZ}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(r.df[, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{], md))}
+\NormalTok{md.r }\OtherTok{\textless{}{-}} \FunctionTok{rast}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(r.df[, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{], md))}
 \NormalTok{md.exp }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{0.5}\SpecialCharTok{*}\NormalTok{md.r)}
 \FunctionTok{plot}\NormalTok{(md.exp)}
 \end{Highlighting}
@@ -208,10 +212,8 @@
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{set.seed}\NormalTok{(}\DecValTok{182}\NormalTok{)}
-\NormalTok{puntos}\FloatTok{.2} \OtherTok{\textless{}{-}}\NormalTok{ dismo}\SpecialCharTok{::}\FunctionTok{randomPoints}\NormalTok{(}\AttributeTok{mask =}\NormalTok{ md.exp,}
-                                \AttributeTok{n =} \DecValTok{200}\NormalTok{,}
-                                \AttributeTok{prob =}\NormalTok{ T)}
-\NormalTok{puntos}\FloatTok{.2} \OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(puntos}\FloatTok{.2}\NormalTok{)}
+\NormalTok{sam }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(r.df), }\DecValTok{200}\NormalTok{, }\AttributeTok{prob =} \FunctionTok{exp}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{0.5}\SpecialCharTok{*}\NormalTok{md))}
+\NormalTok{puntos}\FloatTok{.2} \OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(r.df[, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{][sam,])}
 \NormalTok{puntos}\FloatTok{.2}\SpecialCharTok{$}\NormalTok{x }\OtherTok{\textless{}{-}}\NormalTok{ puntos}\FloatTok{.2}\SpecialCharTok{$}\NormalTok{x }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{200}\NormalTok{, }\DecValTok{0}\NormalTok{, }\FloatTok{0.05}\NormalTok{)}
 \NormalTok{puntos}\FloatTok{.2}\SpecialCharTok{$}\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ puntos}\FloatTok{.2}\SpecialCharTok{$}\NormalTok{y }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{200}\NormalTok{, }\DecValTok{0}\NormalTok{, }\FloatTok{0.05}\NormalTok{)}
 \end{Highlighting}
@@ -248,7 +250,8 @@
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{r.im }\OtherTok{\textless{}{-}} \FunctionTok{imFromStack}\NormalTok{(r)}
-\NormalTok{w }\OtherTok{\textless{}{-}} \FunctionTok{winFromRaster}\NormalTok{(r)}
+\FunctionTok{names}\NormalTok{(r.im) }\OtherTok{\textless{}{-}} \FunctionTok{paste}\NormalTok{(}\StringTok{"Var"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, }\AttributeTok{sep =} \StringTok{"."}\NormalTok{)}
+\NormalTok{w }\OtherTok{\textless{}{-}} \FunctionTok{as.owin}\NormalTok{(r.im[[}\DecValTok{1}\NormalTok{]])}
 \NormalTok{puntos.}\FloatTok{2.}\NormalTok{ppp }\OtherTok{\textless{}{-}} \FunctionTok{ppp}\NormalTok{(}\AttributeTok{x =}\NormalTok{ puntos}\FloatTok{.2}\SpecialCharTok{$}\NormalTok{x,}
                   \AttributeTok{y =}\NormalTok{ puntos}\FloatTok{.2}\SpecialCharTok{$}\NormalTok{y,}
                   \AttributeTok{window =}\NormalTok{ w,}
@@ -271,7 +274,9 @@
 
 \begin{verbatim}
 ## Generating 39 simulations of CSR  ...
-## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,  39.
+## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+## 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 
+## 39.
 ## 
 ## Done.
 \end{verbatim}
@@ -365,20 +370,6 @@ modelo?}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## Warning in graphics::par(usr): argument 1 does not name a graphical parameter
-
-## Warning in graphics::par(usr): argument 1 does not name a graphical parameter
-
-## Warning in graphics::par(usr): argument 1 does not name a graphical parameter
-
-## Warning in graphics::par(usr): argument 1 does not name a graphical parameter
-
-## Warning in graphics::par(usr): argument 1 does not name a graphical parameter
-
-## Warning in graphics::par(usr): argument 1 does not name a graphical parameter
-\end{verbatim}
-
 \begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-13-1} \end{center}
 \end{frame}
 
@@ -432,11 +423,11 @@ En \textbf{R}:
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -473.2666
+## [1] -509.172
 \end{verbatim}
 
 \begin{verbatim}
-## [1] -468.7745
+## [1] -521.2113
 \end{verbatim}
 \end{frame}
 
@@ -450,17 +441,18 @@ En \textbf{R}:
 \end{Shaded}
 
 \begin{longtable}[]{@{}lrrrrl@{}}
-\toprule()
+\toprule\noalign{}
 & Estimate & S.E. & CI95.lo & CI95.hi & Ztest \\
-\midrule()
+\midrule\noalign{}
 \endhead
-(Intercept) & -57.0868149 & 16.1815344 & -88.8020396 & -25.3715903 &
+(Intercept) & 2.7089019 & 0.1116046 & 2.4901610 & 2.9276429 & *** \\
+Var.1 & 0.1163265 & 0.0883434 & -0.0568233 & 0.2894764 & \\
+Var.3 & -0.2208983 & 0.1118989 & -0.4402161 & -0.0015805 & * \\
+I(Var.1\^{}2) & -0.3046825 & 0.0875528 & -0.4762828 & -0.1330821 &
 *** \\
-Var.1 & 0.4649718 & 0.1498312 & 0.1713081 & 0.7586355 & ** \\
-Var.3 & 0.1973027 & 0.0970164 & 0.0071541 & 0.3874513 & * \\
-I(Var.1\^{}2) & -0.0011954 & 0.0003795 & -0.0019391 & -0.0004517 & ** \\
-I(Var.3\^{}2) & -0.0006754 & 0.0003126 & -0.0012881 & -0.0000626 & * \\
-\bottomrule()
+I(Var.3\^{}2) & -0.5240862 & 0.1173717 & -0.7541304 & -0.2940420 &
+*** \\
+\bottomrule\noalign{}
 \end{longtable}
 \end{frame}
 
@@ -498,7 +490,9 @@ I(Var.3\^{}2) & -0.0006754 & 0.0003126 & -0.0012881 & -0.0000626 & * \\
 
 \begin{verbatim}
 ## Generating 39 simulated realisations of fitted Poisson model  ...
-## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,  39.
+## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+## 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 
+## 39.
 ## 
 ## Done.
 \end{verbatim}
@@ -511,7 +505,9 @@ I(Var.3\^{}2) & -0.0006754 & 0.0003126 & -0.0012881 & -0.0000626 & * \\
 
 \begin{verbatim}
 ## Generating 39 simulated realisations of fitted Poisson model  ...
-## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,  39.
+## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+## 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 
+## 39.
 ## 
 ## Done.
 \end{verbatim}
@@ -576,8 +572,8 @@ I(Var.3\^{}2) & -0.0006754 & 0.0003126 & -0.0012881 & -0.0000626 & * \\
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(m1)}
-\NormalTok{pred.r }\OtherTok{\textless{}{-}} \FunctionTok{raster}\NormalTok{(pred)}
-\FunctionTok{writeRaster}\NormalTok{(pred.r, }\StringTok{"Predicción{-}m1"}\NormalTok{, }\StringTok{"GTiff"}\NormalTok{,}
+\NormalTok{pred.r }\OtherTok{\textless{}{-}} \FunctionTok{rast}\NormalTok{(pred)}
+\FunctionTok{writeRaster}\NormalTok{(pred.r, }\StringTok{"Predicción{-}m1.tif"}\NormalTok{,}
             \AttributeTok{overwrite =}\NormalTok{ T)}
 \end{Highlighting}
 \end{Shaded}
@@ -602,14 +598,14 @@ espaciales}\label{modelando-los-efectos-espaciales}}
 
 \begin{frame}{¿Qué es interacción?}
 \protect\hypertarget{quuxe9-es-interacciuxf3n}{}
-\begin{center}\includegraphics{Figuras/Interaccion-puntos} \end{center}
+\begin{center}\includegraphics[width=10.31in]{Figuras/Interaccion-puntos} \end{center}
 \end{frame}
 
 \begin{frame}{Tipos de interacciones}
 \protect\hypertarget{tipos-de-interacciones}{}
 \begin{figure}
 
-{\centering \includegraphics{Figuras/Tipos-interacciones} 
+{\centering \includegraphics[width=15.29in]{Figuras/Tipos-interacciones} 
 
 }
 
@@ -619,7 +615,7 @@ espaciales}\label{modelando-los-efectos-espaciales}}
 
 \begin{frame}{Modelos de interacción en \texttt{spatstat}}
 \protect\hypertarget{modelos-de-interacciuxf3n-en-spatstat}{}
-\begin{center}\includegraphics{Figuras/Tabla-tipos-interacciones} \end{center}
+\begin{center}\includegraphics[width=17.28in]{Figuras/Tabla-tipos-interacciones} \end{center}
 \end{frame}
 
 \begin{frame}[fragile]{Para generar un modelo de interacción}
@@ -635,7 +631,7 @@ espaciales}\label{modelando-los-efectos-espaciales}}
 \NormalTok{rr }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{r=}\FunctionTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{,}\AttributeTok{by=}\DecValTok{1}\NormalTok{))}
 \NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{profilepl}\NormalTok{(rr, Strauss, }
 \NormalTok{               puntos.}\FloatTok{2.}\NormalTok{ppp }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Var}\FloatTok{.1} \SpecialCharTok{+}\NormalTok{ Var}\FloatTok{.3} \SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.1}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.3}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{),}
-          \AttributeTok{covariates =}\NormalTok{ r.im, }\AttributeTok{aic=}\NormalTok{T, }\AttributeTok{rbord =} \FloatTok{0.5}\NormalTok{)}
+          \AttributeTok{covariates =}\NormalTok{ r.im, }\AttributeTok{aic=}\NormalTok{F, }\AttributeTok{rbord =} \FloatTok{0.1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -644,7 +640,8 @@ espaciales}\label{modelando-los-efectos-espaciales}}
 \end{verbatim}
 
 \begin{verbatim}
-## 1, 2, 3, 4,  5.
+## 1, 2, 3, 4, 
+## 5.
 \end{verbatim}
 
 \begin{verbatim}
@@ -677,7 +674,7 @@ modelo de interacción con la fórmula de m1 es:
 \NormalTok{m1.int }\OtherTok{\textless{}{-}} \FunctionTok{ppm}\NormalTok{(}\AttributeTok{Q =}\NormalTok{ puntos.}\FloatTok{2.}\NormalTok{ppp,}
           \AttributeTok{trend =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Var}\FloatTok{.2} \SpecialCharTok{+}\NormalTok{ Var}\FloatTok{.3} \SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.2}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.3}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{),}
           \AttributeTok{covariates =}\NormalTok{ r.im,}
-          \FunctionTok{Strauss}\NormalTok{(p}\SpecialCharTok{$}\NormalTok{iopt), }\AttributeTok{rbord =} \DecValTok{1}\NormalTok{) }\CommentTok{\#Interacción}
+          \FunctionTok{AreaInter}\NormalTok{(rr}\SpecialCharTok{$}\NormalTok{r[p}\SpecialCharTok{$}\NormalTok{iopt]), }\AttributeTok{rbord =} \FloatTok{0.1}\NormalTok{) }\CommentTok{\#Interacción}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
@@ -690,20 +687,6 @@ modelo de interacción con la fórmula de m1 es:
 \NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(sum.int}\SpecialCharTok{$}\NormalTok{coefs.SE.CI[, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{longtable}[]{@{}lrrrr@{}}
-\toprule()
-& Estimate & S.E. & CI95.lo & CI95.hi \\
-\midrule()
-\endhead
-(Intercept) & -68.4382995 & 38.7998381 & -144.4845847 & 7.6079858 \\
-Var.2 & 0.5668834 & 0.2965100 & -0.0142655 & 1.1480322 \\
-Var.3 & 0.5331550 & 0.4226373 & -0.2951989 & 1.3615089 \\
-I(Var.2\^{}2) & -0.0024765 & 0.0012598 & -0.0049457 & -0.0000074 \\
-I(Var.3\^{}2) & -0.0017398 & 0.0014341 & -0.0045507 & 0.0010710 \\
-Interaction & -0.0127375 & 0.0102314 & -0.0327907 & 0.0073157 \\
-\bottomrule()
-\end{longtable}
 \end{frame}
 
 \begin{frame}[fragile]{Efectos estimados - comparación}
@@ -715,8 +698,8 @@ Interaction & -0.0127375 & 0.0102314 & -0.0327907 & 0.0073157 \\
 \end{Shaded}
 
 \begin{verbatim}
-##   (Intercept)         Var.1         Var.3    I(Var.1^2)    I(Var.3^2) 
-## -5.708681e+01  4.649718e-01  1.973027e-01 -1.195420e-03 -6.753759e-04
+## (Intercept)       Var.1       Var.3  I(Var.1^2)  I(Var.3^2) 
+##   2.7089019   0.1163265  -0.2208983  -0.3046825  -0.5240862
 \end{verbatim}
 
 \begin{Shaded}
@@ -726,10 +709,8 @@ Interaction & -0.0127375 & 0.0102314 & -0.0327907 & 0.0073157 \\
 \end{Shaded}
 
 \begin{verbatim}
-##   (Intercept)         Var.2         Var.3    I(Var.2^2)    I(Var.3^2) 
-## -68.438299459   0.566883377   0.533154977  -0.002476525  -0.001739840 
-##   Interaction 
-##  -0.012737533
+## (Intercept)       Var.2       Var.3  I(Var.2^2)  I(Var.3^2) Interaction 
+##  2.87549775  0.08478505 -0.00164637 -0.42014097 -0.52671442          NA
 \end{verbatim}
 \end{frame}
 
@@ -743,7 +724,9 @@ Interaction & -0.0127375 & 0.0102314 & -0.0327907 & 0.0073157 \\
 
 \begin{verbatim}
 ## Generating 39 simulated realisations of fitted Gibbs model  ...
-## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,  39.
+## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+## 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 
+## 39.
 ## 
 ## Done.
 \end{verbatim}
@@ -828,10 +811,9 @@ el píxel \(i\) es \(\exp(\alpha + G(u_i))\)
 \NormalTok{m1.lgcp }\OtherTok{\textless{}{-}} \FunctionTok{kppm}\NormalTok{(puntos.}\FloatTok{2.}\NormalTok{ppp,}
                 \AttributeTok{trend =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Var}\FloatTok{.2} \SpecialCharTok{+}\NormalTok{ Var}\FloatTok{.3} \SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.2}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.3}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{),}
                 \AttributeTok{covariates =}\NormalTok{ r.im,}
-                \AttributeTok{clusters =} \StringTok{"Thomas"}\NormalTok{,}
+                \AttributeTok{clusters =} \StringTok{"LGCP"}\NormalTok{,}
                 \AttributeTok{statistic =} \StringTok{"K"}\NormalTok{, }\CommentTok{\# K de Ripley}
-                \AttributeTok{method =} \StringTok{"clik2"}\NormalTok{, }\CommentTok{\# Contraste con K}
-                \AttributeTok{model =} \StringTok{"exp"}\NormalTok{) }\CommentTok{\# Modelo de varianza}
+                \AttributeTok{method =} \StringTok{"mincon"}\NormalTok{) }\CommentTok{\# Modelo de varianza}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
@@ -846,16 +828,16 @@ el píxel \(i\) es \(\exp(\alpha + G(u_i))\)
 \end{Shaded}
 
 \begin{longtable}[]{@{}lrrrr@{}}
-\toprule()
+\toprule\noalign{}
 & Estimate & S.E. & CI95.lo & CI95.hi \\
-\midrule()
+\midrule\noalign{}
 \endhead
-(Intercept) & -32.6841705 & 10.0403861 & -52.3629657 & -13.0053753 \\
-Var.2 & 0.2686269 & 0.0933978 & 0.0855706 & 0.4516833 \\
-Var.3 & 0.2552085 & 0.0994261 & 0.0603370 & 0.4500800 \\
-I(Var.2\^{}2) & -0.0011466 & 0.0003974 & -0.0019254 & -0.0003678 \\
-I(Var.3\^{}2) & -0.0008349 & 0.0003187 & -0.0014595 & -0.0002102 \\
-\bottomrule()
+(Intercept) & 2.8710581 & 0.3194624 & 2.2449234 & 3.4971929 \\
+Var.2 & 0.1113775 & 0.0921967 & -0.0693247 & 0.2920797 \\
+Var.3 & 0.0049808 & 0.1157026 & -0.2217922 & 0.2317538 \\
+I(Var.2\^{}2) & -0.4756438 & 0.1028281 & -0.6771832 & -0.2741044 \\
+I(Var.3\^{}2) & -0.5258717 & 0.1119727 & -0.7453342 & -0.3064093 \\
+\bottomrule\noalign{}
 \end{longtable}
 \end{frame}
 
@@ -868,16 +850,16 @@ I(Var.3\^{}2) & -0.0008349 & 0.0003187 & -0.0014595 & -0.0002102 \\
 \end{Shaded}
 
 \begin{longtable}[]{@{}lrrrr@{}}
-\toprule()
+\toprule\noalign{}
 & Estimate & S.E. & CI95.lo & CI95.hi \\
-\midrule()
+\midrule\noalign{}
 \endhead
-(Intercept) & -57.0868149 & 16.1815344 & -88.8020396 & -25.3715903 \\
-Var.1 & 0.4649718 & 0.1498312 & 0.1713081 & 0.7586355 \\
-Var.3 & 0.1973027 & 0.0970164 & 0.0071541 & 0.3874513 \\
-I(Var.1\^{}2) & -0.0011954 & 0.0003795 & -0.0019391 & -0.0004517 \\
-I(Var.3\^{}2) & -0.0006754 & 0.0003126 & -0.0012881 & -0.0000626 \\
-\bottomrule()
+(Intercept) & 2.7089019 & 0.1116046 & 2.4901610 & 2.9276429 \\
+Var.1 & 0.1163265 & 0.0883434 & -0.0568233 & 0.2894764 \\
+Var.3 & -0.2208983 & 0.1118989 & -0.4402161 & -0.0015805 \\
+I(Var.1\^{}2) & -0.3046825 & 0.0875528 & -0.4762828 & -0.1330821 \\
+I(Var.3\^{}2) & -0.5240862 & 0.1173717 & -0.7541304 & -0.2940420 \\
+\bottomrule\noalign{}
 \end{longtable}
 \end{frame}
 
@@ -885,7 +867,10 @@ I(Var.3\^{}2) & -0.0006754 & 0.0003126 & -0.0012881 & -0.0000626 \\
 \protect\hypertarget{predicciones}{}
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(m1.lgcp, }\AttributeTok{what =} \StringTok{"intensity"}\NormalTok{)}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(m2, }\AttributeTok{se =}\NormalTok{ F, }\AttributeTok{trend =}\NormalTok{ T, }\AttributeTok{main =} \StringTok{"Poisson"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(m1.int, }\AttributeTok{se =}\NormalTok{ F, }\AttributeTok{trend =}\NormalTok{ T, }\AttributeTok{cif =}\NormalTok{ F, }\AttributeTok{main =} \StringTok{"Interacción"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(m1.lgcp, }\AttributeTok{what =} \StringTok{"intensity"}\NormalTok{, }\AttributeTok{main =} \StringTok{"LGCP"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -902,7 +887,9 @@ I(Var.3\^{}2) & -0.0006754 & 0.0003126 & -0.0012881 & -0.0000626 \\
 
 \begin{verbatim}
 ## Generating 39 simulated realisations of fitted cluster model  ...
-## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,  39.
+## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+## 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 
+## 39.
 ## 
 ## Done.
 \end{verbatim}

@@ -35,26 +35,27 @@ knitr::include_graphics("Figuras/Centroide.png")
 ### Código - generando favorabilidad "verdadera"
 
 ```{r echo = F, message=F, warning=F}
-library(raster); library(rgdal); library(foreach); library(spatstat)
+library(terra); library(foreach); library(spatstat)
 
-archivos <- list.files("Datos-ejemplos/", "tif", 
+archivos <- list.files("Datos-ejemplos", "tif", 
                        full.names = T, 
                        recursive = F)
-r <- stack(archivos)
+r <- rast(archivos)
+r <- scale(r)
 ```
 
 ```{r}
-centroide <- cellStats(r, mean)
-r.df <- data.frame(rasterToPoints(r))
+centroide <- global(r, mean)
+r.df <- as.data.frame(r, xy = T)
 covar <- cov(r.df[, 3:5])
-md <- mahalanobis(r.df[, 3:5], center = centroide, cov = covar)
+md <- mahalanobis(r.df[, 3:5], center = centroide$mean, cov = covar)
 head(md)
 ```
 
 ### Código - viendo la favorabilidad
 
 ```{r fig.height=4, fig.width=4, fig.align='center'}
-md.r <- rasterFromXYZ(data.frame(r.df[, 1:2], md))
+md.r <- rast(data.frame(r.df[, 1:2], md))
 md.exp <- exp(-0.5*md.r)
 plot(md.exp)
 ```
@@ -63,10 +64,8 @@ plot(md.exp)
 
 ```{r warning = F, message=FALSE, results= "hide"}
 set.seed(182)
-puntos.2 <- dismo::randomPoints(mask = md.exp,
-                                n = 200,
-                                prob = T)
-puntos.2 <- data.frame(puntos.2)
+sam <- sample(1:nrow(r.df), 200, prob = exp(-0.5*md))
+puntos.2 <- data.frame(r.df[, 1:2][sam,])
 puntos.2$x <- puntos.2$x + rnorm(200, 0, 0.05)
 puntos.2$y <- puntos.2$y + rnorm(200, 0, 0.05)
 ```
@@ -91,7 +90,8 @@ source("Funciones-spatstat/plotQuantIntens.R")
 
 ```{r}
 r.im <- imFromStack(r)
-w <- winFromRaster(r)
+names(r.im) <- paste("Var", 1:3, sep = ".")
+w <- as.owin(r.im[[1]])
 puntos.2.ppp <- ppp(x = puntos.2$x,
                   y = puntos.2$y,
                   window = w,
@@ -251,8 +251,8 @@ plot(m1, se = F, main = "")
 
 ```{r warning = F, message=F, results = "hide"}
 pred <- predict(m1)
-pred.r <- raster(pred)
-writeRaster(pred.r, "Predicción-m1", "GTiff",
+pred.r <- rast(pred)
+writeRaster(pred.r, "Predicción-m1.tif",
             overwrite = T)
 ```
 
@@ -290,7 +290,7 @@ knitr::include_graphics("Figuras/Tabla-tipos-interacciones.png")
 rr <- data.frame(r=seq(1,5,by=1))
 p <- profilepl(rr, Strauss, 
                puntos.2.ppp ~ Var.1 + Var.3 + I(Var.1^2) + I(Var.3^2),
-          covariates = r.im, aic=T, rbord = 0.5)
+          covariates = r.im, aic=F, rbord = 0.1)
 ```
 ### Para generar un modelo de interacción
 
@@ -306,7 +306,7 @@ Un radio de tamaño 2 minimiza la pseudo-verosimilitud, de modo que el modelo de
 m1.int <- ppm(Q = puntos.2.ppp,
           trend = ~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2),
           covariates = r.im,
-          Strauss(p$iopt), rbord = 1) #Interacción
+          AreaInter(rr$r[p$iopt]), rbord = 0.1) #Interacción
 ```
 
 ### Efectos estimados
@@ -338,7 +338,9 @@ plot(K.int)
 ### Favorabilidad
 
 ```{r echo=F, fig.align="center", fig.height=4, fig.width=4}
-plot(m1.int, se = F, trend = T, cif = F)
+par(mfrow = c(1, 2))
+plot(m1, se = F, trend = T, main = "Poisson")
+plot(m1.int, se = F, trend = T, cif = F, main = "Interacción")
 ```
 
 # Proceso Cox log-Gaussiano
@@ -378,10 +380,9 @@ $$\log \lambda_i = \alpha + \beta_1 x_{1,i} + \dots + G(u_i, v_i)$$
 m1.lgcp <- kppm(puntos.2.ppp,
                 trend = ~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2),
                 covariates = r.im,
-                clusters = "Thomas",
+                clusters = "LGCP",
                 statistic = "K", # K de Ripley
-                method = "clik2", # Contraste con K
-                model = "exp") # Modelo de varianza
+                method = "mincon") # Modelo de varianza
 ```
 
 ### Ajustando un LGCP con `spatstat`
@@ -400,7 +401,10 @@ knitr::kable(sum.m1$coefs.SE.CI[, c(1, 2, 3, 4)])
 ### Predicciones 
 
 ```{r fig.height=4, fig.width=4, message=FALSE, warning=FALSE, fig.align="center"}
-plot(m1.lgcp, what = "intensity")
+par(mfrow = c(1, 3))
+plot(m2, se = F, trend = T, main = "Poisson")
+plot(m1.int, se = F, trend = T, cif = F, main = "Interacción")
+plot(m1.lgcp, what = "intensity", main = "LGCP")
 ```
 
 ### Diagnóstico
