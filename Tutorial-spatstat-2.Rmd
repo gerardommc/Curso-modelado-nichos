@@ -48,13 +48,14 @@ r <- scale(r)
 centroide <- global(r, mean)
 r.df <- as.data.frame(r, xy = T)
 covar <- cov(r.df[, 3:5])
-md <- mahalanobis(r.df[, 3:5], center = centroide$mean, cov = covar)
+md <- mahalanobis(r.df[, 3:5], center = centroide$mean, 
+                  cov = covar)
 head(md)
 ```
 
 ### Código - viendo la favorabilidad
 
-```{r fig.height=4, fig.width=4, fig.align='center'}
+```{r fig.height=3.5, fig.width=3.5, fig.align='center'}
 md.r <- rast(data.frame(r.df[, 1:2], md))
 md.exp <- exp(-0.5*md.r)
 plot(md.exp)
@@ -72,7 +73,7 @@ puntos.2$y <- puntos.2$y + rnorm(200, 0, 0.05)
 
 ### Código - favorabilidad y puntos
 
-```{r echo=T, fig.height=4, fig.width=4, fig.align='center'}
+```{r echo=T, fig.height=3.5, fig.width=3.5, fig.align='center'}
 plot(md.exp); points(puntos.2)
 ```
 
@@ -82,7 +83,6 @@ plot(md.exp); points(puntos.2)
 
 ```{r}
 source("Funciones-spatstat/imFromStack.R")
-source("Funciones-spatstat/winFromRaster.R")
 source("Funciones-spatstat/plotQuantIntens.R")
 ```
 
@@ -103,25 +103,56 @@ Q <- pixelquad(X = puntos.2.ppp, W = as.owin(w))
 
 ### Autocorrelación
 
-```{r}
+Función de *K* de Ripley
+
+1. Número promedio de vecinos como función de la distancia a cada punto:
+
+```{r echo = F, fig.width=3.5, fig.height=3.5, fig.cap = "Buffers  de 0.1 a 0.5° alrededor de cada punto. El número de vecinos se cuenta por puntos dentro de cada buffer.", fig.align='center'}
+puntos.v <- vect(data.frame(lon = puntos.2$x, lat = puntos.2$y)[1:15, ])
+b <- lapply(seq(0.1, 0.5, by = 0.1), function(x){buffer(puntos.v, x)})
+plot(puntos.v, pch = 20, cex = 0.5, col = "red")
+for(i in seq_along(b)){lines(b[[i]], col = "grey")} 
+```
+### Los datos
+
+```{r echo = F}
+no.vec <- data.frame(Radio = seq(0.1, 0.5, by = 0.1),
+                     Vecinos = c(0, 1/15, 3/15, 4/15, 4/15))
+knitr::kable(no.vec)
+```
+
+### Representación gráfica
+
+```{r echo = F, fig.width=4, fig.height=3.5, fig.align="center"}
+plot(Vecinos ~ Radio, data = no.vec, type = "s")
+```
+###  Implementación en spatstat
+
+```{r results='hide'}
 K <- envelope(puntos.2.ppp, fun = Kest, nsim = 39)
 ```
 
-### Autocorrelación
+Para estimar significancia hace un muestreo aleatorios de punto, de ahí que haya que especificar el número de simulaciones (`nsim = 39`).
 
-```{r echo = F, fig.height=4, fig.width=4, fig.align='center'}
+### Interpretación gráfica 
+
+```{r echo = F, fig.height=3.5, fig.width=4, fig.align='center'}
 plot(K)
 ```
 
 ### Autocorrelación - notas
 
-1.  Pareciera que el proceso está levemente autocorrelacionado
+1.  El proceso está levemente autocorrelacionado
+
+    - Veremos si la correlación presente es explicada por factores ambientales
+
 2.  No sabemos de momento si afectará al modelo
-3.  Debemos poner atención al modelo ajustado
+
+# Análisis 2.0
 
 ### Respuestas a variables
 
-```{r}
+```{r results = "hide", message=FALSE, warning=FALSE}
 plotQuantIntens(imList = r.im,
                 noCuts = 5,
                 Quad = Q,
