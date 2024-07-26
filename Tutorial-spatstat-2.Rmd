@@ -32,49 +32,32 @@ knitr::include_graphics("Figuras/Centroide.png")
 -   Abundancia alcanza un máximo y disminuye
 -   Modelos más complicados con varias variables
 
-### Código - generando favorabilidad "verdadera"
+# Análisis 2
+
+### Importando y escalando datos y covariables
 
 ```{r echo = F, message=F, warning=F}
 library(terra); library(foreach); library(spatstat)
 
-archivos <- list.files("Datos-ejemplos", "tif", 
-                       full.names = T, 
-                       recursive = F)
-r <- rast(archivos)
-r <- scale(r)
+r <- aggregate(rast("Datos/Bioclim-CHELSA.tif"), 2) 
+r <- round(scale(r), 2)
+
+puntos <- read.csv("Datos/Puntos.csv")[sample(1:6000, 200), ]
 ```
 
-```{r}
-centroide <- global(r, mean)
-r.df <- as.data.frame(r, xy = T)
-covar <- cov(r.df[, 3:5])
-md <- mahalanobis(r.df[, 3:5], center = centroide$mean, 
-                  cov = covar)
-head(md)
-```
+- `aggregate` disminuye la resolución por el factor indicado
+
+- `round` redondea los valores con el número de decimales
+
+- **Estos pasos no son enteramente necesarios en un análisis real, los hacemos para disminuir tiempo de cómputo**
 
 ### Código - viendo la favorabilidad
 
-```{r fig.height=3.5, fig.width=3.5, fig.align='center'}
-md.r <- rast(data.frame(r.df[, 1:2], md))
-md.exp <- exp(-0.5*md.r)
-plot(md.exp)
-```
-
-### Código - simulando los puntos
-
-```{r warning = F, message=FALSE, results= "hide"}
-set.seed(182)
-sam <- sample(1:nrow(r.df), 200, prob = exp(-0.5*md))
-puntos.2 <- data.frame(r.df[, 1:2][sam,])
-puntos.2$x <- puntos.2$x + rnorm(200, 0, 0.05)
-puntos.2$y <- puntos.2$y + rnorm(200, 0, 0.05)
-```
-
-### Código - favorabilidad y puntos
-
-```{r echo=T, fig.height=3.5, fig.width=3.5, fig.align='center'}
-plot(md.exp); points(puntos.2)
+```{r fig.height=3.5, fig.width=7, fig.align='center', echo = F}
+fav.real <- rast("Datos/Fav-real.tif")
+par(mfrow = c(1, 2))
+plot(fav.real)
+plot(fav.real); points(puntos, col = "red", pch = 20, cex = 0.05)
 ```
 
 # Formateo para spatstat
@@ -84,19 +67,22 @@ plot(md.exp); points(puntos.2)
 ```{r}
 source("Funciones-spatstat/imFromStack.R")
 source("Funciones-spatstat/plotQuantIntens.R")
+source("Funciones-spatstat/findCompatibles.R")
+source("Funciones-spatstat/getPolyFormulas.R")
+source("Funciones-spatstat/ppmBatchFit.R")
 ```
 
 ### Formateo rápido
 
 ```{r}
 r.im <- imFromStack(r)
-names(r.im) <- paste("Var", 1:3, sep = ".")
+names(r.im) <- names(r)
 w <- as.owin(r.im[[1]])
-puntos.2.ppp <- ppp(x = puntos.2$x,
-                  y = puntos.2$y,
+puntos.ppp <- ppp(x = puntos$x,
+                  y = puntos$y,
                   window = w,
                   check = F)
-Q <- pixelquad(X = puntos.2.ppp, W = as.owin(w))
+Q <- pixelquad(X = puntos.ppp, W = as.owin(w))
 ```
 
 # Análisis exploratorio
@@ -108,7 +94,7 @@ Función de *K* de Ripley
 1. Número promedio de vecinos como función de la distancia a cada punto:
 
 ```{r echo = F, fig.width=3.5, fig.height=3.5, fig.cap = "Buffers  de 0.1 a 0.5° alrededor de cada punto. El número de vecinos se cuenta por puntos dentro de cada buffer.", fig.align='center'}
-puntos.v <- vect(data.frame(lon = puntos.2$x, lat = puntos.2$y)[1:15, ])
+puntos.v <- vect(data.frame(lon = puntos$x, lat = puntos$y)[1:15, ])
 b <- lapply(seq(0.1, 0.5, by = 0.1), function(x){buffer(puntos.v, x)})
 plot(puntos.v, pch = 20, cex = 0.5, col = "red")
 for(i in seq_along(b)){lines(b[[i]], col = "grey")} 
@@ -129,7 +115,7 @@ plot(Vecinos ~ Radio, data = no.vec, type = "s")
 ###  Implementación en spatstat
 
 ```{r results='hide'}
-K <- envelope(puntos.2.ppp, fun = Kest, nsim = 39)
+K <- envelope(puntos.ppp, fun = Kest, nsim = 39)
 ```
 
 Para estimar significancia hace un muestreo aleatorios de punto, de ahí que haya que especificar el número de simulaciones (`nsim = 39`).
@@ -156,7 +142,7 @@ plot(K)
 plotQuantIntens(imList = r.im,
                 noCuts = 5,
                 Quad = Q,
-                p.pp = puntos.2.ppp,
+                p.pp = puntos.ppp,
                 dir = "",
                 name = "Respuestas-centroide")
 ```
@@ -193,7 +179,39 @@ $$ y = \alpha + \beta_1 x_1 + \beta_1' x_1^2 + \dots + \beta_n x_n + \beta_n' x_
 pairs(r)
 ```
 
-### Variables *compatibles*
+### Identificación automática de covariables *compatibles*
+
+```{r}
+compatibles <- findCompatibles(r, thres = 0.5, max.comb = 3)
+```
+
+```{r echo=F}
+knitr::kable(head(compatibles))
+```
+
+### Obteniendo las fórmulas
+
+- Necesitamos generar una tabla de exponentes para variables, usanto el resultado de `plotQuantIntens`.
+
+-  Tabla debe tener dos columnas: `Variable`, `Power`
+
+```{r}
+expon <- read.csv("Datos/Tabla-coefs.csv")
+formulas  <- getPolyFormulas(respDF = expon, compatMat = compatibles)
+formulas[1:5]
+```
+
+### Ajustando los modelos
+
+```{r results = "hide"}
+modelos <- ppmBatchFit(points = puntos,
+                       covariates = r, 
+                       formulas = formulas[1:10],
+                       parallel = F,
+                       topModels = 5)
+```
+
+
 
 Podemos incluir en el mismo modelo:
 

@@ -2,7 +2,7 @@ ppmBatchFit <- function(points, covariates, formulas, parallel = T, cores = 2, t
   require(spatstat)
   require(tidyverse)
   
-  source("Spatstat-functions/imFromStack.R")
+  source("Funciones-spatstat/imFromStack.R")
   
   imList <- imFromStack(covariates)
   names(imList) <- names(covariates)
