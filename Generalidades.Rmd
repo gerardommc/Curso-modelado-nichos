@@ -23,17 +23,24 @@ csl: chicago-author-date.csl
 
 -   Base de datos de cosas o eventos en espacio 
 
-```{r patron, echo = F, fig.cap="Patrones de puntos de densidad variable. A la izquierda células de mucosa gástrica en corte histológico. A la derecha, cúmulos de galaxias (Baddeley et al. 2016)."}
+```{r patron, echo = F, fig.cap="Patrones de puntos de densidad variable. A la izquierda células de mucosa gástrica en corte histológico. A la derecha, cúmulos de galaxias (Baddeley et al. 2016).", fig.dim = "20%", dpi=450}
 knitr::include_graphics("Figuras/Patrón-puntos.png")
 ```
 
 - Densidad $\rightarrow$ conteos/unidad espacial
 
+### La intensidad de puntos
+
+```{r echo = F, fig.cap="Ejemplo de medición de intensidad de puntos", fig.width=7, dpi = 400, fig.dim = "30%"}
+knitr::include_graphics("Figuras/Ejemplo-patron-puntos.png")
+```
+
+
 ### Tipos de puntos
 
 Puntos pueden representar tipos de objetos
 
-```{r tipos-puntos, echo = F, fig.cap="Ubicaciones de dos especie de árbol, abeto y roble, en la misma parcela."}
+```{r tipos-puntos, echo = F, fig.cap="Ubicaciones de dos especie de árbol, abeto y roble, en la misma parcela.", fig.dim="30%"}
 knitr::include_graphics("Figuras/Tipos-puntos.png")
 ```
 
@@ -41,7 +48,7 @@ knitr::include_graphics("Figuras/Tipos-puntos.png")
 
 Puntos pueden representar mediciones
 
-```{r tipos-puntos-2, echo=F, fig.cap="Ubicaciones de árboles con mediciones de diámetro.", fig.dim="30%"}
+```{r tipos-puntos-2, echo=F, fig.cap="Ubicaciones de árboles con mediciones de diámetro.", fig.dim="30%", dpi = 450}
 knitr::include_graphics("Figuras/Tipos-puntos-med.png")
 ```
 
@@ -49,7 +56,7 @@ knitr::include_graphics("Figuras/Tipos-puntos-med.png")
 
 Puntos pueden estar definidos en 1-4 dimensiones
 
-```{r dimensiones, echo = F, fig.cap="Ejemplos de procesos de puntos en 1 y 3 dimensiones"}
+```{r dimensiones, echo = F, fig.cap="Ejemplos de procesos de puntos en 1 y 3 dimensiones", fig.dim = "30%", dpi = 450}
 knitr::include_graphics("Figuras/1-3D.png")
 ```
 
@@ -57,7 +64,7 @@ knitr::include_graphics("Figuras/1-3D.png")
 
 Los procesos de puntos pueden estar definidos en relación a covariables.
 
-```{r covar, echo = F, fig.cap="Datos de Beilschmiedia pendula sobre un modelo digital de elevación."}
+```{r covar, echo = F, fig.cap="Datos de Beilschmiedia pendula sobre un modelo digital de elevación.", fig.dim="30%", dpi = 450}
 knitr::include_graphics("Figuras/Covariables.png")
 ```
 
@@ -67,7 +74,7 @@ knitr::include_graphics("Figuras/Covariables.png")
 
 - Densidad = No. puntos / unidad de área
 
-```{r cont-estim, echo = F, fig.cap="Se analiza un patrón para predecir variación contínua."}
+```{r cont-estim, echo = F, fig.cap="Se analiza un patrón para predecir variación contínua.",fig.dim="30%", dpi = 250}
 knitr::include_graphics("Figuras/Conteos-estimacion.png")
 ```
 
@@ -77,7 +84,7 @@ knitr::include_graphics("Figuras/Conteos-estimacion.png")
 
 - Colecciones de patrones de puntos
 
-```{r colecciones, echo = F, fig.cap="Repositorios comunes de información de biodiversidad."}
+```{r colecciones, echo = F, fig.cap="Repositorios comunes de información de biodiversidad.", fig.dim="30%", dpi = 450}
 knitr::include_graphics("Figuras/Repositorios.png")
 ```
 
@@ -168,14 +175,36 @@ Para que $y >0$
 
     - $\log y(x) = \alpha + \beta_1 x_1 + \dots$
 
-### Relación con métodos populares
+### Relación con métodos populares en MNE
+
+```{r echo=F, fig.dim="30%", dpi = 350, fig.align='center'}
+knitr::include_graphics("Figuras/Equivalencia-maxent.png")
+```
+
+### Gráficamente
+
+```{r echo = F, fig.dim="30%", dpi = 300, fig.align='center'}
+knitr::include_graphics("Figuras/Maxent-PPMs.png")
+```
+
+### Los modelos ajustados
+
+$$\ln \pi(g_i ) = \ln \mu(g_i ) = x(g_i) \beta$$
+
+Son funciones log-lineales equivalentes de un conjunto de predictores
+
+- Maxent: maximiza la entropía
+
+- Procesos de puntos en general: maximizan verosimilitud Poisson (conteo  de puntos por unidad espacial)
+
+### Comparaciones extensivas
 
 - Equivalentes a MaxEnt
 
     - Sin Regularización
     - *Features* lineal y cuadrática
     
-```{r maxent, echo = F}
+```{r maxent, echo = F, dpi=400}
 knitr::include_graphics("Figuras/Renner.png")
 ```
 
@@ -195,7 +224,7 @@ knitr::include_graphics("Figuras/Renner.png")
 
 Condiciones para equivalencia entre MPPs y envolturas
 
-```{r evm, echo = F}
+```{r evm, echo = F, fig.dim="30%", dpi=400}
 knitr::include_graphics("Figuras/Discrep.png")
 ```
 
@@ -222,7 +251,7 @@ knitr::include_graphics("Figuras/Discrep.png")
 
 ### Bibliografía básica
 
-```{r spat-book, echo =FALSE}
+```{r spat-book, echo =FALSE, fig.dom = "30%", dpi = 300, fig.align='center'}
 knitr::include_graphics("Figuras/Spat-book.png")
 ```
 
