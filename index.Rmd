@@ -24,6 +24,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Sobre procesos de puntos
 
 2.  [Generalidades](Generalidades.pdf)
+      - [Artículo de Renner y Warton 2013](Renner-Maxent-PPMs.pdf)
+      - [Maxent: abriendo la caja negra (un poco)](8_MaxEnt_teoria.pptx)
 
 3.  [Particularidades](Particularidades.pdf)
 

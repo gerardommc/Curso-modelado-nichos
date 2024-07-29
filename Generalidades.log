@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2024.3.22)  26 JUL 2024 19:06
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2024.3.22)  29 JUL 2024 07:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1653,138 +1653,166 @@ Overfull \hbox (7.06192pt too wide) in paragraph at lines 188--188
 [8
 
 ]
+LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/m/it' will be
+(Font)              scaled to size 9.29602pt on input line 206.
+[9
+
+]
 File: Figuras/Conteos-estimacion.png Graphic file (type bmp)
 <Figuras/Conteos-estimacion.png>
-
-Overfull \hbox (25.1517pt too wide) in paragraph at lines 202--202
- [] 
- []
-
-
-Overfull \vbox (29.99893pt too high) detected at line 202
- []
-
-[9
+[10
 
 ]
 File: Figuras/Repositorios.png Graphic file (type bmp)
 <Figuras/Repositorios.png>
 
-Overfull \hbox (1.31842pt too wide) in paragraph at lines 216--216
+Overfull \hbox (1.31842pt too wide) in paragraph at lines 240--240
  [] 
  []
 
 
-Overfull \vbox (49.8007pt too high) detected at line 216
+Overfull \vbox (49.8007pt too high) detected at line 240
  []
 
-[10
+[11
 
-] [11
+] [12
 
 ]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.30167pt on input line 244.
+(Font)              scaled to size 10.30167pt on input line 268.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.21117pt on input line 244.
+(Font)              scaled to size 7.21117pt on input line 268.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.15083pt on input line 244.
+(Font)              scaled to size 5.15083pt on input line 268.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.30258pt on input line 244.
+(Font)              scaled to size 10.30258pt on input line 268.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.2118pt on input line 244.
+(Font)              scaled to size 7.2118pt on input line 268.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.15129pt on input line 244.
+(Font)              scaled to size 5.15129pt on input line 268.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.3006pt on input line 244.
+(Font)              scaled to size 10.3006pt on input line 268.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.21042pt on input line 244.
+(Font)              scaled to size 7.21042pt on input line 268.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.1503pt on input line 244.
-[12
+(Font)              scaled to size 5.1503pt on input line 268.
+[13
 
-] [13
+] [14
 
 ]
 File: Generalidades_files/figure-beamer/unnamed-chunk-3-1.pdf Graphic file (typ
 e pdf)
 <use Generalidades_files/figure-beamer/unnamed-chunk-3-1.pdf>
-[14
+[15
 
-] [15
+] [16
 
 ]
 File: Generalidades_files/figure-beamer/unnamed-chunk-4-1.pdf Graphic file (typ
 e pdf)
 <use Generalidades_files/figure-beamer/unnamed-chunk-4-1.pdf>
-[16
+[17
 
 ]
 LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
-(Font)              scaled to size 9.22536pt on input line 307.
-[17
+(Font)              scaled to size 9.22536pt on input line 346.
+[18
 
-] [18
+] [19
+
+] [20
+
+] [21
 
 ] (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-LatinModernRoman.cfg
 File: mt-LatinModernRoman.cfg 2021/02/21 v1.1 microtype config. file: Latin Mod
 ern Roman (RS)
-) [19
+) [22
 
 ]
 File: Figuras/Equivalencia-maxent.png Graphic file (type bmp)
 <Figuras/Equivalencia-maxent.png>
 
-Overfull \hbox (17.20561pt too wide) in paragraph at lines 362--362
+Overfull \hbox (17.20561pt too wide) in paragraph at lines 434--434
  [] 
  []
 
-[20
+[23
 
 ]
 File: Figuras/Maxent-PPMs.png Graphic file (type bmp)
 <Figuras/Maxent-PPMs.png>
-[21
+[24
 
-] [22
+] [25
 
 ]
 LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/m/it' will be
-(Font)              scaled to size 8.48953pt on input line 400.
+(Font)              scaled to size 8.48953pt on input line 472.
 File: Figuras/Renner.png Graphic file (type bmp)
 <Figuras/Renner.png>
-[23
+[26
 
-] [24
+] [27
 
 ]
 File: Figuras/Discrep.png Graphic file (type bmp)
 <Figuras/Discrep.png>
 
-Overfull \hbox (0.57065pt too wide) in paragraph at lines 433--433
+Overfull \hbox (0.57065pt too wide) in paragraph at lines 505--505
 [][]  
  []
 
-[25
-
-] [26
+[28
 
 ]
-LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/m/it' will be
-(Font)              scaled to size 9.29602pt on input line 458.
-[27
+File: Figuras/Figuras-centroide/Stat-density.png Graphic file (type bmp)
+<Figuras/Figuras-centroide/Stat-density.png>
 
-] [28
+Overfull \vbox (12.10606pt too high) detected at line 517
+ []
+
+[29
+
+]
+File: Figuras/Figuras-centroide/Distance-centroid.png Graphic file (type bmp)
+<Figuras/Figuras-centroide/Distance-centroid.png>
+
+Overfull \vbox (0.54007pt too high) detected at line 529
+ []
+
+[30
+
+]
+File: Figuras/Figuras-centroide/Point-intensity.png Graphic file (type bmp)
+<Figuras/Figuras-centroide/Point-intensity.png>
+
+Overfull \vbox (7.58902pt too high) detected at line 541
+ []
+
+[31
+
+]
+\openout4 = `Generalidades.vrb'.
+
+(./Generalidades.vrb
+LaTeX Font Info:    Font shape `TU/FiraMono(0)/m/n' will be
+(Font)              scaled to size 9.22536pt on input line 19.
+) [32
+
+] [33
 
 ]
 File: Figuras/Spat-book.png Graphic file (type bmp)
 <Figuras/Spat-book.png>
 
-Overfull \hbox (54.07097pt too wide) in paragraph at lines 482--482
+Overfull \hbox (54.07097pt too wide) in paragraph at lines 596--596
  [] 
  []
 
-[29
+[34
 
 ]
 \tf@nav=\write5
@@ -1798,12 +1826,12 @@ Overfull \hbox (54.07097pt too wide) in paragraph at lines 482--482
 
 (./Generalidades.aux) ) 
 Here is how much of TeX's memory you used:
- 35178 strings out of 476191
- 741934 string characters out of 5812072
- 1139156 words of memory out of 5000000
- 55190 multiletter control sequences out of 15000+600000
- 475928 words of font info for 107 fonts, out of 8000000 for 9000
+ 35254 strings out of 476191
+ 744901 string characters out of 5812072
+ 1141843 words of memory out of 5000000
+ 55257 multiletter control sequences out of 15000+600000
+ 475936 words of font info for 108 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  128i,13n,171p,1814b,752s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Generalidades.pdf (29 pages).
+Output written on Generalidades.pdf (34 pages).

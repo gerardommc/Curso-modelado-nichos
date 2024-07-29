@@ -68,15 +68,27 @@ Los procesos de puntos pueden estar definidos en relación a covariables.
 knitr::include_graphics("Figuras/Covariables.png")
 ```
 
+### Tipos de PPMs
+
+- Completamente aleatorios (homogéneos)
+
+- *Heterogéneos*
+
+    - Procesos de puntos generalmente producidos por covariables
+
+- Agregados
+
 ### El modelado de procesos de puntos
 
 - Estimar variación de densidad
 
 - Densidad = No. puntos / unidad de área
 
-```{r cont-estim, echo = F, fig.cap="Se analiza un patrón para predecir variación contínua.",fig.dim="30%", dpi = 250}
+```{r cont-estim, echo = F, fig.cap="Se analiza un patrón para predecir variación contínua.",fig.dim="30%", dpi = 400}
 knitr::include_graphics("Figuras/Conteos-estimacion.png")
 ```
+
+- Estadísticamente, densidad puede tratarse con la distribución Poisson
 
 ### Procesos de puntos en ecología
 
@@ -92,16 +104,18 @@ knitr::include_graphics("Figuras/Repositorios.png")
 
 ### Es un análisis regresión
 
-- Medir relación entre $x$ y $y$ que son contínuas
+- Medir relación entre $x$ y $y$
 
     - ¿Cómo afecta $x$ al promedio de $y$?
 
 - $x$ produce a $y$
 
     - $x$ variable independiente
-    - $y$ variable dependiente
+    - $y$ variable dependiente de $x$
     
 ### Ejemplo - Datos contínuos
+
+En regresión lineal simple, tendríamos dos variables contínuas:
 
 ```{r echo = F}
 set.seed(123)
@@ -117,20 +131,24 @@ knitr::kable(head(df))
 
 ### Ejemplo - Gráfica de dispersión
 
-```{r echo=F, fig.height=4, fig.width=4}
+A las cuales realizamos un análisis exploratorio:
+
+```{r echo=F, fig.height=3.5, fig.width=3.5}
 with(df, plot(x, y, col = "red"))
 ```
 
 ### Ejemplo - Regresión lineal
 
-- Regresión:
+- Siendo un poco más generales que arriba y asumiendo que $y$ es un patrón de puntos, podemos tener modelos de regresión así:
 
 $$ y(x) = \alpha + \beta_1 x_1 + \dots + \beta_n x_n + \varepsilon$$
 - $x$ son las variables ambientales
 
 - $y$ es la intensidad por unidad de área
 
-- $\alpha, \beta_i$ son los efectos de $x$ sobre $y$
+- $\alpha$ es el intercepto, y $\beta_i$ son los efectos de $x$ sobre $y$
+
+    - Cuánto va a cambiar $y$ si "aumento" el valor de  $x$ en una unidad
 
 - $\varepsilon$  es el error, varianza de $y$ que $x$ no explica
 
@@ -143,6 +161,8 @@ abline(0, 1, col = "red")
 
 ### Ejemplo - La ecuación
 
+En el caso simple anterior:
+
 - $y = \alpha + \beta \times x$
 
 - $\alpha = 0$
@@ -150,6 +170,22 @@ abline(0, 1, col = "red")
 - $\beta = 1$
 
 **Regresión consiste en estimar todos los coeficientes para las variables** $x$.
+
+### Paréntesis
+
+En un modelo de regresión lineal, tenemos:
+
+- $W$ son mediciones de peso en Kg, y su modelo es:
+
+$$W = \alpha + \beta Edad + \beta_{Sexo} + \varepsilon$$
+
+- Donde las unidades que produce el modelo son peso en Kg
+
+### Modelos de nicho y distribución
+
+- Mediciones: coordenadas de presencia
+
+- ¿Qué unidades produce el modelo estadístico para los puntos de presencia?
 
 ### Diferencias entre regresión y PPs
 
@@ -174,6 +210,10 @@ Para que $y >0$
 - Regresión log-lineal
 
     - $\log y(x) = \alpha + \beta_1 x_1 + \dots$
+    
+    - es decir: 
+    
+    $$y(x)  = \exp(\alpha + \beta_1 x_1 + \dots)$$
 
 ### Relación con métodos populares en MNE
 
@@ -193,7 +233,7 @@ $$\ln \pi(g_i ) = \ln \mu(g_i ) = x(g_i) \beta$$
 
 Son funciones log-lineales equivalentes de un conjunto de predictores
 
-- Maxent: maximiza la entropía
+- Maxent: maximiza la entropía ($\pi (g_i)$)
 
 - Procesos de puntos en general: maximizan verosimilitud Poisson (conteo  de puntos por unidad espacial)
 
@@ -228,26 +268,47 @@ Condiciones para equivalencia entre MPPs y envolturas
 knitr::include_graphics("Figuras/Discrep.png")
 ```
 
-# Ventajas y Desventajas
+### Relación con otros métodos
 
-### Ventajas
+```{r echo = F, fig.align='center', fig.dim="30%", dpi=400, fig.cap="Frecuencia de condiciones ambientales en sitios de presencia para dos variables no correlacionadas."}
+knitr::include_graphics("Figuras/Figuras-centroide/Stat-density.png")
+```
 
-- Herramienta *ad-hoc* para puntos
-- Transparencia
-- Herramientas exploratorias $\rightarrow$ identificar variables
-- Estimación de efectos estadísticos
-- Tipos de puntos $\rightarrow$ interacciones biológicas
-- Extensiones para modelar estructura espacial (maximizar utilidad de datos)
-- Herramientas diagnósticas
+### Relación con otros métodos
 
-### Desventajas
+```{r echo = F, fig.align='center', fig.dim="30%", dpi=350, fig.cap="Distancia al centroide en dos dimensiones ambientales no correlacionadas"}
+knitr::include_graphics("Figuras/Figuras-centroide/Distance-centroid.png")
+```
+
+### Relación con otros métodos
+
+```{r echo = F, fig.align='center', fig.dim="30%", dpi=400, fig.cap="Intensidad de puntos en dos dimensiones ambientales no correlacionadas para el mismo proceso de puntos."}
+knitr::include_graphics("Figuras/Figuras-centroide/Point-intensity.png")
+```
+
+### Las lecciones
+
+- Procesos de puntos son la herramienta *ad-hoc* para puntos
+- Maxent es una herramienta estadística de regresión, per se, no genera distribuciones
+
+    - Favorabilidad, idoneidad son interpretaciones de los valores producidos
+    
+    -  Los valores producidos representan el número esperado de puntos de presencia (exceptuando la salida logística)
+
+- Los PPMs son más transparentes, y por medio de `spatstat`:
+
+    - Herramientas exploratorias, estimar y comparar efectos, diagnosticar modelos
+    - Modelar estructura espacial
+
+
+### Desventajas  de PPMs vs Maxent
 
 - Formateo
 - Difícil automatizar
 - Más programación
 - Selección de modelo laboriosa
 - Optimización puede ser difícil
-- Poco práctico para muchas especies
+- Poco práctico si analizaremos muchas especies
 
 ### Bibliografía básica
 

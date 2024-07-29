@@ -187,6 +187,24 @@ Los procesos de puntos pueden estar definidos en relación a covariables.
 \end{figure}
 \end{frame}
 
+\begin{frame}{Tipos de PPMs}
+\protect\hypertarget{tipos-de-ppms}{}
+\begin{itemize}
+\item
+  Completamente aleatorios (homogéneos)
+\item
+  \emph{Heterogéneos}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Procesos de puntos generalmente producidos por covariables
+  \end{itemize}
+\item
+  Agregados
+\end{itemize}
+\end{frame}
+
 \begin{frame}{El modelado de procesos de puntos}
 \protect\hypertarget{el-modelado-de-procesos-de-puntos}{}
 \begin{itemize}
@@ -197,8 +215,14 @@ Los procesos de puntos pueden estar definidos en relación a covariables.
 \end{itemize}
 
 \begin{figure}
-\includegraphics[width=4.6in]{Figuras/Conteos-estimacion} \caption{Se analiza un patrón para predecir variación contínua.}\label{fig:cont-estim}
+\includegraphics[width=2.88in]{Figuras/Conteos-estimacion} \caption{Se analiza un patrón para predecir variación contínua.}\label{fig:cont-estim}
 \end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Estadísticamente, densidad puede tratarse con la distribución Poisson
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Procesos de puntos en ecología}
@@ -223,7 +247,7 @@ puntos}\label{anuxe1lisis-de-procesos-de-puntos}}
 \protect\hypertarget{es-un-anuxe1lisis-regresiuxf3n}{}
 \begin{itemize}
 \item
-  Medir relación entre \(x\) y \(y\) que son contínuas
+  Medir relación entre \(x\) y \(y\)
 
   \begin{itemize}
   \tightlist
@@ -238,13 +262,15 @@ puntos}\label{anuxe1lisis-de-procesos-de-puntos}}
   \item
     \(x\) variable independiente
   \item
-    \(y\) variable dependiente
+    \(y\) variable dependiente de \(x\)
   \end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Ejemplo - Datos contínuos}
 \protect\hypertarget{ejemplo---datos-contuxednuos}{}
+En regresión lineal simple, tendríamos dos variables contínuas:
+
 \begin{longtable}[]{@{}rr@{}}
 \toprule\noalign{}
 x & y \\
@@ -262,6 +288,8 @@ x & y \\
 
 \begin{frame}{Ejemplo - Gráfica de dispersión}
 \protect\hypertarget{ejemplo---gruxe1fica-de-dispersiuxf3n}{}
+A las cuales realizamos un análisis exploratorio:
+
 \includegraphics{Generalidades_files/figure-beamer/unnamed-chunk-3-1.pdf}
 \end{frame}
 
@@ -270,7 +298,8 @@ x & y \\
 \begin{itemize}
 \tightlist
 \item
-  Regresión:
+  Siendo un poco más generales que arriba y asumiendo que \(y\) es un
+  patrón de puntos, podemos tener modelos de regresión así:
 \end{itemize}
 
 \[ y(x) = \alpha + \beta_1 x_1 + \dots + \beta_n x_n + \varepsilon\] -
@@ -280,7 +309,15 @@ x & y \\
 \item
   \(y\) es la intensidad por unidad de área
 \item
-  \(\alpha, \beta_i\) son los efectos de \(x\) sobre \(y\)
+  \(\alpha\) es el intercepto, y \(\beta_i\) son los efectos de \(x\)
+  sobre \(y\)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Cuánto va a cambiar \(y\) si ``aumento'' el valor de \(x\) en una
+    unidad
+  \end{itemize}
 \item
   \(\varepsilon\) es el error, varianza de \(y\) que \(x\) no explica
 \end{itemize}
@@ -293,6 +330,8 @@ x & y \\
 
 \begin{frame}{Ejemplo - La ecuación}
 \protect\hypertarget{ejemplo---la-ecuaciuxf3n}{}
+En el caso simple anterior:
+
 \begin{itemize}
 \item
   \(y = \alpha + \beta \times x\)
@@ -304,6 +343,36 @@ x & y \\
 
 \textbf{Regresión consiste en estimar todos los coeficientes para las
 variables} \(x\).
+\end{frame}
+
+\begin{frame}{Paréntesis}
+\protect\hypertarget{paruxe9ntesis}{}
+En un modelo de regresión lineal, tenemos:
+
+\begin{itemize}
+\tightlist
+\item
+  \(W\) son mediciones de peso en Kg, y su modelo es:
+\end{itemize}
+
+\[W = \alpha + \beta Edad + \beta_{Sexo} + \varepsilon\]
+
+\begin{itemize}
+\tightlist
+\item
+  Donde las unidades que produce el modelo son peso en Kg
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Modelos de nicho y distribución}
+\protect\hypertarget{modelos-de-nicho-y-distribuciuxf3n}{}
+\begin{itemize}
+\item
+  Mediciones: coordenadas de presencia
+\item
+  ¿Qué unidades produce el modelo estadístico para los puntos de
+  presencia?
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Diferencias entre regresión y PPs}
@@ -349,10 +418,13 @@ Para que \(y >0\)
   Regresión log-lineal
 
   \begin{itemize}
-  \tightlist
   \item
     \(\log y(x) = \alpha + \beta_1 x_1 + \dots\)
+  \item
+    es decir:
   \end{itemize}
+
+  \[y(x)  = \exp(\alpha + \beta_1 x_1 + \dots)\]
 \end{itemize}
 \end{frame}
 
@@ -374,7 +446,7 @@ Son funciones log-lineales equivalentes de un conjunto de predictores
 
 \begin{itemize}
 \item
-  Maxent: maximiza la entropía
+  Maxent: maximiza la entropía (\(\pi (g_i)\))
 \item
   Procesos de puntos en general: maximizan verosimilitud Poisson (conteo
   de puntos por unidad espacial)
@@ -432,33 +504,75 @@ Condiciones para equivalencia entre MPPs y envolturas
 \includegraphics[width=4.26in]{Figuras/Discrep}
 \end{frame}
 
-\hypertarget{ventajas-y-desventajas}{%
-\section{Ventajas y Desventajas}\label{ventajas-y-desventajas}}
+\begin{frame}{Relación con otros métodos}
+\protect\hypertarget{relaciuxf3n-con-otros-muxe9todos-2}{}
+\begin{figure}
 
-\begin{frame}{Ventajas}
-\protect\hypertarget{ventajas}{}
+{\centering \includegraphics[width=2.71in]{Figuras/Figuras-centroide/Stat-density} 
+
+}
+
+\caption{Frecuencia de condiciones ambientales en sitios de presencia para dos variables no correlacionadas.}\label{fig:unnamed-chunk-7}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Relación con otros métodos}
+\protect\hypertarget{relaciuxf3n-con-otros-muxe9todos-3}{}
+\begin{figure}
+
+{\centering \includegraphics[width=4.23in]{Figuras/Figuras-centroide/Distance-centroid} 
+
+}
+
+\caption{Distancia al centroide en dos dimensiones ambientales no correlacionadas}\label{fig:unnamed-chunk-8}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Relación con otros métodos}
+\protect\hypertarget{relaciuxf3n-con-otros-muxe9todos-4}{}
+\begin{figure}
+
+{\centering \includegraphics[width=2.7in]{Figuras/Figuras-centroide/Point-intensity} 
+
+}
+
+\caption{Intensidad de puntos en dos dimensiones ambientales no correlacionadas para el mismo proceso de puntos.}\label{fig:unnamed-chunk-9}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Las lecciones}
+\protect\hypertarget{las-lecciones}{}
 \begin{itemize}
-\tightlist
 \item
-  Herramienta \emph{ad-hoc} para puntos
+  Procesos de puntos son la herramienta \emph{ad-hoc} para puntos
 \item
-  Transparencia
+  Maxent es una herramienta estadística de regresión, per se, no genera
+  distribuciones
+
+  \begin{itemize}
+  \item
+    Favorabilidad, idoneidad son interpretaciones de los valores
+    producidos
+  \item
+    Los valores producidos representan el número esperado de puntos de
+    presencia (exceptuando la salida logística)
+  \end{itemize}
 \item
-  Herramientas exploratorias \(\rightarrow\) identificar variables
-\item
-  Estimación de efectos estadísticos
-\item
-  Tipos de puntos \(\rightarrow\) interacciones biológicas
-\item
-  Extensiones para modelar estructura espacial (maximizar utilidad de
-  datos)
-\item
-  Herramientas diagnósticas
+  Los PPMs son más transparentes, y por medio de \texttt{spatstat}:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Herramientas exploratorias, estimar y comparar efectos, diagnosticar
+    modelos
+  \item
+    Modelar estructura espacial
+  \end{itemize}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Desventajas}
-\protect\hypertarget{desventajas}{}
+\begin{frame}{Desventajas de PPMs vs Maxent}
+\protect\hypertarget{desventajas-de-ppms-vs-maxent}{}
 \begin{itemize}
 \tightlist
 \item
@@ -472,7 +586,7 @@ Condiciones para equivalencia entre MPPs y envolturas
 \item
   Optimización puede ser difícil
 \item
-  Poco práctico para muchas especies
+  Poco práctico si analizaremos muchas especies
 \end{itemize}
 \end{frame}
 
