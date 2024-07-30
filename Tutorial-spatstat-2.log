@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2024.3.22)  24 JUL 2024 18:51
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2024.3.22)  29 JUL 2024 18:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1618,92 +1618,79 @@ Overfull \vbox (53.55505pt too high) detected at line 177
 
 [3
 
+] [4
+
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
 
 (./Tutorial-spatstat-2.vrb
 LaTeX Font Info:    Font shape `TU/FiraMono(0)/m/n' will be
-(Font)              scaled to size 9.22536pt on input line 4.
-) [4
+(Font)              scaled to size 9.22536pt on input line 5.
+LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
+(Font)              scaled to size 9.22536pt on input line 10.
+) [5
 
 ]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb
-File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-4-1.pdf Graphic fil
+File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-3-1.pdf Graphic fil
 e (type pdf)
-<use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-4-1.pdf>
-)
-Overfull \vbox (75.42097pt too high) detected at line 208
- []
+<use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-3-1.pdf>
+[6
 
-[5
+] [7
 
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
 
-(./Tutorial-spatstat-2.vrb) [6
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb
-File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-6-1.pdf Graphic fil
-e (type pdf)
-<use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-6-1.pdf>
-)
-Overfull \vbox (44.14113pt too high) detected at line 232
- []
-
-[7
-
-] [8
+(./Tutorial-spatstat-2.vrb) [8
 
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
 
 (./Tutorial-spatstat-2.vrb) [9
 
+] [10
+
+]
+LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/m/it' will be
+(Font)              scaled to size 9.29602pt on input line 253.
+File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-6-1.pdf Graphic fil
+e (type pdf)
+<use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-6-1.pdf>
+LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
+(Font)              scaled to size 8.42499pt on input line 253.
+
+Overfull \vbox (92.66367pt too high) detected at line 253
+ []
+
+[11
+
+] [12
+
+]
+File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-8-1.pdf Graphic fil
+e (type pdf)
+<use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-8-1.pdf>
+[13
+
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
 
-(./Tutorial-spatstat-2.vrb) [10
-
-] [11
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb
-Overfull \hbox (59.87975pt too wide) in paragraph at lines 16--16
-[]\TU/FiraMono(0)/m/n/10.95 ## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1
-5, 16, 17, 18, 19, 20,[] 
- []
-
-
-Overfull \hbox (69.10509pt too wide) in paragraph at lines 16--16
-[]\TU/FiraMono(0)/m/n/10.95 ## 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 
-33, 34, 35, 36, 37, 38,[] 
- []
-
-) [12
+(./Tutorial-spatstat-2.vrb) [14
 
 ]
 File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-10-1.pdf Graphic fi
 le (type pdf)
 <use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-10-1.pdf>
+[15
 
-Overfull \vbox (31.67819pt too high) detected at line 288
- []
+] [16
 
-[13
-
-] [14
+] [17
 
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
 
-(./Tutorial-spatstat-2.vrb) [15
+(./Tutorial-spatstat-2.vrb) [18
 
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
@@ -1713,40 +1700,15 @@ File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-12-1.pdf Graphic fi
 le (type pdf)
 <use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-12-1.pdf>
 )
-Overfull \vbox (11.38675pt too high) detected at line 335
+Overfull \vbox (11.38675pt too high) detected at line 341
  []
 
-[16
+[19
 
 ] (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-LatinModernRoman.cfg
 File: mt-LatinModernRoman.cfg 2021/02/21 v1.1 microtype config. file: Latin Mod
 ern Roman (RS)
-) [17
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb
-LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
-(Font)              scaled to size 9.22536pt on input line 3.
-) [18
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb
-File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-13-1.pdf Graphic fi
-le (type pdf)
-<use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-13-1.pdf>
-) [19
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb)
-LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/it' will be
-(Font)              scaled to size 10.10999pt on input line 401.
-[20
+) [20
 
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
@@ -1756,83 +1718,101 @@ LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/it' will be
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
 
-(./Tutorial-spatstat-2.vrb) [22
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb) [23
+(./Tutorial-spatstat-2.vrb)
+LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/it' will be
+(Font)              scaled to size 10.10999pt on input line 394.
+[22
 
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
 
 (./Tutorial-spatstat-2.vrb
-File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-17-1.pdf Graphic fi
-le (type pdf)
-<use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-17-1.pdf>
-)
-Overfull \vbox (49.73988pt too high) detected at line 469
+LaTeX Font Info:    Font shape `TU/FiraMono(0)/m/n' will be
+(Font)              scaled to size 8.42499pt on input line 15.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 10.30167pt on input line 16.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 7.21117pt on input line 16.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 5.15083pt on input line 16.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 10.30258pt on input line 16.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 7.2118pt on input line 16.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 5.15129pt on input line 16.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 10.3006pt on input line 16.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 7.21042pt on input line 16.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 5.1503pt on input line 16.
+) [23
+
+]
+\openout4 = `Tutorial-spatstat-2.vrb'.
+
+(./Tutorial-spatstat-2.vrb
+Overfull \hbox (120.76689pt too wide) in paragraph at lines 18--18
+[]\TU/FiraMono(0)/m/n/10.95 ## [1] "~bio1 + bio12 + I(bio12^2) + bio18 + I(bio1
+8^2) + I(bio18^3) + I(bio18^4)"[] 
  []
 
+)
+LaTeX Font Info:    Font shape `TU/FiraMono(0)/b/n' will be
+(Font)              scaled to size 10.09094pt on input line 436.
 [24
 
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
 
-(./Tutorial-spatstat-2.vrb
-File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-18-1.pdf Graphic fi
-le (type pdf)
-<use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-18-1.pdf>
-)
-Overfull \vbox (49.73988pt too high) detected at line 481
+(./Tutorial-spatstat-2.vrb) [25
+
+]
+\openout4 = `Tutorial-spatstat-2.vrb'.
+
+(./Tutorial-spatstat-2.vrb) [26
+
+]
+\openout4 = `Tutorial-spatstat-2.vrb'.
+
+(./Tutorial-spatstat-2.vrb)
+Overfull \vbox (11.73009pt too high) detected at line 488
  []
 
-[25
+[27
+
+]
+\openout4 = `Tutorial-spatstat-2.vrb'.
+
+(./Tutorial-spatstat-2.vrb) [28
 
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
 
 (./Tutorial-spatstat-2.vrb
-Overfull \hbox (50.65413pt too wide) in paragraph at lines 16--16
+Overfull \hbox (50.65413pt too wide) in paragraph at lines 21--21
 []\TU/FiraMono(0)/m/n/10.95 ## Generating 39 simulated realisations of fitted P
 oisson model  ...[] 
  []
 
 
-Overfull \hbox (59.87975pt too wide) in paragraph at lines 16--16
+Overfull \hbox (59.87975pt too wide) in paragraph at lines 21--21
 []\TU/FiraMono(0)/m/n/10.95 ## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1
 5, 16, 17, 18, 19, 20,[] 
  []
 
 
-Overfull \hbox (69.10509pt too wide) in paragraph at lines 16--16
-[]\TU/FiraMono(0)/m/n/10.95 ## 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 
-33, 34, 35, 36, 37, 38,[] 
- []
-
-
-Overfull \hbox (50.65413pt too wide) in paragraph at lines 31--31
-[]\TU/FiraMono(0)/m/n/10.95 ## Generating 39 simulated realisations of fitted P
-oisson model  ...[] 
- []
-
-
-Overfull \hbox (59.87975pt too wide) in paragraph at lines 31--31
-[]\TU/FiraMono(0)/m/n/10.95 ## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1
-5, 16, 17, 18, 19, 20,[] 
- []
-
-
-Overfull \hbox (69.10509pt too wide) in paragraph at lines 31--31
+Overfull \hbox (69.10509pt too wide) in paragraph at lines 21--21
 []\TU/FiraMono(0)/m/n/10.95 ## 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 
 33, 34, 35, 36, 37, 38,[] 
  []
 
 )
-Overfull \vbox (27.36925pt too high) detected at line 514
+Overfull \vbox (27.37001pt too high) detected at line 537
  []
 
-[26
+[29
 
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
@@ -1841,11 +1821,9 @@ Overfull \vbox (27.36925pt too high) detected at line 514
 File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-20-1.pdf Graphic fi
 le (type pdf)
 <use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-20-1.pdf>
-)
-Overfull \vbox (57.09384pt too high) detected at line 525
- []
+) [30
 
-[27
+] [31
 
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
@@ -1855,18 +1833,12 @@ File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-21-1.pdf Graphic fi
 le (type pdf)
 <use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-21-1.pdf>
 )
-Overfull \vbox (57.09384pt too high) detected at line 536
+Overfull \vbox (246.18753pt too high) detected at line 601
  []
 
-[28
+[32
 
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb
-LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/m/it' will be
-(Font)              scaled to size 9.29602pt on input line 18.
-) [29
+] [33
 
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
@@ -1875,75 +1847,16 @@ LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/m/it' will be
 File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-22-1.pdf Graphic fi
 le (type pdf)
 <use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-22-1.pdf>
-) [30
+) [34
 
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
 
-(./Tutorial-spatstat-2.vrb) [31
-
-] [32
-
-] [33
-
-]
-File: Figuras/Interaccion-puntos.png Graphic file (type bmp)
-<Figuras/Interaccion-puntos.png>
-
-Overfull \vbox (31.67781pt too high) detected at line 602
- []
-
-[34
-
-]
-File: Figuras/Tipos-interacciones.png Graphic file (type bmp)
-<Figuras/Tipos-interacciones.png>
-
-Overfull \hbox (33.15492pt too wide) in paragraph at lines 614--614
- [] 
- []
-
-LaTeX Font Info:    Font shape `TU/FiraSansLight(0)/b/n' will be
-(Font)              scaled to size 8.42499pt on input line 614.
-
-Overfull \vbox (75.11406pt too high) detected at line 614
+(./Tutorial-spatstat-2.vrb)
+Overfull \vbox (44.81337pt too high) detected at line 661
  []
 
 [35
-
-]
-File: Figuras/Tabla-tipos-interacciones.png Graphic file (type bmp)
-<Figuras/Tabla-tipos-interacciones.png>
-
-Overfull \hbox (89.35693pt too wide) in paragraph at lines 619--619
- [] 
- []
-
-LaTeX Font Info:    Font shape `TU/FiraMono(0)/b/n' will be
-(Font)              scaled to size 10.09094pt on input line 619.
-
-Overfull \vbox (47.32062pt too high) detected at line 619
- []
-
-[36
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb) [37
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb
-File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-28-1.pdf Graphic fi
-le (type pdf)
-<use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-28-1.pdf>
-)
-Overfull \vbox (24.05908pt too high) detected at line 665
- []
-
-[38
 
 ]
 \openout4 = `Tutorial-spatstat-2.vrb'.
@@ -1951,159 +1864,29 @@ Overfull \vbox (24.05908pt too high) detected at line 665
 (./Tutorial-spatstat-2.vrb
 
 LaTeX Font Warning: Font shape `TU/FiraMono(0)/m/it' undefined
-(Font)              using `TU/FiraMono(0)/m/n' instead on input line 11.
+(Font)              using `TU/FiraMono(0)/m/n' instead on input line 5.
 
-) [39
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb) [40
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb
-Overfull \hbox (0.8373pt too wide) in paragraph at lines 12--12
-[]\TU/FiraMono(0)/m/n/10.95 ## (Intercept)       Var.1       Var.3  I(Var.1^2) 
- I(Var.3^2)[] 
- []
-
-
-Overfull \hbox (65.41481pt too wide) in paragraph at lines 23--23
-[]\TU/FiraMono(0)/m/n/10.95 ## (Intercept)       Var.2       Var.3  I(Var.2^2) 
- I(Var.3^2) Interaction[] 
- []
-
-) [41
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb
-Overfull \hbox (39.5837pt too wide) in paragraph at lines 16--16
-[]\TU/FiraMono(0)/m/n/10.95 ## Generating 39 simulated realisations of fitted G
-ibbs model  ...[] 
- []
-
-
-Overfull \hbox (59.87975pt too wide) in paragraph at lines 16--16
-[]\TU/FiraMono(0)/m/n/10.95 ## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1
-5, 16, 17, 18, 19, 20,[] 
- []
-
-
-Overfull \hbox (69.10509pt too wide) in paragraph at lines 16--16
-[]\TU/FiraMono(0)/m/n/10.95 ## 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 
-33, 34, 35, 36, 37, 38,[] 
- []
-
-) [42
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb
-File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-33-1.pdf Graphic fi
-le (type pdf)
-<use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-33-1.pdf>
-)
-Overfull \vbox (57.09384pt too high) detected at line 744
- []
-
-[43
-
-]
-File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-34-1.pdf Graphic fi
-le (type pdf)
-<use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-34-1.pdf>
-[44
-
-] [45
-
-] [46
-
-] [47
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb
-LaTeX Font Info:    Font shape `TU/FiraMono(0)/m/n' will be
-(Font)              scaled to size 8.42499pt on input line 12.
-) [48
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb
 LaTeX Font Info:    Font shape `TU/FiraMono(0)/m/it' will be
-(Font)              scaled to size 9.22536pt on input line 9.
-) [49
+(Font)              scaled to size 9.22536pt on input line 7.
+) [36
 
 ]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb) [50
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb) [51
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb
-File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-38-1.pdf Graphic fi
+File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-25-1.pdf Graphic fi
 le (type pdf)
-<use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-38-1.pdf>
-) [52
+<use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-25-1.pdf>
+[37
 
 ]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb
-Overfull \hbox (50.65413pt too wide) in paragraph at lines 16--16
-[]\TU/FiraMono(0)/m/it/10.95 ## Generating 39 simulated realisations of fitted 
-cluster model  ...[] 
- []
-
-
-Overfull \hbox (59.87975pt too wide) in paragraph at lines 16--16
-[]\TU/FiraMono(0)/m/it/10.95 ## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 
-15, 16, 17, 18, 19, 20,[] 
- []
-
-
-Overfull \hbox (69.10509pt too wide) in paragraph at lines 16--16
-[]\TU/FiraMono(0)/m/it/10.95 ## 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
- 33, 34, 35, 36, 37, 38,[] 
- []
-
-) [53
-
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb
-File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-40-1.pdf Graphic fi
+File: Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-26-1.pdf Graphic fi
 le (type pdf)
-<use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-40-1.pdf>
-)
-Overfull \vbox (57.09384pt too high) detected at line 907
+<use Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-26-1.pdf>
+
+Overfull \vbox (31.67896pt too high) detected at line 688
  []
 
-[54
+[38
 
-]
-\openout4 = `Tutorial-spatstat-2.vrb'.
-
-(./Tutorial-spatstat-2.vrb)
-Overfull \vbox (35.66348pt too high) detected at line 948
- []
-
-[55
+] [39
 
 ]
 \tf@nav=\write6
@@ -2121,12 +1904,12 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 35692 strings out of 476191
- 754497 string characters out of 5812072
- 1155822 words of memory out of 5000000
- 55628 multiletter control sequences out of 15000+600000
- 473034 words of font info for 90 fonts, out of 8000000 for 9000
+ 35576 strings out of 476191
+ 749869 string characters out of 5812072
+ 1152777 words of memory out of 5000000
+ 55543 multiletter control sequences out of 15000+600000
+ 475952 words of font info for 110 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  128i,13n,171p,1820b,752s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Tutorial-spatstat-2.pdf (55 pages).
+Output written on Tutorial-spatstat-2.pdf (39 pages).

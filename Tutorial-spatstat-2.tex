@@ -176,59 +176,25 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Código - generando favorabilidad ``verdadera''}
-\protect\hypertarget{cuxf3digo---generando-favorabilidad-verdadera}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{centroide }\OtherTok{\textless{}{-}} \FunctionTok{global}\NormalTok{(r, mean)}
-\NormalTok{r.df }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(r, }\AttributeTok{xy =}\NormalTok{ T)}
-\NormalTok{covar }\OtherTok{\textless{}{-}} \FunctionTok{cov}\NormalTok{(r.df[, }\DecValTok{3}\SpecialCharTok{:}\DecValTok{5}\NormalTok{])}
-\NormalTok{md }\OtherTok{\textless{}{-}} \FunctionTok{mahalanobis}\NormalTok{(r.df[, }\DecValTok{3}\SpecialCharTok{:}\DecValTok{5}\NormalTok{], }\AttributeTok{center =}\NormalTok{ centroide}\SpecialCharTok{$}\NormalTok{mean, }\AttributeTok{cov =}\NormalTok{ covar)}
-\FunctionTok{head}\NormalTok{(md)}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{anuxe1lisis-2}{%
+\section{Análisis 2}\label{anuxe1lisis-2}}
 
-\begin{verbatim}
-##        1        2        3        4        5        6 
-## 5.846738 6.383437 6.443874 7.296541 6.475630 6.066614
-\end{verbatim}
+\begin{frame}[fragile]{Importando y escalando datos y covariables}
+\protect\hypertarget{importando-y-escalando-datos-y-covariables}{}
+\begin{itemize}
+\item
+  \texttt{aggregate} disminuye la resolución por el factor indicado
+\item
+  \texttt{round} redondea los valores con el número de decimales
+\item
+  \textbf{Estos pasos no son enteramente necesarios en un análisis real,
+  los hacemos para disminuir tiempo de cómputo}
+\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Código - viendo la favorabilidad}
+\begin{frame}{Código - viendo la favorabilidad}
 \protect\hypertarget{cuxf3digo---viendo-la-favorabilidad}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{md.r }\OtherTok{\textless{}{-}} \FunctionTok{rast}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(r.df[, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{], md))}
-\NormalTok{md.exp }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{0.5}\SpecialCharTok{*}\NormalTok{md.r)}
-\FunctionTok{plot}\NormalTok{(md.exp)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-4-1} \end{center}
-\end{frame}
-
-\begin{frame}[fragile]{Código - simulando los puntos}
-\protect\hypertarget{cuxf3digo---simulando-los-puntos}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{182}\NormalTok{)}
-\NormalTok{sam }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(r.df), }\DecValTok{200}\NormalTok{, }\AttributeTok{prob =} \FunctionTok{exp}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{0.5}\SpecialCharTok{*}\NormalTok{md))}
-\NormalTok{puntos}\FloatTok{.2} \OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(r.df[, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{][sam,])}
-\NormalTok{puntos}\FloatTok{.2}\SpecialCharTok{$}\NormalTok{x }\OtherTok{\textless{}{-}}\NormalTok{ puntos}\FloatTok{.2}\SpecialCharTok{$}\NormalTok{x }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{200}\NormalTok{, }\DecValTok{0}\NormalTok{, }\FloatTok{0.05}\NormalTok{)}
-\NormalTok{puntos}\FloatTok{.2}\SpecialCharTok{$}\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ puntos}\FloatTok{.2}\SpecialCharTok{$}\NormalTok{y }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{200}\NormalTok{, }\DecValTok{0}\NormalTok{, }\FloatTok{0.05}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-\end{frame}
-
-\begin{frame}[fragile]{Código - favorabilidad y puntos}
-\protect\hypertarget{cuxf3digo---favorabilidad-y-puntos}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(md.exp); }\FunctionTok{points}\NormalTok{(puntos}\FloatTok{.2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-6-1} \end{center}
+\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-3-1} \end{center}
 \end{frame}
 
 \hypertarget{formateo-para-spatstat}{%
@@ -239,8 +205,10 @@
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{source}\NormalTok{(}\StringTok{"Funciones{-}spatstat/imFromStack.R"}\NormalTok{)}
-\FunctionTok{source}\NormalTok{(}\StringTok{"Funciones{-}spatstat/winFromRaster.R"}\NormalTok{)}
 \FunctionTok{source}\NormalTok{(}\StringTok{"Funciones{-}spatstat/plotQuantIntens.R"}\NormalTok{)}
+\FunctionTok{source}\NormalTok{(}\StringTok{"Funciones{-}spatstat/findCompatibles.R"}\NormalTok{)}
+\FunctionTok{source}\NormalTok{(}\StringTok{"Funciones{-}spatstat/getPolyFormulas.R"}\NormalTok{)}
+\FunctionTok{source}\NormalTok{(}\StringTok{"Funciones{-}spatstat/ppmBatchFit.R"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
@@ -250,13 +218,13 @@
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{r.im }\OtherTok{\textless{}{-}} \FunctionTok{imFromStack}\NormalTok{(r)}
-\FunctionTok{names}\NormalTok{(r.im) }\OtherTok{\textless{}{-}} \FunctionTok{paste}\NormalTok{(}\StringTok{"Var"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, }\AttributeTok{sep =} \StringTok{"."}\NormalTok{)}
+\FunctionTok{names}\NormalTok{(r.im) }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(r)}
 \NormalTok{w }\OtherTok{\textless{}{-}} \FunctionTok{as.owin}\NormalTok{(r.im[[}\DecValTok{1}\NormalTok{]])}
-\NormalTok{puntos.}\FloatTok{2.}\NormalTok{ppp }\OtherTok{\textless{}{-}} \FunctionTok{ppp}\NormalTok{(}\AttributeTok{x =}\NormalTok{ puntos}\FloatTok{.2}\SpecialCharTok{$}\NormalTok{x,}
-                  \AttributeTok{y =}\NormalTok{ puntos}\FloatTok{.2}\SpecialCharTok{$}\NormalTok{y,}
+\NormalTok{puntos.ppp }\OtherTok{\textless{}{-}} \FunctionTok{ppp}\NormalTok{(}\AttributeTok{x =}\NormalTok{ puntos}\SpecialCharTok{$}\NormalTok{x,}
+                  \AttributeTok{y =}\NormalTok{ puntos}\SpecialCharTok{$}\NormalTok{y,}
                   \AttributeTok{window =}\NormalTok{ w,}
                   \AttributeTok{check =}\NormalTok{ F)}
-\NormalTok{Q }\OtherTok{\textless{}{-}} \FunctionTok{pixelquad}\NormalTok{(}\AttributeTok{X =}\NormalTok{ puntos.}\FloatTok{2.}\NormalTok{ppp, }\AttributeTok{W =} \FunctionTok{as.owin}\NormalTok{(w))}
+\NormalTok{Q }\OtherTok{\textless{}{-}} \FunctionTok{pixelquad}\NormalTok{(}\AttributeTok{X =}\NormalTok{ puntos.ppp, }\AttributeTok{W =} \FunctionTok{as.owin}\NormalTok{(w))}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
@@ -264,41 +232,84 @@
 \hypertarget{anuxe1lisis-exploratorio}{%
 \section{Análisis exploratorio}\label{anuxe1lisis-exploratorio}}
 
-\begin{frame}[fragile]{Autocorrelación}
+\begin{frame}{Autocorrelación}
 \protect\hypertarget{autocorrelaciuxf3n}{}
+Función de \emph{K} de Ripley
+
+\begin{enumerate}
+\tightlist
+\item
+  Número promedio de vecinos como función de la distancia a cada punto:
+\end{enumerate}
+
+\begin{figure}
+
+{\centering \includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-6-1} 
+
+}
+
+\caption{Buffers  de 0.1 a 0.5° alrededor de cada punto. El número de vecinos se cuenta por puntos dentro de cada buffer.}\label{fig:unnamed-chunk-6}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Los datos}
+\protect\hypertarget{los-datos}{}
+\begin{longtable}[]{@{}rr@{}}
+\toprule\noalign{}
+Radio & Vecinos \\
+\midrule\noalign{}
+\endhead
+0.1 & 0.0000000 \\
+0.2 & 0.0666667 \\
+0.3 & 0.2000000 \\
+0.4 & 0.2666667 \\
+0.5 & 0.2666667 \\
+\bottomrule\noalign{}
+\end{longtable}
+\end{frame}
+
+\begin{frame}{Representación gráfica}
+\protect\hypertarget{representaciuxf3n-gruxe1fica}{}
+\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-8-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Implementación en spatstat}
+\protect\hypertarget{implementaciuxf3n-en-spatstat}{}
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{K }\OtherTok{\textless{}{-}} \FunctionTok{envelope}\NormalTok{(puntos.}\FloatTok{2.}\NormalTok{ppp, }\AttributeTok{fun =}\NormalTok{ Kest, }\AttributeTok{nsim =} \DecValTok{39}\NormalTok{)}
+\NormalTok{K }\OtherTok{\textless{}{-}} \FunctionTok{envelope}\NormalTok{(puntos.ppp, }\AttributeTok{fun =}\NormalTok{ Kest, }\AttributeTok{nsim =} \DecValTok{39}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## Generating 39 simulations of CSR  ...
-## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-## 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 
-## 39.
-## 
-## Done.
-\end{verbatim}
+Para estimar significancia hace un muestreo aleatorios de punto, de ahí
+que haya que especificar el número de simulaciones
+(\texttt{nsim\ =\ 39}).
 \end{frame}
 
-\begin{frame}{Autocorrelación}
-\protect\hypertarget{autocorrelaciuxf3n-1}{}
+\begin{frame}{Interpretación gráfica}
+\protect\hypertarget{interpretaciuxf3n-gruxe1fica}{}
 \begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-10-1} \end{center}
 \end{frame}
 
 \begin{frame}{Autocorrelación - notas}
 \protect\hypertarget{autocorrelaciuxf3n---notas}{}
 \begin{enumerate}
-\tightlist
 \item
-  Pareciera que el proceso está levemente autocorrelacionado
+  El proceso está levemente autocorrelacionado
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Veremos si la correlación presente es explicada por factores
+    ambientales
+  \end{itemize}
 \item
   No sabemos de momento si afectará al modelo
-\item
-  Debemos poner atención al modelo ajustado
 \end{enumerate}
 \end{frame}
+
+\hypertarget{anuxe1lisis-2.0}{%
+\section{Análisis 2.0}\label{anuxe1lisis-2.0}}
 
 \begin{frame}[fragile]{Respuestas a variables}
 \protect\hypertarget{respuestas-a-variables}{}
@@ -307,16 +318,11 @@
 \FunctionTok{plotQuantIntens}\NormalTok{(}\AttributeTok{imList =}\NormalTok{ r.im,}
                 \AttributeTok{noCuts =} \DecValTok{5}\NormalTok{,}
                 \AttributeTok{Quad =}\NormalTok{ Q,}
-                \AttributeTok{p.pp =}\NormalTok{ puntos.}\FloatTok{2.}\NormalTok{ppp,}
+                \AttributeTok{p.pp =}\NormalTok{ puntos.ppp,}
                 \AttributeTok{dir =} \StringTok{""}\NormalTok{,}
                 \AttributeTok{name =} \StringTok{"Respuestas{-}centroide"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## pdf 
-##   2
-\end{verbatim}
 
 \href{Respuestas-centroide.pdf}{Ver archivo de gráficas}
 \end{frame}
@@ -362,129 +368,157 @@ modelo?}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Medición de correlación entre covariables}
-\protect\hypertarget{mediciuxf3n-de-correlaciuxf3n-entre-covariables}{}
+\begin{frame}[fragile]{Identificación automática de covariables
+\emph{compatibles}}
+\protect\hypertarget{identificaciuxf3n-automuxe1tica-de-covariables-compatibles}{}
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{pairs}\NormalTok{(r)}
+\NormalTok{compatibles }\OtherTok{\textless{}{-}} \FunctionTok{findCompatibles}\NormalTok{(r, }\AttributeTok{thres =} \FloatTok{0.5}\NormalTok{, }
+                               \AttributeTok{max.comb =} \DecValTok{3}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-13-1} \end{center}
-\end{frame}
-
-\begin{frame}[fragile]{Variables \emph{compatibles}}
-\protect\hypertarget{variables-compatibles}{}
-Podemos incluir en el mismo modelo:
-
-\begin{enumerate}
-\tightlist
-\item
-  Var.1 y Var.3
-\item
-  Var.2 y Var.3
-\end{enumerate}
-
-Por lo tanto las fórmula polinomial
-
-\[\log \lambda = \alpha  + \beta_1 x_1 + \beta_1' + x_1^2 + \beta_2 x_2 + \beta_2' + x_2^2 +\]
-
-En \textbf{R}:
-
-\begin{enumerate}
-\tightlist
-\item
-  \texttt{\textasciitilde{}\ Var.1\ +\ Var.3\ +\ I(Var.1\^{}2)\ +\ I(Var.3\^{}2)}
-\item
-  \texttt{\textasciitilde{}\ Var.2\ +\ Var.3\ +\ I(Var.2\^{}2)\ +\ I(Var.3\^{}2)}
-\end{enumerate}
-\end{frame}
-
-\begin{frame}[fragile]{Ajustando los modelos}
-\protect\hypertarget{ajustando-los-modelos}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{m1 }\OtherTok{\textless{}{-}} \FunctionTok{ppm}\NormalTok{(}\AttributeTok{Q =}\NormalTok{ puntos.}\FloatTok{2.}\NormalTok{ppp,}
-          \AttributeTok{trend =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Var}\FloatTok{.1} \SpecialCharTok{+}\NormalTok{ Var}\FloatTok{.3} \SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.1}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.3}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{),}
-          \AttributeTok{covariates =}\NormalTok{ r.im)}
-\NormalTok{m2 }\OtherTok{\textless{}{-}} \FunctionTok{ppm}\NormalTok{(}\AttributeTok{Q =}\NormalTok{ puntos.}\FloatTok{2.}\NormalTok{ppp,}
-          \AttributeTok{trend =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Var}\FloatTok{.2} \SpecialCharTok{+}\NormalTok{ Var}\FloatTok{.3} \SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.2}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.3}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{),}
-          \AttributeTok{covariates =}\NormalTok{ r.im)}
-\end{Highlighting}
-\end{Shaded}
-\end{frame}
-
-\begin{frame}[fragile]{Comparando los modelos}
-\protect\hypertarget{comparando-los-modelos}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{AIC}\NormalTok{(m1); }\FunctionTok{AIC}\NormalTok{(m2)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] -509.172
-\end{verbatim}
-
-\begin{verbatim}
-## [1] -521.2113
-\end{verbatim}
-\end{frame}
-
-\begin{frame}[fragile]{Analizar los efectos estimados}
-\protect\hypertarget{analizar-los-efectos-estimados}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{sum.m1 }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(m1)}
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(sum.m1}\SpecialCharTok{$}\NormalTok{coefs.SE.CI[, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{])}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{longtable}[]{@{}lrrrrl@{}}
+\begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
-& Estimate & S.E. & CI95.lo & CI95.hi & Ztest \\
+Variable\_1 & Variable\_2 & Variable\_3 \\
 \midrule\noalign{}
 \endhead
-(Intercept) & 2.7089019 & 0.1116046 & 2.4901610 & 2.9276429 & *** \\
-Var.1 & 0.1163265 & 0.0883434 & -0.0568233 & 0.2894764 & \\
-Var.3 & -0.2208983 & 0.1118989 & -0.4402161 & -0.0015805 & * \\
-I(Var.1\^{}2) & -0.3046825 & 0.0875528 & -0.4762828 & -0.1330821 &
-*** \\
-I(Var.3\^{}2) & -0.5240862 & 0.1173717 & -0.7541304 & -0.2940420 &
-*** \\
+bio1 & bio12 & bio18 \\
+bio1 & bio12 & bio2 \\
+bio1 & bio12 & bio3 \\
+bio1 & bio12 & bio4 \\
+bio1 & bio12 & bio6 \\
+bio1 & bio12 & bio7 \\
 \bottomrule\noalign{}
 \end{longtable}
 \end{frame}
 
-\begin{frame}[fragile]{Diagnóstico - Residuales}
-\protect\hypertarget{diagnuxf3stico---residuales}{}
+\begin{frame}[fragile]{Obteniendo las fórmulas}
+\protect\hypertarget{obteniendo-las-fuxf3rmulas}{}
+\begin{itemize}
+\item
+  Necesitamos generar una tabla de exponentes para variables, usando el
+  resultado de
+  \href{Respuestas-centroide.pdf}{\texttt{plotQuantIntens}}.
+\item
+  Razonamiento:
+
+  \begin{itemize}
+  \item
+    Identificar exponente máximo que tendrá el modelo para cada variable
+  \item
+    La función \texttt{getPolyFormulas} generará las fórmulas para todas
+    las combinaciones con exponentes \(1:n\)
+  \end{itemize}
+\item
+  Tabla debe tener dos columnas: \texttt{Variable}, \texttt{Power}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Uso de \texttt{getPolyFormulas}}
+\protect\hypertarget{uso-de-getpolyformulas}{}
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
-\FunctionTok{diagnose.ppm}\NormalTok{(m1, }\AttributeTok{main =} \StringTok{""}\NormalTok{, }\AttributeTok{cex.axis =} \FloatTok{0.25}\NormalTok{)}
+\NormalTok{expon }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"Datos/Tabla{-}coefs.csv"}\NormalTok{)}
+\NormalTok{formulas  }\OtherTok{\textless{}{-}} \FunctionTok{getPolyFormulas}\NormalTok{(}\AttributeTok{respDF =}\NormalTok{ expon, }
+                             \AttributeTok{compatMat =}\NormalTok{ compatibles)}
+\NormalTok{formulas[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-17-1} \end{center}
+\begin{verbatim}
+## [1] "~bio1 + bio12 + I(bio12^2) + bio18 + I(bio18^2) + I(bio18^3) + I(bio18^4)"
+## [2] "~bio1 + bio12 + I(bio12^2) + bio2 + I(bio2^2)"                            
+## [3] "~bio1 + bio12 + I(bio12^2) + bio3 + I(bio3^2)"                            
+## [4] "~bio1 + bio12 + I(bio12^2) + bio4 + I(bio4^2)"                            
+## [5] "~bio1 + bio12 + I(bio12^2) + bio6 + I(bio6^2)"
+\end{verbatim}
 \end{frame}
 
-\begin{frame}[fragile]{Diangnóstico - Residuales}
-\protect\hypertarget{diangnuxf3stico---residuales}{}
+\begin{frame}[fragile]{Ajustando los modelos}
+\protect\hypertarget{ajustando-los-modelos}{}
+\begin{itemize}
+\item
+  La función \texttt{ppmBatchFit} ajustará todos los modelos generados
+  por \texttt{getPolyFormulas}
+\item
+  Algunos modelos no lograrán estimar coeficientes satisfactoriamente
+\item
+  La implementación presente solamente puede priorizar con base en AIC
+\item
+  En un futuro, eliminará modelos que con converjan
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Uso de \texttt{ppmBatcchFit}}
+\protect\hypertarget{uso-de-ppmbatcchfit}{}
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
-\FunctionTok{diagnose.ppm}\NormalTok{(m2, }\AttributeTok{main =} \StringTok{""}\NormalTok{, }\AttributeTok{cex.axis =} \FloatTok{0.25}\NormalTok{)}
+\NormalTok{modelos }\OtherTok{\textless{}{-}} \FunctionTok{ppmBatchFit}\NormalTok{(}\AttributeTok{points =}\NormalTok{ puntos,}
+                       \AttributeTok{covariates =}\NormalTok{ r, }
+                       \AttributeTok{formulas =}\NormalTok{ formulas[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{],}
+                       \AttributeTok{parallel =}\NormalTok{ F,}
+                       \AttributeTok{topModels =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Los argumentos}
+\protect\hypertarget{los-argumentos}{}
+\begin{itemize}
+\item
+  \texttt{points}, tabla de coordenadas con dos columnas, \texttt{x} y
+  \texttt{y}, en formato \texttt{data.frame}
+\item
+  \texttt{covariates}, raster con bandas como covariables, nombres deben
+  coincidir con fórmulas
+\item
+  \texttt{formulas}
+\item
+  \texttt{parallel}, si la rutina se ejeccutará en serie ó paralelo, si
+  \texttt{parallel\ =\ T}, especificar número de núcleos a usar con
+  \texttt{cores\ =\ 3} (ajustar para cada máquina)
+\item
+  \texttt{topModels}, cuántos de los ``mejores'' modelos queremos que
+  nos guarde
+\item
+  El resultado almacenado en \texttt{modelos} es una lista con los 5
+  mejores con base en el AIC
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Analizando el resultado}
+\protect\hypertarget{analizando-el-resultado}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sapply}\NormalTok{(modelos, AIC)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-18-1} \end{center}
-\end{frame}
+\begin{verbatim}
+## [1]  -936.8556  -953.2552  -945.1438 -1031.7370  -956.3632
+\end{verbatim}
 
-\begin{frame}[fragile]{Diagnóstico - Ripley}
-\protect\hypertarget{diagnuxf3stico---ripley}{}
+Podemos usar los procedimientos habituales para los modelos de regresión
+en R
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{K1 }\OtherTok{\textless{}{-}} \FunctionTok{envelope}\NormalTok{(m1, }\AttributeTok{fun =}\NormalTok{ Kest, }\AttributeTok{nsim =} \DecValTok{39}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(modelos[[}\DecValTok{1}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Análisis de residuales}
+\protect\hypertarget{anuxe1lisis-de-residuales}{}
+Como en los análisis de regresión, podemos ver el ajuste con los
+residuales, y siendo un modelo espacial, ver si hemos logrado explicar
+la correlación espacial con la prueba \(K\) de Ripley, tal como en el
+análisis exploratorio:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{K.modelo }\OtherTok{\textless{}{-}} \FunctionTok{envelope}\NormalTok{(modelos[[}\DecValTok{1}\NormalTok{]], }\AttributeTok{fun =} \StringTok{"Kest"}\NormalTok{, }\AttributeTok{nsim =} \DecValTok{39}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -497,454 +531,181 @@ I(Var.3\^{}2) & -0.5240862 & 0.1173717 & -0.7541304 & -0.2940420 &
 ## Done.
 \end{verbatim}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{K2 }\OtherTok{\textless{}{-}} \FunctionTok{envelope}\NormalTok{(m2, }\AttributeTok{fun =}\NormalTok{ Kest, }\AttributeTok{nsim =} \DecValTok{39}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Generating 39 simulated realisations of fitted Poisson model  ...
-## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-## 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 
-## 39.
-## 
-## Done.
-\end{verbatim}
+Esta prueba genera 39 patrones de puntos utilizando el modelo base para
+calcular la función de Ripley y compara las simulaciones con la base de
+datos
 \end{frame}
 
-\begin{frame}[fragile]{Diagnóstico - Ripley}
-\protect\hypertarget{diagnuxf3stico---ripley-1}{}
+\begin{frame}[fragile]{Gráfica}
+\protect\hypertarget{gruxe1fica}{}
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(K1, }\AttributeTok{cex =} \FloatTok{0.5}\NormalTok{)}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(K, }\AttributeTok{main =} \StringTok{"Datos"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(K.modelo, }\AttributeTok{main =} \StringTok{"Modelo"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-20-1} \end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Diangóstico - Ripley}
-\protect\hypertarget{dianguxf3stico---ripley}{}
+\begin{frame}{Métodos para residuales}
+\protect\hypertarget{muxe9todos-para-residuales}{}
+\begin{itemize}
+\item
+  Gráficas de horizonte
+\item
+  Muestra 4 páneles:
+\end{itemize}
+
+\begin{enumerate}
+\tightlist
+\item
+  Patrón de puntos
+\item
+  Residuales acumulados en cada fila de píxeles
+\item
+  Residuales acumulados en cada columna de píxeles
+\item
+  Residuales suavizados con contornos:
+\end{enumerate}
+
+\[Kernel - Modelo\]
+\end{frame}
+
+\begin{frame}[fragile]{Gráfica de horizonte}
+\protect\hypertarget{gruxe1fica-de-horizonte}{}
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(K2, }\AttributeTok{cex =} \FloatTok{0.5}\NormalTok{)}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\FloatTok{1.5}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{))}
+\FunctionTok{diagnose.ppm}\NormalTok{(modelos[[}\DecValTok{1}\NormalTok{]], }\AttributeTok{cex =} \FloatTok{0.25}\NormalTok{, }\AttributeTok{outer =} \DecValTok{5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-21-1} \end{center}
+
+\begin{verbatim}
+## Model diagnostics (raw residuals)
+## Diagnostics available:
+##  four-panel plot
+##  mark plot 
+##  smoothed residual field
+##  x cumulative residuals
+##  y cumulative residuals
+##  sum of all residuals
+## sum of raw residuals in entire window = -1.465e-06
+## area of entire window = 11.3
+## quadrature area = 11.28
+## range of smoothed field =  [-13.75, 17.05]
+\end{verbatim}
 \end{frame}
 
-\begin{frame}[fragile]{Resumen del análisis}
-\protect\hypertarget{resumen-del-anuxe1lisis}{}
-\begin{itemize}
-\item
-  AIC menor para \texttt{m1}
-\item
-  Residuales dentro de tolerancia para \texttt{m1}
-\item
-  Prueba de ripley correcta para ambos modelos
+\hypertarget{correcciuxf3n-de-sesgo}{%
+\section{Corrección de sesgo}\label{correcciuxf3n-de-sesgo}}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    No parece necesario modelar autocorrelación (lo haremos a
-    continuación)
-  \end{itemize}
-\item
-  Evidencia \emph{favorece} a \texttt{m1}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Revisando la predicción}
-\protect\hypertarget{revisando-la-predicciuxf3n}{}
+\begin{frame}[fragile]{Definición de escenario de sesgo}
+\protect\hypertarget{definiciuxf3n-de-escenario-de-sesgo}{}
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(m1, }\AttributeTok{se =}\NormalTok{ F, }\AttributeTok{main =} \StringTok{""}\NormalTok{)}
+\NormalTok{sesgo }\OtherTok{\textless{}{-}} \FunctionTok{rast}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Datos/Target{-}group.tif"}\NormalTok{, }
+                \StringTok{"Datos/Distance{-}roads.tif"}\NormalTok{))}
+\NormalTok{sesgo }\OtherTok{\textless{}{-}} \FunctionTok{resample}\NormalTok{(sesgo, r)}
+\FunctionTok{plot}\NormalTok{(sesgo)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-22-1} \end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Guardando los resultados}
-\protect\hypertarget{guardando-los-resultados}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(m1)}
-\NormalTok{pred.r }\OtherTok{\textless{}{-}} \FunctionTok{rast}\NormalTok{(pred)}
-\FunctionTok{writeRaster}\NormalTok{(pred.r, }\StringTok{"Predicción{-}m1.tif"}\NormalTok{,}
-            \AttributeTok{overwrite =}\NormalTok{ T)}
-\end{Highlighting}
-\end{Shaded}
-\end{frame}
-
-\hypertarget{modelando-los-efectos-espaciales}{%
-\section{Modelando los efectos
-espaciales}\label{modelando-los-efectos-espaciales}}
-
-\begin{frame}{Modelos de interacción}
-\protect\hypertarget{modelos-de-interacciuxf3n}{}
+\begin{frame}[fragile]{Filtrado del entorno}
+\protect\hypertarget{filtrado-del-entorno}{}
 \begin{itemize}
 \tightlist
 \item
-  Estiman efecto aleatorio para puntos cercanos
-\item
-  Sirven para procesos de exclusión o agregación moderada
-\item
-  Hay varios tipos de interacciones entre puntos
+  Usaremos las función \texttt{maskBias}
 \end{itemize}
-\end{frame}
 
-\begin{frame}{¿Qué es interacción?}
-\protect\hypertarget{quuxe9-es-interacciuxf3n}{}
-\begin{center}\includegraphics[width=10.31in]{Figuras/Interaccion-puntos} \end{center}
-\end{frame}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{source}\NormalTok{(}\StringTok{"Funciones{-}spatstat/maskBias.R"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-\begin{frame}{Tipos de interacciones}
-\protect\hypertarget{tipos-de-interacciones}{}
-\begin{figure}
+\begin{itemize}
+\tightlist
+\item
+  Necesita los siguientes argumentos:
+\end{itemize}
 
-{\centering \includegraphics[width=15.29in]{Figuras/Tipos-interacciones} 
-
-}
-
-\caption{Crédito a Baddeley et al (2016)}\label{fig:unnamed-chunk-25}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Modelos de interacción en \texttt{spatstat}}
-\protect\hypertarget{modelos-de-interacciuxf3n-en-spatstat}{}
-\begin{center}\includegraphics[width=17.28in]{Figuras/Tabla-tipos-interacciones} \end{center}
-\end{frame}
-
-\begin{frame}[fragile]{Para generar un modelo de interacción}
-\protect\hypertarget{para-generar-un-modelo-de-interacciuxf3n}{}
 \begin{enumerate}
 \tightlist
 \item
-  Establecer tamaño del búfer
+  \texttt{s}, es el raster multi-banda de las covariables
+\item
+  \texttt{pres.areas}, es la base de datos de presencia con las
+  coordenadas \texttt{x} y \texttt{y}
+\item
+  \texttt{bias.lay}, la capa que representa el esfuerzo de muestreo,
+  donde los valores máximos correspondan a aquellos más muestreados.
+\item
+  \texttt{p.keep}, la proporción de valores a ser retenidos en cada
+  corte de la capa
+\item
+  \texttt{power}, cuánto queremos que las muestras se concentren en los
+  valores más altos de la capa de sesgo
+\item
+  \texttt{dis}, un factor de desagregación en caso que querer concentrar
+  más valores en las zonas más muestreadas de lo que la resolución
+  presente permite (muuy costoso actualmente)
 \end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{rr }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{r=}\FunctionTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{,}\AttributeTok{by=}\DecValTok{1}\NormalTok{))}
-\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{profilepl}\NormalTok{(rr, Strauss, }
-\NormalTok{               puntos.}\FloatTok{2.}\NormalTok{ppp }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Var}\FloatTok{.1} \SpecialCharTok{+}\NormalTok{ Var}\FloatTok{.3} \SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.1}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.3}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{),}
-          \AttributeTok{covariates =}\NormalTok{ r.im, }\AttributeTok{aic=}\NormalTok{F, }\AttributeTok{rbord =} \FloatTok{0.1}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## comparing 5 models...
-\end{verbatim}
-
-\begin{verbatim}
-## 1, 2, 3, 4, 
-## 5.
-\end{verbatim}
-
-\begin{verbatim}
-## fitting optimal model...
-\end{verbatim}
-
-\begin{verbatim}
-## done.
-\end{verbatim}
 \end{frame}
 
-\begin{frame}[fragile]{Para generar un modelo de interacción}
-\protect\hypertarget{para-generar-un-modelo-de-interacciuxf3n-1}{}
+\begin{frame}[fragile]{Ejemplos}
+\protect\hypertarget{ejemplos}{}
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(p, }\AttributeTok{main =} \StringTok{""}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\NormalTok{r.mask1 }\OtherTok{\textless{}{-}} \FunctionTok{maskBias}\NormalTok{(}\AttributeTok{s =}\NormalTok{ r[[}\DecValTok{1}\NormalTok{]], }\CommentTok{\#Bio1}
+                   \AttributeTok{pres.areas =}\NormalTok{ puntos, }
+                   \AttributeTok{bias.lay =}\NormalTok{ sesgo[[}\DecValTok{1}\NormalTok{]], }\CommentTok{\#Target group}
+                   \AttributeTok{p.keep =} \FloatTok{0.1}\NormalTok{, }\AttributeTok{power =} \DecValTok{1}\NormalTok{)}
 
-\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-28-1} \end{center}
-\end{frame}
-
-\begin{frame}[fragile]{Para generar un modelo de interacción}
-\protect\hypertarget{para-generar-un-modelo-de-interacciuxf3n-2}{}
-Un radio de tamaño 2 minimiza la pseudo-verosimilitud, de modo que el
-modelo de interacción con la fórmula de m1 es:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{m1.int }\OtherTok{\textless{}{-}} \FunctionTok{ppm}\NormalTok{(}\AttributeTok{Q =}\NormalTok{ puntos.}\FloatTok{2.}\NormalTok{ppp,}
-          \AttributeTok{trend =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Var}\FloatTok{.2} \SpecialCharTok{+}\NormalTok{ Var}\FloatTok{.3} \SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.2}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.3}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{),}
-          \AttributeTok{covariates =}\NormalTok{ r.im,}
-          \FunctionTok{AreaInter}\NormalTok{(rr}\SpecialCharTok{$}\NormalTok{r[p}\SpecialCharTok{$}\NormalTok{iopt]), }\AttributeTok{rbord =} \FloatTok{0.1}\NormalTok{) }\CommentTok{\#Interacción}
+\NormalTok{r.mask2 }\OtherTok{\textless{}{-}} \FunctionTok{maskBias}\NormalTok{(}\AttributeTok{s =}\NormalTok{ r[[}\DecValTok{1}\NormalTok{]], }\CommentTok{\#Bio1}
+                   \AttributeTok{pres.areas =}\NormalTok{ puntos, }
+                   \AttributeTok{bias.lay =}\NormalTok{ sesgo[[}\DecValTok{1}\NormalTok{]], }\CommentTok{\#Target group}
+                   \AttributeTok{p.keep =} \FloatTok{0.1}\NormalTok{, }\AttributeTok{power =} \DecValTok{3}\NormalTok{, }\AttributeTok{dis =} \DecValTok{4}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
 
-\begin{frame}[fragile]{Efectos estimados}
-\protect\hypertarget{efectos-estimados}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{sum.int }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(m1.int)}
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(sum.int}\SpecialCharTok{$}\NormalTok{coefs.SE.CI[, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{])}
-\end{Highlighting}
-\end{Shaded}
+\begin{frame}{Gráfica}
+\protect\hypertarget{gruxe1fica-1}{}
+\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-25-1} \end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Efectos estimados - comparación}
-\protect\hypertarget{efectos-estimados---comparaciuxf3n}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{coef}\NormalTok{(m1)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## (Intercept)       Var.1       Var.3  I(Var.1^2)  I(Var.3^2) 
-##   2.7089019   0.1163265  -0.2208983  -0.3046825  -0.5240862
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{coef}\NormalTok{(m1.int)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## (Intercept)       Var.2       Var.3  I(Var.2^2)  I(Var.3^2) Interaction 
-##  2.87549775  0.08478505 -0.00164637 -0.42014097 -0.52671442          NA
-\end{verbatim}
+\begin{frame}{Histogramas}
+\protect\hypertarget{histogramas}{}
+\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-26-1} \end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Diangóstico}
-\protect\hypertarget{dianguxf3stico}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{K.int }\OtherTok{\textless{}{-}} \FunctionTok{envelope}\NormalTok{(m1.int, Kest, }\AttributeTok{nsim =} \DecValTok{39}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Generating 39 simulated realisations of fitted Gibbs model  ...
-## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-## 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 
-## 39.
-## 
-## Done.
-\end{verbatim}
-\end{frame}
-
-\begin{frame}[fragile]{Diangóstico}
-\protect\hypertarget{dianguxf3stico-1}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(K.int)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-33-1} \end{center}
-\end{frame}
-
-\begin{frame}{Favorabilidad}
-\protect\hypertarget{favorabilidad}{}
-\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-34-1} \end{center}
-\end{frame}
-
-\hypertarget{proceso-cox-log-gaussiano}{%
-\section{Proceso Cox log-Gaussiano}\label{proceso-cox-log-gaussiano}}
-
-\begin{frame}{¿Qué es?}
-\protect\hypertarget{quuxe9-es}{}
-\begin{itemize}
+\begin{frame}{El resto de la historia}
+\protect\hypertarget{el-resto-de-la-historia}{}
+\begin{enumerate}
+\tightlist
 \item
-  En MPPs
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Intensidad es explicada por covariables si
-  \item
-    Covariables rara vez explican puntos agregados
-  \end{itemize}
+  Correr análisis exploratorio con capas filtradas
 \item
-  Gaussiano = Distribución normal
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Efecto aleatorio con distribución normal multivariada
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{¿Qué es?}
-\protect\hypertarget{quuxe9-es-1}{}
-\[\log \lambda_i = \alpha + \beta_1 x_{1,i} + \dots + G(u_i, v_i)\] -
-\(\alpha\) es el intercepto global - \(G(u_i)\) es el intercepto
-aleatorio para cada píxel - Cuando todas las \(x = 0\), la intensidad en
-el píxel \(i\) es \(\exp(\alpha + G(u_i))\)
-\end{frame}
-
-\begin{frame}[fragile]{¿Con qué se ajusta un LGCP en \textbf{R}?}
-\protect\hypertarget{con-quuxe9-se-ajusta-un-lgcp-en-r}{}
-\begin{itemize}
+  Seleccionar exponentes
 \item
-  Frecuentista - \texttt{spatstat} (rápido poco preciso)
+  Generar fórmulas
 \item
-  Bayesiano
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \texttt{RINLA} (moderadamente rápido, moderadamente preciso)
-  \item
-    \texttt{lgcp} (muuuuy lento, bastante preciso)
-  \end{itemize}
+  Ajustar modelos
 \item
-  Frecuentista son aproximaciones, y Bayesiano son estimaciones
-  \emph{verdaderas}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Ajustando un LGCP con \texttt{spatstat}}
-\protect\hypertarget{ajustando-un-lgcp-con-spatstat}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{m1.lgcp }\OtherTok{\textless{}{-}} \FunctionTok{kppm}\NormalTok{(puntos.}\FloatTok{2.}\NormalTok{ppp,}
-                \AttributeTok{trend =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Var}\FloatTok{.2} \SpecialCharTok{+}\NormalTok{ Var}\FloatTok{.3} \SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.2}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(Var}\FloatTok{.3}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{),}
-                \AttributeTok{covariates =}\NormalTok{ r.im,}
-                \AttributeTok{clusters =} \StringTok{"LGCP"}\NormalTok{,}
-                \AttributeTok{statistic =} \StringTok{"K"}\NormalTok{, }\CommentTok{\# K de Ripley}
-                \AttributeTok{method =} \StringTok{"mincon"}\NormalTok{) }\CommentTok{\# Modelo de varianza}
-\end{Highlighting}
-\end{Shaded}
-\end{frame}
-
-\begin{frame}[fragile]{Ajustando un LGCP con \texttt{spatstat}}
-\protect\hypertarget{ajustando-un-lgcp-con-spatstat-1}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{sum.lgcp }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(m1.lgcp)}
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(sum.lgcp}\SpecialCharTok{$}\NormalTok{coefs.SE.CI[, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{])}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{longtable}[]{@{}lrrrr@{}}
-\toprule\noalign{}
-& Estimate & S.E. & CI95.lo & CI95.hi \\
-\midrule\noalign{}
-\endhead
-(Intercept) & 2.8710581 & 0.3194624 & 2.2449234 & 3.4971929 \\
-Var.2 & 0.1113775 & 0.0921967 & -0.0693247 & 0.2920797 \\
-Var.3 & 0.0049808 & 0.1157026 & -0.2217922 & 0.2317538 \\
-I(Var.2\^{}2) & -0.4756438 & 0.1028281 & -0.6771832 & -0.2741044 \\
-I(Var.3\^{}2) & -0.5258717 & 0.1119727 & -0.7453342 & -0.3064093 \\
-\bottomrule\noalign{}
-\end{longtable}
-\end{frame}
-
-\begin{frame}[fragile]{Comparando con MPP}
-\protect\hypertarget{comparando-con-mpp}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(sum.m1}\SpecialCharTok{$}\NormalTok{coefs.SE.CI[, }\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{)])}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{longtable}[]{@{}lrrrr@{}}
-\toprule\noalign{}
-& Estimate & S.E. & CI95.lo & CI95.hi \\
-\midrule\noalign{}
-\endhead
-(Intercept) & 2.7089019 & 0.1116046 & 2.4901610 & 2.9276429 \\
-Var.1 & 0.1163265 & 0.0883434 & -0.0568233 & 0.2894764 \\
-Var.3 & -0.2208983 & 0.1118989 & -0.4402161 & -0.0015805 \\
-I(Var.1\^{}2) & -0.3046825 & 0.0875528 & -0.4762828 & -0.1330821 \\
-I(Var.3\^{}2) & -0.5240862 & 0.1173717 & -0.7541304 & -0.2940420 \\
-\bottomrule\noalign{}
-\end{longtable}
-\end{frame}
-
-\begin{frame}[fragile]{Predicciones}
-\protect\hypertarget{predicciones}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{))}
-\FunctionTok{plot}\NormalTok{(m2, }\AttributeTok{se =}\NormalTok{ F, }\AttributeTok{trend =}\NormalTok{ T, }\AttributeTok{main =} \StringTok{"Poisson"}\NormalTok{)}
-\FunctionTok{plot}\NormalTok{(m1.int, }\AttributeTok{se =}\NormalTok{ F, }\AttributeTok{trend =}\NormalTok{ T, }\AttributeTok{cif =}\NormalTok{ F, }\AttributeTok{main =} \StringTok{"Interacción"}\NormalTok{)}
-\FunctionTok{plot}\NormalTok{(m1.lgcp, }\AttributeTok{what =} \StringTok{"intensity"}\NormalTok{, }\AttributeTok{main =} \StringTok{"LGCP"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-38-1} \end{center}
-\end{frame}
-
-\begin{frame}[fragile]{Diagnóstico}
-\protect\hypertarget{diagnuxf3stico}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{K.lgcp }\OtherTok{\textless{}{-}} \FunctionTok{envelope}\NormalTok{(m1.lgcp, Kest, }\AttributeTok{nsim =} \DecValTok{39}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Generating 39 simulated realisations of fitted cluster model  ...
-## 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-## 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 
-## 39.
-## 
-## Done.
-\end{verbatim}
-\end{frame}
-
-\begin{frame}[fragile]{Diangóstico}
-\protect\hypertarget{dianguxf3stico-2}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(K.lgcp)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{Tutorial-spatstat-2_files/figure-beamer/unnamed-chunk-40-1} \end{center}
-\end{frame}
-
-\begin{frame}[fragile]{Conclusiones}
-\protect\hypertarget{conclusiones}{}
-\begin{itemize}
+  Evaluar bondad de ajuste
 \item
-  Modelo Poisson
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Más simple, y no parece tener problemas
-  \item
-    IC de estimaciones más amplios que LGCP
-  \end{itemize}
+  Proyectar a geografía completa (sin filtrado)
 \item
-  Interacción
-
-  \begin{itemize}
-  \tightlist
-  \item
-    IC más amplios que MPP
-  \end{itemize}
-\item
-  LGCP
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Función K más cercana a expectativa teórica \#\#\# Alternativas de
-    modelación
-  \end{itemize}
-\item
-  Respuestas bisagra: Regresión por partes
-\item
-  Respuestas no lineales: Suavizadores GAM
-\item
-  Interacciones entre variables
-\item
-  LASSO con paquete \texttt{ppmlasso} (Warton y Renner 2013)
-\end{itemize}
+  Validar
+\end{enumerate}
 \end{frame}
 
 \end{document}

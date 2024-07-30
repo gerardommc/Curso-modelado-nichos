@@ -173,16 +173,11 @@ $$ y = \alpha + \beta_1 x_1 + \beta_1' x_1^2 + \dots + \beta_n x_n + \beta_n' x_
 -   No se puede atribuir efecto de $x_1$ ó $x_2$ sobre $\lambda$
 -   Necesitamos medir correlación entre pares de variables (`pairs`)
 
-### Medición de correlación entre covariables
-
-```{r fig.height=3.5, fig.width=3.5, fig.align='center'}
-pairs(r)
-```
-
 ### Identificación automática de covariables *compatibles*
 
-```{r}
-compatibles <- findCompatibles(r, thres = 0.5, max.comb = 3)
+```{r message=F, warning=F,, echo = T}
+compatibles <- findCompatibles(r, thres = 0.5, 
+                               max.comb = 3)
 ```
 
 ```{r echo=F}
@@ -191,19 +186,38 @@ knitr::kable(head(compatibles))
 
 ### Obteniendo las fórmulas
 
-- Necesitamos generar una tabla de exponentes para variables, usanto el resultado de `plotQuantIntens`.
+- Necesitamos generar una tabla de exponentes para variables, usando el resultado de [`plotQuantIntens`](Respuestas-centroide.pdf).
 
--  Tabla debe tener dos columnas: `Variable`, `Power`
+- Razonamiento:
 
-```{r}
+    - Identificar exponente máximo que tendrá el modelo para cada variable
+    
+    - La función `getPolyFormulas` generará las fórmulas para todas las combinaciones con exponentes $1:n$
+
+- Tabla debe tener dos columnas: `Variable`, `Power`
+
+### Uso de `getPolyFormulas`
+
+```{r message = F, warning = F, echo = T}
 expon <- read.csv("Datos/Tabla-coefs.csv")
-formulas  <- getPolyFormulas(respDF = expon, compatMat = compatibles)
+formulas  <- getPolyFormulas(respDF = expon, 
+                             compatMat = compatibles)
 formulas[1:5]
 ```
 
 ### Ajustando los modelos
 
-```{r results = "hide"}
+- La función `ppmBatchFit` ajustará todos los modelos generados por `getPolyFormulas`
+
+-  Algunos modelos no lograrán estimar coeficientes satisfactoriamente
+
+- La implementación presente solamente puede priorizar con base en AIC
+
+- En un futuro, eliminará modelos que con converjan
+
+### Uso de `ppmBatcchFit`
+
+```{r results = "hide", echo=TRUE}
 modelos <- ppmBatchFit(points = puntos,
                        covariates = r, 
                        formulas = formulas[1:10],
@@ -211,280 +225,131 @@ modelos <- ppmBatchFit(points = puntos,
                        topModels = 5)
 ```
 
+### Los argumentos
 
+- `points`, tabla de coordenadas con dos columnas, `x` y `y`, en formato `data.frame`
 
-Podemos incluir en el mismo modelo:
+- `covariates`, raster con bandas como covariables, nombres deben coincidir con fórmulas
 
-1.  Var.1 y Var.3
-2.  Var.2 y Var.3
+- `formulas`
 
-Por lo tanto las fórmula polinomial
+- `parallel`, si la rutina se ejeccutará en serie ó paralelo, si `parallel = T`, especificar número de núcleos a usar con `cores = 3` (ajustar para cada máquina)
 
-$$\log \lambda = \alpha  + \beta_1 x_1 + \beta_1' + x_1^2 + \beta_2 x_2 + \beta_2' + x_2^2 +$$
+- `topModels`, cuántos de los "mejores" modelos queremos que nos guarde
 
-En **R**:
+- El resultado almacenado en `modelos` es una lista con los 5 mejores con base en el AIC
 
-1.  `~ Var.1 + Var.3 + I(Var.1^2) + I(Var.3^2)`
-2.  `~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2)`
-
-### Ajustando los modelos
+### Analizando el resultado
 
 ```{r}
-m1 <- ppm(Q = puntos.2.ppp,
-          trend = ~ Var.1 + Var.3 + I(Var.1^2) + I(Var.3^2),
-          covariates = r.im)
-m2 <- ppm(Q = puntos.2.ppp,
-          trend = ~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2),
-          covariates = r.im)
+sapply(modelos, AIC)
+```
+Podemos usar los procedimientos habituales para los modelos de regresión en R
+
+```{r eval=F}
+summary(modelos[[1]])
 ```
 
-### Comparando los modelos
+### Análisis de residuales
+
+Como en los análisis de regresión, podemos ver el ajuste con los residuales, y siendo un modelo espacial, ver si hemos logrado explicar la correlación espacial con la prueba $K$ de Ripley, tal como en el análisis exploratorio:
 
 ```{r}
-AIC(m1); AIC(m2)
+K.modelo <- envelope(modelos[[1]], fun = "Kest", nsim = 39)
 ```
 
-### Analizar los efectos estimados
+Esta prueba genera 39 patrones de puntos utilizando el modelo base para calcular la función de Ripley y compara las simulaciones con la base de datos
 
-```{r}
-sum.m1 <- summary(m1)
-knitr::kable(sum.m1$coefs.SE.CI[, 1:5])
-```
+### Gráfica
 
-### Diagnóstico - Residuales
-
-```{r message = F, warning = F, fig.height=4, fig.width=4, fig.align='center', results = "hide"}
-par(mar = c(2,2,2,2))
-diagnose.ppm(m1, main = "", cex.axis = 0.25)
-```
-
-### Diangnóstico - Residuales
-
-```{r message = F, warning = F, fig.height=4, fig.width=4, fig.align='center', results = "hide"}
-par(mar = c(2,2,2,2))
-diagnose.ppm(m2, main = "", cex.axis = 0.25)
-```
-
-### Diagnóstico - Ripley
-
-```{r}
-K1 <- envelope(m1, fun = Kest, nsim = 39)
-K2 <- envelope(m2, fun = Kest, nsim = 39)
-```
-### Diagnóstico - Ripley
-
-```{r fig.height=4, fig.width=4, fig.align='center'}
-plot(K1, cex = 0.5)
-```
-### Diangóstico - Ripley
-
-```{r fig.height=4, fig.width=4, fig.align='center'}
-plot(K2, cex = 0.5)
-```
-### Resumen del análisis
-
-- AIC menor para `m1`
-- Residuales dentro de tolerancia para `m1`
-- Prueba de ripley correcta para ambos modelos
-
-    - No parece necesario modelar autocorrelación (lo haremos a continuación)
-- Evidencia *favorece* a `m1`
-
-### Revisando la predicción
-
-```{r fig.height=4, fig.width=4, fig.align='center'}
-plot(m1, se = F, main = "")
-```
-
-### Guardando los resultados
-
-```{r warning = F, message=F, results = "hide"}
-pred <- predict(m1)
-pred.r <- rast(pred)
-writeRaster(pred.r, "Predicción-m1.tif",
-            overwrite = T)
-```
-
-# Modelando los efectos espaciales
-
-### Modelos de interacción
-
-- Estiman efecto aleatorio para puntos cercanos
-- Sirven para procesos de exclusión o agregación moderada
-- Hay varios tipos de interacciones entre puntos
-
-### ¿Qué es interacción?
-
-```{r echo = F, fig.align="center"}
-knitr::include_graphics("Figuras/Interaccion-puntos.png")
-```
-
-### Tipos de interacciones
-
-```{r echo = F, fig.align="center", fig.cap="Crédito a Baddeley et al (2016)"}
-knitr::include_graphics("Figuras/Tipos-interacciones.png")
-```
-
-### Modelos de interacción en `spatstat`
-
-```{r echo=F, fig.align="center"}
-knitr::include_graphics("Figuras/Tabla-tipos-interacciones.png")
-```
-
-### Para generar un modelo de interacción
-
-1. Establecer tamaño del búfer
-
-```{r}
-rr <- data.frame(r=seq(1,5,by=1))
-p <- profilepl(rr, Strauss, 
-               puntos.2.ppp ~ Var.1 + Var.3 + I(Var.1^2) + I(Var.3^2),
-          covariates = r.im, aic=F, rbord = 0.1)
-```
-### Para generar un modelo de interacción
-
-```{r echo=TRUE, fig.align="center", fig.height=4, fig.width=4}
-plot(p, main = "")
-```
-
-### Para generar un modelo de interacción
-
-Un radio de tamaño 2 minimiza la pseudo-verosimilitud, de modo que el modelo de interacción con la fórmula de m1 es:
-
-```{r}
-m1.int <- ppm(Q = puntos.2.ppp,
-          trend = ~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2),
-          covariates = r.im,
-          AreaInter(rr$r[p$iopt]), rbord = 0.1) #Interacción
-```
-
-### Efectos estimados
-
-```{r message=F, warning=FALSE}
-sum.int <- summary(m1.int)
-knitr::kable(sum.int$coefs.SE.CI[, 1:4])
-```
-
-### Efectos estimados - comparación
-
-```{r}
-coef(m1)
-coef(m1.int)
-```
-
-### Diangóstico
-
-```{r}
-K.int <- envelope(m1.int, Kest, nsim = 39)
-```
-
-### Diangóstico
-
-```{r fig.height=4, fig.width=4, fig.align='center'}
-plot(K.int)
-```
-
-### Favorabilidad
-
-```{r echo=F, fig.align="center", fig.height=4, fig.width=4}
+```{r echo = T, fig.align="center", fig.width=8, fig.height=3.5}
 par(mfrow = c(1, 2))
-plot(m1, se = F, trend = T, main = "Poisson")
-plot(m1.int, se = F, trend = T, cif = F, main = "Interacción")
+plot(K, main = "Datos")
+plot(K.modelo, main = "Modelo")
 ```
 
-# Proceso Cox log-Gaussiano
+### Métodos para residuales
 
-### ¿Qué es?
+- Gráficas de horizonte
 
-- En MPPs
+- Muestra 4 páneles:
 
-    - Intensidad es explicada por covariables si
-    - Covariables rara vez explican puntos agregados
-    
-- Gaussiano = Distribución normal
+1. Patrón de puntos
+2. Residuales acumulados en cada fila de píxeles
+3. Residuales acumulados en cada columna de píxeles
+4. Residuales suavizados con contornos:
 
-    - Efecto aleatorio con distribución normal multivariada
-    
-### ¿Qué es?
+$$Kernel - Modelo$$
 
-$$\log \lambda_i = \alpha + \beta_1 x_{1,i} + \dots + G(u_i, v_i)$$
-- $\alpha$ es el intercepto global
-- $G(u_i)$ es el intercepto aleatorio para cada píxel
-- Cuando todas las $x = 0$, la intensidad en el píxel $i$ es $\exp(\alpha + G(u_i))$
+### Gráfica de horizonte
 
-### ¿Con qué se ajusta un LGCP en **R**?
+```{r echo = T, fig.width=4, fig.height=4, fig.align='center'}
+par(mar = c(1.5,1,0,0))
+diagnose.ppm(modelos[[1]], cex = 0.25, outer = 5)
+```
 
-- Frecuentista - `spatstat` (rápido poco preciso)
+# Corrección de sesgo
 
-- Bayesiano
+### Definición de escenario de sesgo
 
-    - `RINLA` (moderadamente rápido, moderadamente preciso)
-    - `lgcp` (muuuuy lento, bastante preciso)
+```{r fig.align='center', fig.width=7, fig.height=3.5}
+sesgo <- rast(c("Datos/Target-group.tif", 
+                "Datos/Distance-roads.tif"))
+sesgo <- resample(sesgo, r)
+plot(sesgo)
+```
 
-- Frecuentista son aproximaciones, y Bayesiano son estimaciones *verdaderas*
+### Filtrado del entorno
 
-### Ajustando un LGCP con `spatstat`
+- Usaremos las función `maskBias`
 
 ```{r}
-m1.lgcp <- kppm(puntos.2.ppp,
-                trend = ~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2),
-                covariates = r.im,
-                clusters = "LGCP",
-                statistic = "K", # K de Ripley
-                method = "mincon") # Modelo de varianza
+source("Funciones-spatstat/maskBias.R")
 ```
 
-### Ajustando un LGCP con `spatstat`
+- Necesita los siguientes argumentos:
+
+1. `s`, es el raster multi-banda de las covariables
+2. `pres.areas`, es la base de datos de presencia con las coordenadas `x` y `y`
+3. `bias.lay`, la capa que representa el esfuerzo de muestreo, donde los valores máximos correspondan a aquellos más muestreados.
+4. `p.keep`, la proporción de valores a ser retenidos en cada corte de la capa
+5. `power`, cuánto queremos que las muestras se concentren en los valores más altos de la capa de sesgo
+6. `dis`, un factor de desagregación en caso que querer concentrar más valores en las zonas más muestreadas de lo que la resolución presente permite (muuy costoso actualmente)
+
+### Ejemplos
 
 ```{r}
-sum.lgcp <- summary(m1.lgcp)
-knitr::kable(sum.lgcp$coefs.SE.CI[, 1:4])
+r.mask1 <- maskBias(s = r[[1]], #Bio1
+                   pres.areas = puntos, 
+                   bias.lay = sesgo[[1]], #Target group
+                   p.keep = 0.1, power = 1)
+
+r.mask2 <- maskBias(s = r[[1]], #Bio1
+                   pres.areas = puntos, 
+                   bias.lay = sesgo[[1]], #Target group
+                   p.keep = 0.1, power = 3, dis = 4)
 ```
 
-### Comparando con MPP
+### Gráfica
 
-```{r}
-knitr::kable(sum.m1$coefs.SE.CI[, c(1, 2, 3, 4)])
-```
-
-### Predicciones 
-
-```{r fig.height=4, fig.width=4, message=FALSE, warning=FALSE, fig.align="center"}
+```{r echo = F, fig.align='center', fig.width=8, fig.height=3.5}
 par(mfrow = c(1, 3))
-plot(m2, se = F, trend = T, main = "Poisson")
-plot(m1.int, se = F, trend = T, cif = F, main = "Interacción")
-plot(m1.lgcp, what = "intensity", main = "LGCP")
+plot(r[[1]]); plot(r.mask1); plot(r.mask2)
 ```
 
-### Diagnóstico
+### Histogramas
 
-```{r}
-K.lgcp <- envelope(m1.lgcp, Kest, nsim = 39)
+```{r echo = F, fig.align='center', fig.width=8, fig.height=8}
+par(mfrow = c(1, 3))
+hist(r[[1]]); hist(r.mask1); hist(r.mask2)
 ```
 
-### Diangóstico
+### El resto de la historia
 
-```{r fig.height=4, fig.width=4, message=FALSE, warning=FALSE, fig.align="center"}
-plot(K.lgcp)
-```
-
-### Conclusiones
-
-- Modelo Poisson 
-
-    - Más simple, y no parece tener problemas
-    - IC de estimaciones más amplios que LGCP
-
-- Interacción
-
-    - IC más amplios que MPP
-
-- LGCP
-
-    - Función K más cercana a expectativa teórica
-### Alternativas de modelación
-
-- Respuestas bisagra: Regresión por partes
-- Respuestas no lineales: Suavizadores GAM
-- Interacciones entre variables
-- LASSO con paquete `ppmlasso` (Warton y Renner 2013)
+1. Correr análisis exploratorio con capas filtradas
+2. Seleccionar exponentes
+3. Generar fórmulas
+4. Ajustar modelos
+5. Evaluar bondad de ajuste
+6. Proyectar a geografía completa (sin filtrado)
+7. Validar

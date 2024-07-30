@@ -7,7 +7,10 @@ maskBias <- function(s, pres.areas, bias.lay, p.keep = 0.1, power = 1, dis = NA)
     x.norm <- (x - mi)/(ma - mi)
   }
   
-  if(!is.na(dis)){s <- disagg(s, fact = dis)}
+  if(!is.na(dis)){
+    s <- disagg(s, fact = dis)
+    bias.lay <- disagg(bias.lay, fact = dis, method = "bilinear")
+    }
   
   s.r <- s
   bias.lay <- ZeroOneNorm(bias.lay^power)
