@@ -21,6 +21,16 @@ knitr::opts_chunk$set(echo = TRUE)
     
     -[Metapoblaciones con efecto Allee](Scripts-meta/Metapoblaciones-Allee.R)
     
+    -[Modelo de "nicho" con datos de supervivencia](Caso-demografico.pdf)
+    
+Tutorial del modelo de supervivencia:
+
+    -[Estimación de parámetros](https://gerardommc.github.io/Ecologia-Teorica-II/Modelo-Hev.html)
+    
+    -[Representación espacial del modelo de supervivencia](https://gerardommc.github.io/Ecologia-Teorica-II/Rep-esp-HeV.html)
+
+    -[Datos de Hendra virus](Datos-HeV.zip)
+    
 ## Sobre procesos de puntos
 
 2.  [Generalidades](Generalidades.pdf)
