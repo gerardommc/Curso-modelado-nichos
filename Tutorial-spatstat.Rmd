@@ -279,3 +279,8 @@ plot(m2, trend = T, se = F)
     - Pertinencia del sistema de referencia de coordenadas
     - Supuesto de independencia rara vez se cumple
     - Proponer modelos de interacción o gaussianos
+
+# Corrección de correlación espacial
+
+### Modelos de interacción de áreas
+

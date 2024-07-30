@@ -25,24 +25,13 @@ knitr::opts_chunk$set(dev = 'pdf')
 
 ### Especificación de un centroide
 
-```{r echo = F, fig.align='center'}
-knitr::include_graphics("Figuras/Centroide.png")
-```
-
--   Abundancia alcanza un máximo y disminuye
--   Modelos más complicados con varias variables
-
-# Análisis 2
-
-### Importando y escalando datos y covariables
-
 ```{r echo = F, message=F, warning=F}
 library(terra); library(foreach); library(spatstat)
 
 r <- aggregate(rast("Datos/Bioclim-CHELSA.tif"), 2) 
 r <- round(scale(r), 2)
 
-puntos <- read.csv("Datos/Puntos.csv")[sample(1:6000, 200), ]
+puntos <- read.csv("Datos/Puntos-analisis.csv")
 ```
 
 - `aggregate` disminuye la resolución por el factor indicado
@@ -327,21 +316,31 @@ r.mask1 <- maskBias(s = r[[1]], #Bio1
 r.mask2 <- maskBias(s = r[[1]], #Bio1
                    pres.areas = puntos, 
                    bias.lay = sesgo[[1]], #Target group
-                   p.keep = 0.1, power = 3, dis = 4)
+                   p.keep = 0.05, power = 3, dis = 4)
+r.mask3 <- maskBias(s = r[[1]], #Bio1
+                   pres.areas = puntos, 
+                   bias.lay = sesgo[[1]], #Target group
+                   p.keep = 0.025, power = 4, dis = 4)
 ```
 
 ### Gráfica
 
 ```{r echo = F, fig.align='center', fig.width=8, fig.height=3.5}
-par(mfrow = c(1, 3))
-plot(r[[1]]); plot(r.mask1); plot(r.mask2)
+par(mfrow = c(2, 2))
+plot(r[[1]], main = "Normal")
+plot(r.mask1, main = "p.keep = 0.1, power = 1")
+plot(r.mask2, main = "p.keep = 0.05, power = 3")
+plot(r.mask3, main = "p.keep = 0.025, power = 4")
 ```
 
 ### Histogramas
 
 ```{r echo = F, fig.align='center', fig.width=8, fig.height=8}
-par(mfrow = c(1, 3))
-hist(r[[1]]); hist(r.mask1); hist(r.mask2)
+par(mfrow = c(2, 2))
+hist(r[[1]], main = "Normal")
+hist(r.mask1, main = "p.keep = 0.1, power = 1")
+hist(r.mask2, main = "p.keep = 0.05, power = 3")
+hist(r.mask3, main = "p.keep = 0.025, power = 4")
 ```
 
 ### El resto de la historia
@@ -353,3 +352,115 @@ hist(r[[1]]); hist(r.mask1); hist(r.mask2)
 5. Evaluar bondad de ajuste
 6. Proyectar a geografía completa (sin filtrado)
 7. Validar
+
+# Modelando la correlación espacial
+
+### Modelos de interacción
+
+- Estiman efecto aleatorio para puntos cercanos
+- Sirven para procesos de exclusión o agregación moderada
+- Hay varios tipos de interacciones entre puntos
+
+### ¿Qué es interacción?
+
+```{r echo = F, fig.align="center", fig.dim="30%", dpi = 350}
+knitr::include_graphics("Figuras/Interaccion-puntos.png")
+```
+
+### Tipos de interacciones
+
+```{r echo = F, fig.align="center", fig.cap="Crédito a Baddeley et al (2016)", fig.dim="30%", dpi = 350}
+knitr::include_graphics("Figuras/Tipos-interacciones.png")
+```
+
+### Modelos de interacción en `spatstat`
+
+```{r echo=F, fig.align="center", fig.dim="30%", dpi = 350}
+knitr::include_graphics("Figuras/Tabla-tipos-interacciones.png")
+```
+
+### Para generar un modelo de interacción
+
+1. Establecer tamaño del búfer
+
+```{r}
+rr <- data.frame(r=seq(0.1,0.5,by=0.1))
+p <- profilepl(rr, AreaInter, 
+               puntos.ppp ~ bio1 + bio12 + I(bio12^2) + 
+                 bio18 + I(bio18^2) + 
+                 I(bio18^3) + I(bio18^4),
+          covariates = r.im, aic=F, rbord = 0.1)
+```
+
+### Para generar un modelo de interacción
+
+```{r echo=TRUE, fig.align="center", fig.height=4, fig.width=4}
+plot(p, main = "")
+```
+
+### Para generar un modelo de interacción
+
+Un radio de tamaño 2 minimiza la pseudo-verosimilitud, de modo que el modelo de interacción con la fórmula de m1 es:
+
+```{r}
+m1.int <- ppm(Q = puntos.ppp,
+          trend = ~ bio1 + bio12 + I(bio12^2) + 
+                 bio18 + I(bio18^2) + 
+                 I(bio18^3) + I(bio18^4),
+          covariates = r.im,
+          AreaInter(rr$r[p$iopt]), rbord = 0.1) #Interacción
+```
+
+### Efectos estimados
+
+```{r echo=F, message=F, warning=FALSE}
+sum.int <- summary(m1.int)
+knitr::kable(sum.int$coefs.SE.CI[, 1:4])
+```
+
+### Efectos estimados - comparación
+
+Modelo 1 sin interacción
+
+```{r}
+knitr::kable(coef(modelos[[1]]))
+```
+
+### Efectos estimados - comparación
+
+```{r}
+knitr::kable(coef(m1.int))
+```
+
+### Diangóstico
+
+```{r}
+K.int <- envelope(m1.int, Kest, nsim = 39)
+```
+
+### Diangóstico
+
+```{r echo=FALSE, fig.height=4, fig.width=4, fig.align='center'}
+par(mfrow = c(1,2))
+plot(K.modelo, main = "Modelo Poisson")
+plot(K.int, main = "Modelo de interacción")
+```
+
+### Análisis de residuales
+
+```{r echo = T, fig.width=4, fig.height=4, fig.align='center'}
+par(mar = c(1.5,1,0,0))
+diagnose.ppm(m1.int, cex = 0.25, outer = 5)
+```
+
+
+### Comparación con favorabilidad real
+
+```{r echo=F, fig.align="center", fig.height=3, fig.width=9}
+par(mfrow = c(1, 3), mar = c(1,1,1,1))
+plot(fav.real, main = "real")
+plot(modelos[[1]], se = F, trend = T, main = "Poisson", ngrid = c(77, 116))
+plot(m1.int, se = F, trend = T, cif = F, main = "Interacción", ngrid = c(77, 116))
+```
+
+
