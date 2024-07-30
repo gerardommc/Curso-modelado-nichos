@@ -26,6 +26,7 @@ knitr::opts_chunk$set(echo = TRUE)
 2.  [Generalidades](Generalidades.pdf)
       - [Artículo de Renner y Warton 2013](Renner-Maxent-PPMs.pdf)
       - [Maxent: abriendo la caja negra (un poco)](8_MaxEnt_teoria.pptx)
+      - [Evaluación de modelos](9_Evaluacion-modelos.pptx)
 
 3.  [Particularidades](Particularidades.pdf)
 
@@ -43,6 +44,9 @@ knitr::opts_chunk$set(echo = TRUE)
 [Funciones auxiliares de `spatstat`](Funciones-spatstat.zip)
 
 [Covariables del tutorial básico](Covariables.zip)
+
+[Datos completos del tutorial intermedio](Datos-intermedio.zip)
+
 
 # Aplicaciones
 
