@@ -15,41 +15,36 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introducción
 
+## Perspectivas demográficas
+
 1. [Ecología de poblaciones y nichos](13-Poblaciones-nichos-ecologicos.pdf)
+    - [Metapoblaciones sólo con K](Scripts-meta/Metapoblaciones.R)
+    - [Metapoblaciones con efecto Allee](Scripts-meta/Metapoblaciones-Allee.R)
+2. [Modelo de "nicho" con datos de supervivencia](Caso-demografico.pdf)
+    - [Estimación de parámetros](https://gerardommc.github.io/Ecologia-Teorica-II/Modelo-Hev.html)
+    - [Representación espacial del modelo de supervivencia](https://gerardommc.github.io/Ecologia-Teorica-II/Rep-esp-HeV.html)
+    - [Datos de Hendra virus](Datos-HeV.zip)
+    
+## Estimación de nichos con procesos de puntos
 
-    -[Metapoblaciones sólo con K](Scripts-meta/Metapoblaciones.R)
-    
-    -[Metapoblaciones con efecto Allee](Scripts-meta/Metapoblaciones-Allee.R)
-    
-    -[Modelo de "nicho" con datos de supervivencia](Caso-demografico.pdf)
-    
-Tutorial del modelo de supervivencia:
+### Teorías
 
-    -[Estimación de parámetros](https://gerardommc.github.io/Ecologia-Teorica-II/Modelo-Hev.html)
-    
-    -[Representación espacial del modelo de supervivencia](https://gerardommc.github.io/Ecologia-Teorica-II/Rep-esp-HeV.html)
-
-    -[Datos de Hendra virus](Datos-HeV.zip)
-    
-## Sobre procesos de puntos
-
-2.  [Generalidades](Generalidades.pdf)
+3.  [Generalidades](Generalidades.pdf)
       - [Artículo de Renner y Warton 2013](Renner-Maxent-PPMs.pdf)
       - [Maxent: abriendo la caja negra (un poco)](8_MaxEnt_teoria.pptx)
       - [Evaluación de modelos](9_Evaluacion-modelos.pptx)
 
-3.  [Particularidades](Particularidades.pdf)
+4.  [Particularidades](Particularidades.pdf)
 
-# Métodos
+### Tutoriales con `spatstat`
 
-4. Tutorial de spatstat
-    - [Básico](Tutorial-spatstat.pdf)
-        - [Código del tutorial](Tutorial-1.R)
-        - [Código de las diapos](Tutorial-spatstat.Rmd)
-    - [Intermedio](Tutorial-spatstat-2.pdf)
-        - [Código del tutorial](Tutorial-2.R)
-        - [Código de las diapos](Tutorial-spatstat-2.Rmd)
-    - [Estimación de centroides](Tutorial-centroides.R)
+5. [Básico](Tutorial-spatstat.pdf)
+      - [Código del tutorial](Tutorial-1.R)
+      - [Código de las diapos](Tutorial-spatstat.Rmd)
+6. [Intermedio](Tutorial-spatstat-2.pdf)
+      - [Código del tutorial](Tutorial-2.R)
+      - [Código de las diapos](Tutorial-spatstat-2.Rmd)
+7. [Estimación de centroides](Tutorial-centroides.R)
         
 [Funciones auxiliares de `spatstat`](Funciones-spatstat.zip)
 
@@ -58,16 +53,12 @@ Tutorial del modelo de supervivencia:
 [Datos completos del tutorial intermedio](Datos-intermedio.zip)
 
 
-# Aplicaciones
+### Aplicaciones
 
-5. [Estimación de centroides con PPMs y MVE](14-Centroides-PPMs.pdf)
-
+8. [Estimación de centroides con PPMs y MVE](14-Centroides-PPMs.pdf)
     - [Tutorial](Tutorial-centroides.R)
-    
     - [Datos de presencia y ambientales](Datos-centroide.zip)
-
-6. [Ecología de nichos en salud pública](Aplicaciones.pdf)
-
+9. [Ecología de nichos en salud pública](Aplicaciones.pdf)
 
 
 [Repositorio completo aquí](https://github.com/gerardommc/Curso-modelado-nichos)

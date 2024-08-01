@@ -1,57 +1,44 @@
-# Simulación de presencias
 
-library(raster); library(rgdal); library(foreach); library(spatstat)
+#Paquetes
+library(terra); library(foreach); library(spatstat)
 
-archivos <- list.files("Datos-ejemplos/", "tif", 
-                       full.names = T, 
-                       recursive = F)
-r <- stack(archivos)
+#Carga y formateo para el tutorial
+r <- aggregate(rast("Datos/Bioclim-CHELSA.tif"), 2) 
+r <- round(scale(r), 2)
 
-#Definiendo un centroide para simular
-centroide <- cellStats(r, mean)
-r.df <- data.frame(rasterToPoints(r))
-covar <- cov(r.df[, 3:5])
-md <- mahalanobis(r.df[, 3:5], center = centroide, cov = covar)
+puntos <- read.csv("Datos/Puntos-analisis.csv")
 
-md.r <- rasterFromXYZ(data.frame(r.df[, 1:2], md))
-md.exp <- exp(-0.5*md.r)
-plot(md.exp)
 
-### Simulando los puntos
-
-set.seed(182)
-puntos.2 <- dismo::randomPoints(mask = md.exp,
-                                n = 200,
-                                prob = T)
-puntos.2 <- data.frame(puntos.2)
-puntos.2$x <- puntos.2$x + rnorm(200, 0, 0.05)
-puntos.2$y <- puntos.2$y + rnorm(200, 0, 0.05)
-
-### Código - favorabilidad y puntos
-
-plot(md.exp); points(puntos.2)
+fav.real <- rast("Datos/Fav-real.tif")
+par(mfrow = c(1, 2))
+plot(fav.real)
+plot(fav.real); points(puntos, col = "red", pch = 20, cex = 0.05)
 
 # Formateo para spatstat
 
 ### Cargando las funciones
 
 source("Funciones-spatstat/imFromStack.R")
-source("Funciones-spatstat/winFromRaster.R")
 source("Funciones-spatstat/plotQuantIntens.R")
+source("Funciones-spatstat/findCompatibles.R")
+source("Funciones-spatstat/getPolyFormulas.R")
+source("Funciones-spatstat/ppmBatchFit.R")
 
-#formateo-Creando todos los objetos necesarios en un solo paso
 r.im <- imFromStack(r)
-w <- winFromRaster(r)
-puntos.2.ppp <- ppp(x = puntos.2$x,
-                    y = puntos.2$y,
-                    window = w,
-                    check = F)
-Q <- pixelquad(X = puntos.2.ppp, W = as.owin(w))
+names(r.im) <- names(r)
+w <- as.owin(r.im[[1]])
+puntos.ppp <- ppp(x = puntos$x,
+                  y = puntos$y,
+                  window = w,
+                  check = F)
+Q <- pixelquad(X = puntos.ppp, W = as.owin(w))
 
 # Análisis exploratorio
 
 ### Autocorrelación
-K <- envelope(puntos.2.ppp, fun = Kest, nsim = 39)
+
+K <- envelope(puntos.ppp, fun = Kest, nsim = 39)
+
 plot(K)
 
 ### Respuestas a variables
@@ -59,119 +46,186 @@ plot(K)
 plotQuantIntens(imList = r.im,
                 noCuts = 5,
                 Quad = Q,
-                p.pp = puntos.2.ppp,
+                p.pp = puntos.ppp,
                 dir = "",
                 name = "Respuestas-centroide")
 
+### Consideraciones para proponer modelos
 
-### Medición de correlación entre covariables
-pairs(r)
+### Identificación automática de covariables *compatibles*
 
-### Variables *compatibles*
+compatibles <- findCompatibles(r, thres = 0.5, 
+                               max.comb = 3)
 
-#Var.1 y Var.3
-# Var.2 y Var.3
+### Obteniendo las fórmulas con `getPolyFormulas`
 
-#`~ Var.1 + Var.3 + I(Var.1^2) + I(Var.3^2)`
-#`~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2)`
+expon <- read.csv("Datos/Tabla-coefs.csv")
+formulas  <- getPolyFormulas(respDF = expon, 
+                             compatMat = compatibles)
+formulas[1:5]
 
-### Ajustando los modelos
+### Ajustando los modelos con ppmBatcchFit
 
-m1 <- ppm(Q = puntos.2.ppp,
-          trend = ~ Var.1 + Var.3 + I(Var.1^2) + I(Var.3^2),
-          covariates = r.im)
-m2 <- ppm(Q = puntos.2.ppp,
-          trend = ~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2),
-          covariates = r.im)
+modelos <- ppmBatchFit(points = puntos,
+                       covariates = r, 
+                       formulas = formulas[1:10],
+                       parallel = F,
+                       topModels = 5)
 
-### Comparando los modelos
-AIC(m1); AIC(m2)
+### Analizando el resultado
 
-### Analizar los efectos estimados
-summary(m1)
+sapply(modelos, AIC)
 
-### Diagnóstico - Residuales
+summary(modelos[[4]])
 
-par(mar = c(2,2,2,2))
-diagnose.ppm(m1, main = "", cex.axis = 0.25)
+### Análisis de residuales
 
-### Diangnóstico - Residuales
-par(mar = c(2,2,2,2))
-diagnose.ppm(m2, main = "", cex.axis = 0.25)
+K.modelo <- envelope(modelos[[1]], fun = "Kest", nsim = 39)
 
-### Diagnóstico - Ripley
-K1 <- envelope(m1, fun = Kest, nsim = 39)
-K2 <- envelope(m2, fun = Kest, nsim = 39)
+### Gráfica
+par(mfrow = c(1, 2))
+plot(K, main = "Datos")
+plot(K.modelo, main = "Modelo")
 
-plot(K1, cex = 0.5)
+### Métodos para residuales
 
-plot(K2, cex = 0.5)
+  ### Gráfica de horizonte
 
-### Revisando la predicción
-plot(m1, se = F, main = "")
+par(mar = c(1.5,1,0,0), mfrow = c(1,1))
+diagnose.ppm(modelos[[1]], cex = 0.25, outer = 5)
 
-### Guardando los resultados
-pred <- predict(m1)
-pred.r <- raster(pred)
-writeRaster(pred.r, "Predicción-m1", "GTiff",
-            overwrite = T)
+# Corrección de sesgo
 
-# Calculando centroide
-c1 <- coef(m1)
+### Definición de escenario de sesgo
 
--c1[2]/(2*c1[4])
--c1[3]/(2*c1[5])
-centroide
-# Modelando los efectos espaciales
+sesgo <- rast(c("Datos/Target-group.tif", 
+                "Datos/Distance-roads.tif"))
+sesgo <- resample(sesgo, r)
+plot(sesgo)
 
-###Establecer tamaño del búfer
+### Filtrado del entorno
 
-rr <- data.frame(r=seq(1,5,by=1))
-p <- profilepl(rr, Strauss, 
-               puntos.2.ppp ~ Var.1 + Var.3 + I(Var.1^2) + I(Var.3^2),
-               covariates = r.im, aic=T, rbord = 0.5)
+source("Funciones-spatstat/maskBias.R")
 
+
+### Ejemplos
+
+r.mask1 <- maskBias(s = r[[1]], #Bio1
+                    pres.areas = puntos, 
+                    bias.lay = sesgo[[1]], #Target group
+                    p.keep = 0.1, power = 1)
+
+r.mask2 <- maskBias(s = r[[1]], #Bio1
+                    pres.areas = puntos, 
+                    bias.lay = sesgo[[1]], #Target group
+                    p.keep = 0.05, power = 3, dis = 4)
+r.mask3 <- maskBias(s = r[[1]], #Bio1
+                    pres.areas = puntos, 
+                    bias.lay = sesgo[[1]], #Target group
+                    p.keep = 0.025, power = 4, dis = 4)
+
+### Gráfica
+
+par(mfrow = c(2, 2))
+plot(r[[1]], main = "Normal")
+plot(r.mask1, main = "p.keep = 0.1, power = 1")
+plot(r.mask2, main = "p.keep = 0.05, power = 3")
+plot(r.mask3, main = "p.keep = 0.025, power = 4")
+
+### Histogramas
+
+par(mfrow = c(2, 2))
+hist(r[[1]], main = "Normal")
+hist(r.mask1, main = "p.keep = 0.1, power = 1")
+hist(r.mask2, main = "p.keep = 0.05, power = 3")
+hist(r.mask3, main = "p.keep = 0.025, power = 4")
+
+
+# Modelando la correlación espacial
+
+### Modelos de interacción
+
+### Para generar un modelo de interacción
+
+# Establecer tamaño del búfer
+
+rr <- data.frame(r=seq(0.1,0.5,by=0.1))
+p <- profilepl(rr, AreaInter, 
+               puntos.ppp ~ bio1 + bio12 + I(bio12^2) + 
+                 bio18 + I(bio18^2) + 
+                 I(bio18^3) + I(bio18^4),
+               covariates = r.im, aic=F, rbord = 0.1)
+### Para generar un modelo de interacción
+
+par(mfrow = c(1,1))
 plot(p, main = "")
 
 ### Para generar un modelo de interacción
 
-m1.int <- ppm(Q = puntos.2.ppp,
-              trend = ~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2),
+m1.int <- ppm(Q = puntos.ppp,
+              trend = ~ bio1 + bio12 + I(bio12^2) + 
+                bio18 + I(bio18^2) + 
+                I(bio18^3) + I(bio18^4),
               covariates = r.im,
-              Strauss(p$iopt), rbord = 1) #Interacción
+              AreaInter(rr$r[p$iopt]), rbord = 0.1) #Interacción
 
 ### Efectos estimados
 
-coef(m1)
-coef(m1.int)
+sum.int <- summary(m1.int)
+sum.int$coefs.SE.CI[, 1:4]
 
-## Diagnóstico, en este caso diagnose.ppm no funciona
+### Efectos estimados - comparación
+
+coef(modelos[[1]])
+
+### Diangóstico
+
 K.int <- envelope(m1.int, Kest, nsim = 39)
-plot(K.int)
 
-### Intensidad
-plot(m1.int, se = F, trend = T, cif = F)
+### Diangóstico
 
-# Proceso Cox log-Gaussiano
+par(mfrow = c(1,2))
+plot(K.modelo, main = "Modelo Poisson")
+plot(K.int, main = "Modelo de interacción")
 
-m1.lgcp <- kppm(puntos.2.ppp,
-                trend = ~ Var.2 + Var.3 + I(Var.2^2) + I(Var.3^2),
-                covariates = r.im,
-                clusters = "Thomas", # Tipo de cluster, LGCP para log-Gaussian Cox Process
-                statistic = "K", # K de Ripley
-                method = "clik2", # Contraste con K
-                model = "exp") # Modelo de varianza
-### Ajustando un LGCP con `spatstat`
+### Análisis de residuales
 
-sum.lgcp <- summary(m1.lgcp)
+par(mar = c(1.5,1,0,0), mfrow = c(1,1))
+diagnose.ppm(m1.int, cex = 0.25, outer = 5)
 
-# Comparando con MPP
-sum.lgcp$coefs.SE.CI[, 1:4]
-sum.m1$coefs.SE.CI[, 1:4]
 
-### Predicciones 
-plot(m1.lgcp, what = "intensity")
+### Comparación con favorabilidad real
+library(tidyverse)
 
-### Diagnóstico
-K.lgcp <- envelope(m1.lgcp, Kest, nsim = 39)
-plot(K.lgcp)
+modelo1 <- predict(modelos[[1]], ngrid = c(77, 116), type = "trend") |> rast()
+modelo.int <- predict(m1.int, ngrid = c(77, 116), type = "trend") |> rast()
+
+par(mfrow = c(1, 3), mar = c(1,1,1,1))
+plot(fav.real, main = "real")
+plot(modelo1, main = "Poisson")
+plot(modelo.int,  main = "Interacción")
+
+## Modelo con corrección de sesgo
+
+r.s <- maskBias(s = r, 
+                pres.areas = puntos, 
+                bias.lay = sesgo[[1]], #Target group
+                p.keep = 0.1, power = 1)
+
+modelos.bias <- ppmBatchFit(points = puntos,
+                            covariates = r.s,
+                            formulas = formulas[1:20], topModels = 20)
+
+mejor <- sapply(modelos.bias, AIC) |> which.min()
+
+prediccion.sesgo <- predict(modelos.bias[[4]], 
+                            window = w,
+                            covariates = r.im, 
+                            type = "trend",
+                            se = F) |> rast()
+
+par(mfrow = c(2, 2))
+plot(fav.real, main = "Real")
+plot(prediccion.sesgo, main = "Poisson con corrección")
+plot(modelo1, main = "Poisson sin corrección")
+plot(modelo.int,  main = "Interacción")
