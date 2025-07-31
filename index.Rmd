@@ -29,6 +29,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Teorías
 
+3.  [Generalidades de modelación](Calibracion.pdf)
 3.  [Generalidades](Generalidades.pdf)
       - [Artículo de Renner y Warton 2013](Renner-Maxent-PPMs.pdf)
       - [Maxent: abriendo la caja negra (un poco)](8_MaxEnt_teoria.pptx)
