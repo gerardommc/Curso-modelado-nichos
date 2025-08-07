@@ -3,8 +3,6 @@ library(spatstat)
 library(terra)
 library(foreach)
 
-#source("Funciones-spatstat/Spatstat-formatting-functions.R")
-
 source("Funciones-spatstat/imFromStack.R")
 
 clim <- rast(list.files("Datos-centroide/", "tif", full.names = T))
@@ -47,7 +45,6 @@ spp.ppp <- lapply(1:2, function(x){
 ###Model formulas from compatibe and suitable variables
 
 cal.cal.formula <- "~ bio8 + bio11 + bio12 + I(bio8^2) + I(bio11^2) + I(bio12^2)"
-
 cal.mel.formula <- "~ bio5 + bio7 + bio16 + I(bio5^2) + I(bio7^2) + I(bio16^2)"
 
 ## Ajuste de modelo
@@ -65,11 +62,15 @@ summary(cal.cal.ppm)
 summary(cal.mel.ppm)
 
 diagnose.ppm(cal.cal.ppm)
+k.cal <- envelope(cal.cal.ppm, fun = Kest, nsim = 99)
+k.cal |> plot()
 
 diagnose.ppm(cal.mel.ppm)
+k.mel <- envelope(cal.mel.ppm, fun = Kest, nsim = 99)
+k.mel |> plot()
 
-cal.cal.pred <- predict(cal.cal.ppm, type = "intensity", dimyx = c(168, 116))
-cal.mel.pred <- predict(cal.mel.ppm, type = "intensity", dimyx = c(194, 178))
+cal.cal.pred <- predict(cal.cal.ppm, type = "trend", dimyx = c(166, 158))
+cal.mel.pred <- predict(cal.mel.ppm, type = "trend", dimyx = c(208, 195))
 
 cal.cal.pred.r <- rast(cal.cal.pred)
 cal.mel.pred.r <- rast(cal.mel.pred)
@@ -118,10 +119,14 @@ ellips$Cal.cal$cen.cov
 cent.calmel
 ellips$Cal.mel$cen.cov
 
-par(mfrow  = c(1, 2))
+global(clim.spp[[1]], range, na.rm = T)
+
+par(mfrow  = c(1, 2), mar = c(1,1,1,1))
 plot(cal.cal.pred.r, main = "PPM")
 plot(ellips$Cal.cal$Suitability, main = "Elipsoide")
 
 plot(cal.mel.pred.r, main = "PPM")
 plot(ellips$Cal.mel$Suitability, main = "Elipsoide")
 
+pairs(c(cal.cal.pred.r, ellips$Cal.cal$Suitability))
+pairs(c(cal.mel.pred.r, ellips$Cal.mel$Suitability))
