@@ -1,11 +1,13 @@
 ##Load climate data and run PCA
 library(spatstat)
-library(raster)
+library(terra)
 library(foreach)
 
-source("Funciones-spatstat/Spatstat-formatting-functions.R")
+#source("Funciones-spatstat/Spatstat-formatting-functions.R")
 
-clim <- stack(list.files("Datos-centroide/", "tif", full.names = T))
+source("Funciones-spatstat/imFromStack.R")
+
+clim <- rast(list.files("Datos-centroide/", "tif", full.names = T))
 
 ## Load spp data and format
 calcal <-  read.csv("Datos-centroide/cal_cal_test.csv")
@@ -14,34 +16,32 @@ calmel <- read.csv("Datos-centroide/cal_mel_test.csv")
 spp <- list(calcal, calmel)
 
 spp.buffers <- lapply(spp, function(x){
-   require(rgdal); require(rgeos)
-   coordinates(x) <- c("Longitud", "Latitud")
-   buf <- rgeos::gBuffer(x, width = 5, byid = F)
+  x1 <- x[, c("Longitud", "Latitud")]
+  x <- vect(as.matrix(x1))
+   buf <- buffer(x, width = 5)
    return(buf)
 })
 
 ## Cropping climate
 clim.spp <- lapply(spp.buffers, function(x1){
    m <- mask(x = clim, mask = x1)
-   m.df <- na.omit(rasterToPoints(m))
-   m <- rasterFromXYZ(m.df)
+   m.df <- as.data.frame(m, xy = T)
+   m <- rast(m.df)
    return(m)
 })
 
+bio.im.list <- lapply(clim.spp, imFromStack)
+
 ##Working windows
-win <- list(
-   winFromRaster(raster(clim.spp[[1]][[1]])),
-   winFromRaster(raster(clim.spp[[2]][[1]]))
-) 
+win <- list(as.owin(bio.im.list[[1]][[1]]),
+            as.owin(bio.im.list[[2]][[1]]))
 
 ## transforming species points to a planar point pattern
 spp.ppp <- lapply(1:2, function(x){
       ppp(spp[[x]][, 'Longitud'], spp[[x]][, 'Latitud'], window = win[[x]], check = F)
 })
 
-## Transforming species' layers to spatstat images
-bio.im.list <- lapply(clim.spp, imFromStack)
-
+## Transforming species' layers to spatstat image
 
 ##Responses to bioclimatic variables
 ###Model formulas from compatibe and suitable variables
@@ -71,26 +71,26 @@ diagnose.ppm(cal.mel.ppm)
 cal.cal.pred <- predict(cal.cal.ppm, type = "intensity", dimyx = c(168, 116))
 cal.mel.pred <- predict(cal.mel.ppm, type = "intensity", dimyx = c(194, 178))
 
-cal.cal.pred.r <- raster(cal.cal.pred)
-cal.mel.pred.r <- raster(cal.mel.pred)
+cal.cal.pred.r <- rast(cal.cal.pred)
+cal.mel.pred.r <- rast(cal.mel.pred)
 
-plot(cal.cal.pred)
-plot(cal.mel.pred)
+plot(cal.cal.pred.r)
+plot(cal.mel.pred.r)
 
 ########################
 ####Fitting ellipses####
 ########################
 spp.vars <- list(c(8, 11, 12), c(5, 7, 16))
 
-clim.spp.points <- lapply(clim.spp, function(x){data.frame(rasterToPoints(x))})
+clim.spp.points <- lapply(clim.spp, function(x){as.data.frame(x, xy = T)})
 
 ellips <- foreach(i = seq_along(spp)) %do% {
-   data <- data.frame(extract(clim.spp[[i]], spp[[i]]))[, paste0("bio", spp.vars[[i]])]
+   data <- data.frame(extract(clim.spp[[i]], spp[[i]][, c("Longitud", "Latitud")]))[, paste0("bio", spp.vars[[i]])]
    data <- na.omit(data)
    cent <- colMeans(data)
    cov <- cov(data)
    dist <- mahalanobis(clim.spp.points[[i]][, names(data)], center = cent, cov = cov)
-   dist.r <- rasterFromXYZ(data.frame(clim.spp.points[[i]][, c("x", "y")], dist))
+   dist.r <- rast(data.frame(clim.spp.points[[i]][, c("x", "y")], dist))
    suit <- exp(-0.5 * dist.r)
    return(list(cen.cov = cent, 
                Suitability = suit,
