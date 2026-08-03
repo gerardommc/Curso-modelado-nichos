@@ -1,0 +1,139 @@
+---
+title: "Métodos de validación de sólo presencias"
+author: 'Nombre: Gerardo Martín'
+date: "2026-08-03"
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# ROC Parcial
+
+# Ejemplo paso a paso
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+library(espatsmo)
+
+r <- system.file("extdata", "ChelsaBio.tif", package = "espatsmo") |>  terra::rast() |> scale()
+
+p <- system.file("extdata", "points.csv", package = "espatsmo") |>  read.csv()
+
+s <-  system.file("extdata", "RandomSamples.csv", package = "espatsmo") |>  read.csv()
+
+pr <- p[s$Samples, ]
+
+#Model with random sampling
+
+model <- ppmSingleFit(points = pr,
+                      covariates = r,
+                      formula = "~ bio1 + bio2 + bio12 + I(bio1^2) + I(bio2^2) + I(bio12^2)",
+                      as.ppmSingle = FALSE)
+
+iml <- imFromStack(r)
+pred <- predict(model, covariates = iml, locations = iml$bio1) |> rast(crs = "EPSG:6372")
+
+v <- system.file("extdata", "ValidationSamples.csv", package = "espatsmo") |> read.csv()
+
+pv <- p[v$Samples,]
+```
+
+```{r echo = FALSE}
+
+plot(pred, main = "Predicciones de modelo")
+points(pv, col = "red", pch = 20, cex = 0.5)
+```
+# Umbralización recursiva 1
+
+```{r fig.cap= "Primer umbral, fracción de presencias predichas = 100%, fracción de área, 100%"}
+p.zo <- ZeroOneNorm(pred)
+pzo.df <- as.data.frame(p.zo, xy = TRUE)
+quants <- quantile(pzo.df$lyr.1, seq(0, 1, len = 10))
+
+rp <- pzo.df[sample(1:nrow(pzo.df), nrow(pv), replace = FALSE), c("x", "y")]
+
+thrs <- p.zo >= quants
+
+meds <- global(thrs, mean, na.rm = TRUE)
+vals.pv <- extract(thrs, pv, ID = FALSE)
+
+colmns <- colMeans(vals.pv)
+
+plot(thrs[[1]]); points(pv, col = "red", pch = 20, cex =0.5); points(rp, col = "green", pch = 4, cex = 0.5)
+```
+
+# Umbralización recursiva 2
+
+```{r fig.cap="Segundo umbral, fracción de presencias predichas, 99.6%, área = 88%"}
+plot(thrs[[2]]); points(pv, col = "red", pch = 20, cex =0.5); points(rp, col = "green", pch = 4, cex = 0.5)
+```
+
+# Umbralización recursiva 3
+
+
+```{r fig.cap="Segundo umbral, fracción de presencias predichas, 99.6%, área = 77%"}
+plot(thrs[[3]]); points(pv, col = "red", pch = 20, cex =0.5); points(rp, col = "green", pch = 4, cex = 0.5)
+```
+
+# Umbralización recursiva 5
+
+```{r  fig.cap="Segundo umbral, fracción de presencias predichas, 0.984, área = 55%"}
+plot(thrs[[5]]); points(pv, col = "red", pch = 20, cex =0.5); points(rp, col = "green", pch = 4, cex = 0.5)
+```
+
+# Umbralización recursiva 7
+
+```{r fig.cap="Segundo umbral, fracción de presencias predichas, 80.4%, área = 33%"}
+plot(thrs[[7]]); points(pv, col = "red", pch = 20, cex =0.5); points(rp, col = "green", pch = 4, cex = 0.5)
+```
+
+# Umbralización recursiva 9
+
+```{r fig.cap="Segundo umbral, fracción de presencias predichas, 40.4%, área = 11%"}
+plot(thrs[[9]]); points(pv, col = "red", pch = 20, cex =0.5); points(rp, col = "green", pch = 4, cex = 0.5)
+```
+
+# Umbralización recursiva 10
+
+```{r fig.cap="Segundo umbral, fracción de presencias predichas, 0%, área = 0%"}
+plot(thrs[[10]]); points(pv, col = "red", pch = 20, cex =0.5); points(rp, col = "green", pch = 4, cex = 0.5)
+```
+
+# La curva ROC
+
+```{r echo = FALSE}
+plot(x = meds$mean,
+     y = colmns,
+     type = "s",
+     col = "red")
+lines(x = meds$mean,
+      y = meds$mean,
+      col = "grey30")
+```
+
+# La implementación en `espatsmo`
+
+```{r}
+rocp <- partialROC(raster = pred,
+                 points = pv,
+                 p.points = 0.5,
+                 r.points = 1000,
+                 iterations = 39,
+                 plot.pars = list(name = "ROCParcial.pdf",
+                                  width = 5,
+                                  height = 5),
+                 save.plot = TRUE)
+```
+
+# La implementación en `espatsmo`
+```{r echo = FALSE}
+rocp$P
+rocp$Ratio
+```
+ 
+```{r echo = FALSE}
+knitr::kable(rocp$simulations[1:6,], caption = "Simulaciones 1-6 de la roc parcial.")
+```
+ 
+ [Gráfica](ROCParcial.pdf)

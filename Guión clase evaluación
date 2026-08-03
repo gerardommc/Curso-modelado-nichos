@@ -1,0 +1,9 @@
+Guión clase evaluación
+
+- Aproximación tradicional: medición de capacidad predictiva mediante métricas de balance entre errores de omisión y comisión era único criterio de selección. Métricas de balance, inadecuadas para métodos de sólo presencia, pues las pseudo-ausencias necesarias para evaluar errores son fabricadas y no corresponden con.
+- Aproximación posterior: medición de capacidad predictica con métodos dedicados para datos de sólo presencia o presencia-entorno. Criterio de selección basado principalmente en capacidad predictiva
+- Aproximación actual: medición de capacidad predictiva y bondad de ajuste. Criterios de partición mejor desarrollados que anteriormente.
+
+Métodos de evaluación por balance entre errores: AUC, Kappa
+Métodos de sólo presencia: ROC parcial, Boyce, tasas de omisión.
+Métricas de bondad de ajuste: Criterios de información, verosimilitud, análisis de residuales, replicación de cualidades espaciales y de agregación del patrón de puntos.

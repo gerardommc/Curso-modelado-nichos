@@ -29,29 +29,20 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Teorías
 
-3.  [Generalidades de modelación](Calibracion.pdf)
-3.  [Generalidades](Generalidades.pdf)
-      - [Artículo de Renner y Warton 2013](Renner-Maxent-PPMs.pdf)
-      - [Maxent: abriendo la caja negra (un poco)](8_MaxEnt_teoria.pptx)
-      - [Evaluación de modelos](9_Evaluacion-modelos.pptx)
+3. [Calibración](Calibracion.pdf)
+4. [Análisis de presencias con patrones de puntos](Patrones-puntos.pdf)
+5. [El proceso de modelación mediante patrones de puntos](Proceso-modelacion.pdf)
+6. [Evaluación](9_Evaluacion-modelos.pptx)
 
-4.  [Particularidades](Particularidades.pdf)
+### Tutoriales con `espatsmo` y `espuntnich`
 
-### Tutoriales con `spatstat`
+6. [Repositorio de `espatsmo`](https://github.com/gerardommc/espatsmo)
+7. [Repositorio de `espuntnich`](https://github.com/gerardommc/espuntnich)
+8. [Las funciones básicas de `spatstat` mediante `espatsmo`](Ejemplo-lote.R)
+9. [Corrección de sesgo](Ejemplo-sesgo.R)
+10. [Evaluación](Ejemplo-validacion.R)
 
-5. [Básico](Tutorial-spatstat.pdf)
-      - [Código del tutorial](Tutorial-1.R)
-      - [Código de las diapos](Tutorial-spatstat.Rmd)
-6. [Intermedio](Tutorial-spatstat-2.pdf)
-      - [Código del tutorial](Tutorial-2.R)
-      - [Código de las diapos](Tutorial-spatstat-2.Rmd)
-7. [Estimación de centroides](Tutorial-centroides.R)
-        
-[Funciones auxiliares de `spatstat`](Funciones-spatstat.zip)
 
-[Covariables del tutorial básico](Covariables.zip)
-
-[Datos completos del tutorial intermedio](Datos-intermedio.zip)
 
 
 ### Aplicaciones
