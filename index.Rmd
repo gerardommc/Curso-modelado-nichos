@@ -38,19 +38,24 @@ knitr::opts_chunk$set(echo = TRUE)
 
 6. [Repositorio de `espatsmo`](https://github.com/gerardommc/espatsmo)
 7. [Repositorio de `espuntnich`](https://github.com/gerardommc/espuntnich)
-8. [Las funciones básicas de `spatstat` mediante `espatsmo`](Ejemplo-lote.R)
-9. [Corrección de sesgo](Ejemplo-sesgo.R)
-10. [Evaluación](Ejemplo-validacion.R)
+8. Modelado de distribución con `espatsmo`
 
+    8.1. [Las funciones básicas de `spatstat` mediante `espatsmo`](Ejemplo-lote.R)
+    
+    8.2. [Corrección de sesgo](Ejemplo-sesgo.R)
+    
+9. Modelado de nichos ecológicos con `espuntnich`
 
-
+    9.1. [Ejemplo de uso de variaciones de `ppmve`](Ejemplo-espuntnich.R)
+    
+10. [Evaluación de modelos con las funciones de `espatsmo`](Ejemplo-validacion.R)
 
 ### Aplicaciones
 
-8. [Estimación de centroides con PPMs y MVE](14-Centroides-PPMs.pdf)
+11. [Estimación de centroides con PPMs y MVE](14-Centroides-PPMs.pdf)
     - [Tutorial](Tutorial-centroides.R)
     - [Datos de presencia y ambientales](Datos-centroide.zip)
-9. [Ecología de nichos en salud pública](Aplicaciones.pdf)
+12. [Ecología de nichos en salud pública](Aplicaciones.pdf)
 
 
 [Repositorio completo aquí](https://github.com/gerardommc/Curso-modelado-nichos)
