@@ -18,12 +18,18 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Perspectivas demográficas
 
 1. [Ecología de poblaciones y nichos](13-Poblaciones-nichos-ecologicos.pdf)
-    - [Metapoblaciones sólo con K](Scripts-meta/Metapoblaciones.R)
-    - [Metapoblaciones con efecto Allee](Scripts-meta/Metapoblaciones-Allee.R)
+
+    1.1. [Metapoblaciones sólo con K](Scripts-meta/Metapoblaciones.R)
+    
+    1.2. [Metapoblaciones con efecto Allee](Scripts-meta/Metapoblaciones-Allee.R)
+    
 2. [Modelo de "nicho" con datos de supervivencia](Caso-demografico.pdf)
-    - [Estimación de parámetros](https://gerardommc.github.io/Ecologia-Teorica-II/Modelo-Hev.html)
-    - [Representación espacial del modelo de supervivencia](https://gerardommc.github.io/Ecologia-Teorica-II/Rep-esp-HeV.html)
-    - [Datos de Hendra virus](Datos-HeV.zip)
+
+    2.1. [Estimación de parámetros](https://gerardommc.github.io/Ecologia-Teorica-II/Modelo-Hev.html)
+    
+    2.2.  [Representación espacial del modelo de supervivencia](https://gerardommc.github.io/Ecologia-Teorica-II/Rep-esp-HeV.html)
+    
+    2.3. [Datos de Hendra virus](Datos-HeV.zip)
     
 ## Estimación de nichos con procesos de puntos
 
@@ -44,6 +50,8 @@ knitr::opts_chunk$set(echo = TRUE)
     
     8.2. [Corrección de sesgo](Ejemplo-sesgo.R)
     
+    8.3. [Control de autocorrelación espacial](Ejemplo-cluster.R)
+    
 9. Modelado de nichos ecológicos con `espuntnich`
 
     9.1. [Ejemplo de uso de variaciones de `ppmve`](Ejemplo-espuntnich.R)
@@ -53,8 +61,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Aplicaciones
 
 11. [Estimación de centroides con PPMs y MVE](14-Centroides-PPMs.pdf)
-    - [Tutorial](Tutorial-centroides.R)
-    - [Datos de presencia y ambientales](Datos-centroide.zip)
+
+    11.1. [Tutorial](Tutorial-centroides.R)
+    
+    11.2. [Datos de presencia y ambientales](Datos-centroide.zip)
+    
 12. [Ecología de nichos en salud pública](Aplicaciones.pdf)
 
 
